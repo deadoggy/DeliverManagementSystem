@@ -563,7 +563,7 @@ public class NamingContextListener
                     addLocalEjb(ejb);
                 }
             }
-        } else if (name.equals("resource")) {
+        } else if (name.equals("WEB-INF/resource")) {
             if (oldValue != null) {
                 ContextResource resource = (ContextResource) oldValue;
                 if (resource.getName() != null) {

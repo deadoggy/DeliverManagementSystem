@@ -385,7 +385,7 @@ public class NamingResourcesImpl extends LifecycleMBeanBase
             resource.setNamingResources(this);
             resources.put(resource.getName(), resource);
         }
-        support.firePropertyChange("resource", null, resource);
+        support.firePropertyChange("WEB-INF/resource", null, resource);
 
         // Register with JMX
         if (resourceRequireExplicitRegistration) {
@@ -837,7 +837,7 @@ public class NamingResourcesImpl extends LifecycleMBeanBase
             resource = resources.remove(name);
         }
         if (resource != null) {
-            support.firePropertyChange("resource", resource, null);
+            support.firePropertyChange("WEB-INF/resource", resource, null);
             // De-register with JMX
             if (resourceRequireExplicitRegistration) {
                 try {

@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="SmartDeliver:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/SmartDeliver_war_exploded</output-path>
+  <artifact type="exploded-war" build-on-make="true" name="SmartDeliver:war exploded">
+    <output-path>$PROJECT_DIR$/target/out</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -45,6 +45,11 @@
           <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:2.6.1" />
           <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:3.1.0" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.21" />
+          <element id="library" level="project" name="Maven: ognl:ognl:3.1.12" />
+          <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.3.RELEASE" />
+          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf-spring4:3.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.4.RELEASE" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="SmartDeliver/web/Web" />

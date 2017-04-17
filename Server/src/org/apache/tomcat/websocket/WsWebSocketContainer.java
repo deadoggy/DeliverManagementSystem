@@ -187,7 +187,7 @@ public class WsWebSocketContainer implements WebSocketContainer, BackgroundProce
     }
 
 
-    @SuppressWarnings("resource") // socketChannel is closed
+    @SuppressWarnings("WEB-INF/resource") // socketChannel is closed
     @Override
     public Session connectToServer(Endpoint endpoint,
             ClientEndpointConfig clientEndpointConfiguration, URI path)

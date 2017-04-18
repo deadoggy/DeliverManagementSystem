@@ -13,7 +13,7 @@ public class Package {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private long mId;
+    private int mId;
 
     @Column(name = "package_id", nullable = false)
     private String mPackageId;
@@ -43,14 +43,14 @@ public class Package {
     private boolean mCupOrShelf; // constant.Constant
 
     @Column(name = "position_id", nullable = false)
-    private long mPositionId; // foreign ??
+    private int mPositionId; // foreign ??
 
 
     public Package() {}
 
     public Package(String mPackageId, String mCompany, Timestamp mReceiveTime,
                    double mProxyChargeFee, boolean mTaken, Timestamp mTakenTime,
-                   String mReceiverName, String mReceiverTele, boolean mCupOrShelf, long mPositionId) {
+                   String mReceiverName, String mReceiverTele, boolean mCupOrShelf, int mPositionId) {
         this.mPackageId = mPackageId;
         this.mCompany = mCompany;
         this.mReceiveTime = mReceiveTime;
@@ -63,11 +63,11 @@ public class Package {
         this.mPositionId = mPositionId;
     }
 
-    public long getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 
@@ -143,11 +143,11 @@ public class Package {
         this.mCupOrShelf = mCupOrShelf;
     }
 
-    public long getmPositionId() {
+    public int getmPositionId() {
         return mPositionId;
     }
 
-    public void setmPositionId(long mPositionId) {
+    public void setmPositionId(int mPositionId) {
         this.mPositionId = mPositionId;
     }
 }

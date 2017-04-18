@@ -12,7 +12,7 @@ public class SmartCupboard {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private long mId;
+    private int mId;
 
     @Column(name = "cupboard", nullable = false)
     private String mCupboardId;
@@ -31,11 +31,11 @@ public class SmartCupboard {
         this.mPositionSum = mPositionSum;
     }
 
-    public long getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 

@@ -13,7 +13,7 @@ public class Deliver_Company_Bill {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private long mId;
+    private int mId;
 
     @Column(name = "company_id", nullable = false)
     private String mCompanyId; // foreign key
@@ -25,13 +25,13 @@ public class Deliver_Company_Bill {
     private int mMonth;
 
     @Column(name = "package_sum", nullable = false)
-    private long mPackageSum;
+    private int mPackageSum;
 
     @Column(name = "per_package_fee", nullable = false)
     private double mPerPackageFee;
 
     @Column(name = "proxy_charge_times", nullable = false)
-    private long mProxyChargeTimes;
+    private int mProxyChargeTimes;
 
     @Column(name = "per_proxy_charge_fee", nullable = false)
     private double mPerProxyChargeFee;
@@ -43,8 +43,8 @@ public class Deliver_Company_Bill {
     public Deliver_Company_Bill() {}
 
     public Deliver_Company_Bill(String mCompanyId, int mYear, int mMonth,
-                                long mPackageSum, double mPerPackageFee,
-                                long mProxyChargeTimes, double mPerProxyChargeFee,
+                                int mPackageSum, double mPerPackageFee,
+                                int mProxyChargeTimes, double mPerProxyChargeFee,
                                 boolean mPaid) {
         this.mCompanyId = mCompanyId;
         this.mYear = mYear;
@@ -57,11 +57,11 @@ public class Deliver_Company_Bill {
     }
 
 
-    public long getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 
@@ -89,11 +89,11 @@ public class Deliver_Company_Bill {
         this.mMonth = mMonth;
     }
 
-    public long getmPackageSum() {
+    public int getmPackageSum() {
         return mPackageSum;
     }
 
-    public void setmPackageSum(long mPackageSum) {
+    public void setmPackageSum(int mPackageSum) {
         this.mPackageSum = mPackageSum;
     }
 
@@ -105,11 +105,11 @@ public class Deliver_Company_Bill {
         this.mPerPackageFee = mPerPackageFee;
     }
 
-    public long getmProxyChargeTimes() {
+    public int getmProxyChargeTimes() {
         return mProxyChargeTimes;
     }
 
-    public void setmProxyChargeTimes(long mProxyChargeTimes) {
+    public void setmProxyChargeTimes(int mProxyChargeTimes) {
         this.mProxyChargeTimes = mProxyChargeTimes;
     }
 

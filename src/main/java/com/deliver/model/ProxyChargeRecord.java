@@ -14,7 +14,7 @@ public class ProxyChargeRecord {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private long mId;
+    private int mId;
 
     @Column(name = "package_id", nullable = false)
     private String mPackageId;// foreign key
@@ -42,11 +42,11 @@ public class ProxyChargeRecord {
         this.mTime = mTime;
     }
 
-    public long getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 

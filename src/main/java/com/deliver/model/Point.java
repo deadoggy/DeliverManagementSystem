@@ -13,7 +13,7 @@ public class Point {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    private long mId;
+    private int mId;
 
     @Column(name = "business_point_id", nullable = false)
     private String mBusinessPointId;
@@ -50,11 +50,11 @@ public class Point {
         this.mNumber = mNumber;
     }
 
-    public long getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 

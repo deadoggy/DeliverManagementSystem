@@ -13,7 +13,7 @@ public class Shelf {
     @Id
     @Column(name = "id")
     @GeneratedValue
-    private long mId;
+    private int mId;
 
     @Column(name = "shelf_id", nullable = false)
     private String mShelfId;
@@ -32,11 +32,11 @@ public class Shelf {
         this.mPositionSum = mPositionSum;
     }
 
-    public long getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 

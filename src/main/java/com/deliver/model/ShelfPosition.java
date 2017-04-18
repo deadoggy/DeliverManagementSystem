@@ -13,7 +13,7 @@ public class ShelfPosition {
     @Id
     @Column(name = "id")
     @GeneratedValue
-    private long mId;
+    private int mId;
 
     @Column(name = "empty_full", nullable = false)
     private boolean mEmptyOrFull; // constant.Constant
@@ -32,11 +32,11 @@ public class ShelfPosition {
         this.mColumn = mColumn;
     }
 
-    public long getmId() {
+    public int getmId() {
         return mId;
     }
 
-    public void setmId(long mId) {
+    public void setmId(int mId) {
         this.mId = mId;
     }
 

@@ -35,9 +35,9 @@
 
     </mvc:annotation-driven>
 
+
+
     <!--ViewResolver 视图解析器-->
-
-
     <!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
     <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine" />

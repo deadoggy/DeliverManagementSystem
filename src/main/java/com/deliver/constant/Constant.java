@@ -11,5 +11,6 @@ public final class Constant {
     public static final boolean POSITION_FULL = false;
     public static final boolean POSTION_EMPTY = true;
 
-    
+    public static final boolean PROXY_CHARGE_SEND = false;
+    public static final boolean PROXY_CHARGE_RECEIVE = true;
 }

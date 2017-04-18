@@ -14,19 +14,19 @@ public class SmartCupboardPosition {
     @Column(name = "id")
     private long mId;
 
-    @Column(name = "state", nullable = false)
-    private boolean mState; // constant.Constant
+    @Column(name = "empty_full", nullable = false)
+    private boolean mEmptyOrFull; // constant.Constant
 
-    @Column(name = "layer", nullable = false)
+    @Column(name = "layer_index", nullable = false)
     private int mLayer;
 
-    @Column(name = "column", nullable = false)
+    @Column(name = "column_index", nullable = false)
     private int mColumn;
 
     public SmartCupboardPosition() {}
 
-    public SmartCupboardPosition(boolean mState, int mLayer, int mColumn) {
-        this.mState = mState;
+    public SmartCupboardPosition(boolean mEmptyOrFull, int mLayer, int mColumn) {
+        this.mEmptyOrFull = mEmptyOrFull;
         this.mLayer = mLayer;
         this.mColumn = mColumn;
     }
@@ -39,12 +39,12 @@ public class SmartCupboardPosition {
         this.mId = mId;
     }
 
-    public boolean ismState() {
-        return mState;
+    public boolean ismEmptyOrFull() {
+        return mEmptyOrFull;
     }
 
-    public void setmState(boolean mState) {
-        this.mState = mState;
+    public void setmEmptyOrFull(boolean mEmptyOrFull) {
+        this.mEmptyOrFull = mEmptyOrFull;
     }
 
     public int getmLayer() {

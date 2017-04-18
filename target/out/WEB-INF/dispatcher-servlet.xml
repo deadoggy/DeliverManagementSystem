@@ -13,11 +13,11 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
     <!--扫描包中的注解-->
-    <context:component-scan base-package="com.Deliver.Model"/>
+    <context:component-scan base-package="com.deliver.model"/>
     <!--<context:component-scan base-package="com.Deliver.DAO"/>-->
-    <context:component-scan base-package="com.Deliver.Service"/>
-    <context:component-scan base-package="com.Deliver.Controller"/>
-    <context:component-scan base-package="com.Deliver.Config"/>
+    <context:component-scan base-package="com.deliver.service"/>
+    <context:component-scan base-package="com.deliver.controller"/>
+    <context:component-scan base-package="com.deliver.config"/>
 
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:resources mapping="/resource/**" location="/WEB-INF/resource/" />
@@ -35,9 +35,9 @@
 
     </mvc:annotation-driven>
 
+
+
     <!--ViewResolver 视图解析器-->
-
-
     <!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
     <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine" />
@@ -69,7 +69,7 @@
     <!--</bean>-->
 
 
-    <jpa:repositories base-package="com.Deliver.DAO"/>
+    <jpa:repositories base-package="com.deliver.DAO"/>
 
     <!-- 链接到persistence.xml -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">

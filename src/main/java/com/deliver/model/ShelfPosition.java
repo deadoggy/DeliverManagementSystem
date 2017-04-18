@@ -1,15 +1,13 @@
 package com.deliver.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by deadoggy on 17-4-18.
  */
 
 @Entity
+@Table(name = "shelf_position")
 public class ShelfPosition {
 
     @Id
@@ -18,7 +16,7 @@ public class ShelfPosition {
     private long mId;
 
     @Column(name = "state", nullable = false)
-    private boolean mState; // true = full; false = empty;
+    private boolean mState; // constant.Constant
 
     @Column(name = "layer", nullable = false)
     private int mLayer;

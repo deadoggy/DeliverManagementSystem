@@ -1,15 +1,13 @@
 package com.deliver.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by deadoggy on 17-4-18.
  */
 @Entity
+@Table(name = "packege")
 public class Package {
 
     @Id
@@ -42,7 +40,7 @@ public class Package {
     private String mReceiverTele;
 
     @Column(name = "cup_shelf", nullable = false)
-    private boolean mCupOrShelf; // true = cup; false = shelf
+    private boolean mCupOrShelf; // constant.Constant
 
     @Column(name = "position_id", nullable = false)
     private long mPositionId; // foreign ??

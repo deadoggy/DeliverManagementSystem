@@ -1,15 +1,13 @@
 package com.deliver.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by deadoggy on 17-4-18.
  */
 
 @Entity
+@Table(name = "shelf")
 public class Shelf {
 
     @Id

@@ -6,36 +6,32 @@ import javax.persistence.*;
  * Created by 91574 on 2017/4/19.
  */
 @Entity
-@Table(name = "month_form")
-public class Month_Form {
+@Table(name="year_form")
+public class YearForm {
     @Id
-    @Column(name = "id")
+    @Column(name="id")
     @GeneratedValue
     private int mId;
 
-    @Column(name = "month_form_id", unique = true, nullable = false)
-    private String mMonth_form_id;
+    @Column(name="year_form_id",unique = true,nullable = false)
+    private String mYear_form_id;
 
-    @Column(name = "year", nullable = false)
+    @Column(name="year",nullable = false)
     private int mYear;
 
-    @Column(name = "month", nullable = false)
-    private int mMonth;
-
-    @Column(name = "sum", nullable = false)
+    @Column(name="sum",nullable = false)
     private int mSum;
 
-    @Column(name = "company_id", nullable = false)
+    @Column(name="company_id",nullable = false)
     private String mCompany_id;//foreign
 
-    public Month_Form() {
+    public YearForm(){
 
     }
 
-    public Month_Form(String mMonth_form_id, int mYear, int mMonth, int mSum, String mCompany_id) {
-        this.mMonth_form_id = mMonth_form_id;
+    public YearForm(String mYear_form_id, int mYear, int mSum, String mCompany_id) {
+        this.mYear_form_id = mYear_form_id;
         this.mYear = mYear;
-        this.mMonth = mMonth;
         this.mSum = mSum;
         this.mCompany_id = mCompany_id;
     }
@@ -48,12 +44,12 @@ public class Month_Form {
         this.mId = mId;
     }
 
-    public String getmMonth_form_id() {
-        return mMonth_form_id;
+    public String getmYear_form_id() {
+        return mYear_form_id;
     }
 
-    public void setmMonth_form_id(String mMonth_form_id) {
-        this.mMonth_form_id = mMonth_form_id;
+    public void setmYear_form_id(String mYear_form_id) {
+        this.mYear_form_id = mYear_form_id;
     }
 
     public int getmYear() {
@@ -62,14 +58,6 @@ public class Month_Form {
 
     public void setmYear(int mYear) {
         this.mYear = mYear;
-    }
-
-    public int getmMonth() {
-        return mMonth;
-    }
-
-    public void setmMonth(int mMonth) {
-        this.mMonth = mMonth;
     }
 
     public int getmSum() {

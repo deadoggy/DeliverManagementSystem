@@ -6,15 +6,15 @@ import javax.persistence.*;
  * Created by 91574 on 2017/4/19.
  */
 @Entity
-@Table(name="hour_form")
-public class Hour_Form {
+@Table(name = "month_form")
+public class MonthForm {
     @Id
     @Column(name = "id")
     @GeneratedValue
     private int mId;
 
-    @Column(name = "hour_form_id", unique = true, nullable = false)
-    private String mHour_form_id;
+    @Column(name = "month_form_id", unique = true, nullable = false)
+    private String mMonth_form_id;
 
     @Column(name = "year", nullable = false)
     private int mYear;
@@ -22,28 +22,20 @@ public class Hour_Form {
     @Column(name = "month", nullable = false)
     private int mMonth;
 
-    @Column(name = "day",nullable = false)
-    private int mDay;
-
-    @Column(name="hour",nullable = false)
-    private int mHour;
-
     @Column(name = "sum", nullable = false)
     private int mSum;
 
     @Column(name = "company_id", nullable = false)
     private String mCompany_id;//foreign
 
-    public Hour_Form(){
+    public MonthForm() {
 
     }
 
-    public Hour_Form(String mHour_form_id, int mYear, int mMonth, int mDay, int mHour, int mSum, String mCompany_id) {
-        this.mHour_form_id = mHour_form_id;
+    public MonthForm(String mMonth_form_id, int mYear, int mMonth, int mSum, String mCompany_id) {
+        this.mMonth_form_id = mMonth_form_id;
         this.mYear = mYear;
         this.mMonth = mMonth;
-        this.mDay = mDay;
-        this.mHour = mHour;
         this.mSum = mSum;
         this.mCompany_id = mCompany_id;
     }
@@ -56,12 +48,12 @@ public class Hour_Form {
         this.mId = mId;
     }
 
-    public String getmHour_form_id() {
-        return mHour_form_id;
+    public String getmMonth_form_id() {
+        return mMonth_form_id;
     }
 
-    public void setmHour_form_id(String mHour_form_id) {
-        this.mHour_form_id = mHour_form_id;
+    public void setmMonth_form_id(String mMonth_form_id) {
+        this.mMonth_form_id = mMonth_form_id;
     }
 
     public int getmYear() {
@@ -78,22 +70,6 @@ public class Hour_Form {
 
     public void setmMonth(int mMonth) {
         this.mMonth = mMonth;
-    }
-
-    public int getmDay() {
-        return mDay;
-    }
-
-    public void setmDay(int mDay) {
-        this.mDay = mDay;
-    }
-
-    public int getmHour() {
-        return mHour;
-    }
-
-    public void setmHour(int mHour) {
-        this.mHour = mHour;
     }
 
     public int getmSum() {

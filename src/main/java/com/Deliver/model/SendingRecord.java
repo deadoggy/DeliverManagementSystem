@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="sending_record")
-public class Sending_Record {
+public class SendingRecord {
     @Id
     @Column(name="id")
     @GeneratedValue
@@ -28,11 +28,11 @@ public class Sending_Record {
     @Column(name="company_id",nullable = false)
     private String mCompany_id;//foreign
 
-    public Sending_Record(){
+    public SendingRecord(){
 
     }
 
-    public Sending_Record(String mSending_record_id, String mPackage_number, String mSender_name, String mSender_tele, String mCompany_id) {
+    public SendingRecord(String mSending_record_id, String mPackage_number, String mSender_name, String mSender_tele, String mCompany_id) {
         this.mSending_record_id = mSending_record_id;
         this.mPackage_number = mPackage_number;
         this.mSender_name = mSender_name;

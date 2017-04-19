@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="day_form")
-public class Day_Form {
+public class DayForm {
     @Id
     @Column(name = "id")
     @GeneratedValue
@@ -31,11 +31,11 @@ public class Day_Form {
     @Column(name = "company_id", nullable = false)
     private String mCompany_id;//foreign
 
-    public Day_Form(){
+    public DayForm(){
 
     }
 
-    public Day_Form(String mDay_form_id, int mYear, int mMonth, int mDay, int mSum, String mCompany_id) {
+    public DayForm(String mDay_form_id, int mYear, int mMonth, int mDay, int mSum, String mCompany_id) {
         this.mDay_form_id = mDay_form_id;
         this.mYear = mYear;
         this.mMonth = mMonth;

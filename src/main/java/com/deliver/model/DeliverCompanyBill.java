@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "deliver_company_bill")
-public class Deliver_Company_Bill {
+public class DeliverCompanyBill {
 
     @Id
     @GeneratedValue
@@ -40,12 +40,12 @@ public class Deliver_Company_Bill {
     private boolean mPaid;
 
 
-    public Deliver_Company_Bill() {}
+    public DeliverCompanyBill() {}
 
-    public Deliver_Company_Bill(String mCompanyId, int mYear, int mMonth,
-                                int mPackageSum, double mPerPackageFee,
-                                int mProxyChargeTimes, double mPerProxyChargeFee,
-                                boolean mPaid) {
+    public DeliverCompanyBill(String mCompanyId, int mYear, int mMonth,
+                              int mPackageSum, double mPerPackageFee,
+                              int mProxyChargeTimes, double mPerProxyChargeFee,
+                              boolean mPaid) {
         this.mCompanyId = mCompanyId;
         this.mYear = mYear;
         this.mMonth = mMonth;

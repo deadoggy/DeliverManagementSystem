@@ -23,12 +23,16 @@ public class SmartCupboardPosition {
     @Column(name = "column_index", nullable = false)
     private int mColumn;
 
+    @Column(name = "size", nullable = false)
+    private int mSize;
+
     public SmartCupboardPosition() {}
 
-    public SmartCupboardPosition(boolean mEmptyOrFull, int mLayer, int mColumn) {
+    public SmartCupboardPosition(boolean mEmptyOrFull, int mLayer, int mColumn, int mSize) {
         this.mEmptyOrFull = mEmptyOrFull;
         this.mLayer = mLayer;
         this.mColumn = mColumn;
+        this.mSize = mSize;
     }
 
     public int getmId() {
@@ -61,5 +65,13 @@ public class SmartCupboardPosition {
 
     public void setmColumn(int mColumn) {
         this.mColumn = mColumn;
+    }
+
+    public int getmSize() {
+        return mSize;
+    }
+
+    public void setmSize(int mSize) {
+        this.mSize = mSize;
     }
 }

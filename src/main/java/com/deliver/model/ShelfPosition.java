@@ -24,12 +24,16 @@ public class ShelfPosition {
     @Column(name = "column_index", nullable = false)
     private int mColumn;
 
+    @Column(name = "size", nullable = false)
+    private int mSize;
+
     public ShelfPosition() {}
 
-    public ShelfPosition(boolean mEmptyOrFull, int mLayer, int mColumn) {
+    public ShelfPosition(boolean mEmptyOrFull, int mLayer, int mColumn, int mSize) {
         this.mEmptyOrFull = mEmptyOrFull;
         this.mLayer = mLayer;
         this.mColumn = mColumn;
+        this.mSize = mSize;
     }
 
     public int getmId() {
@@ -62,5 +66,13 @@ public class ShelfPosition {
 
     public void setmColumn(int mColumn) {
         this.mColumn = mColumn;
+    }
+
+    public int getmSize() {
+        return mSize;
+    }
+
+    public void setmSize(int mSize) {
+        this.mSize = mSize;
     }
 }

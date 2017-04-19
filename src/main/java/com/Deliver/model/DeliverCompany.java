@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "deliver_company")
-public class Deliver_Company {
+public class DeliverCompany {
     @Id
     @Column(name="id")
     @GeneratedValue
@@ -19,11 +19,11 @@ public class Deliver_Company {
     @Column(name = "name",nullable = false)
     private String mName;
 
-    public Deliver_Company(){
+    public DeliverCompany(){
 
     }
 
-    public Deliver_Company(String mCompany_id, String mName) {
+    public DeliverCompany(String mCompany_id, String mName) {
         this.mCompany_id = mCompany_id;
         this.mName = mName;
     }

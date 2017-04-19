@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/smartdeliver.iml" filepath="$PROJECT_DIR$/smartdeliver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartDeliver.iml" filepath="$PROJECT_DIR$/SmartDeliver.iml" />
     </modules>
   </component>
 </project>

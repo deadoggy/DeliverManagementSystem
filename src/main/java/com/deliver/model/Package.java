@@ -15,7 +15,7 @@ public class Package {
     @Column(name = "id")
     private int mId;
 
-    @Column(name = "package_id", nullable = false)
+    @Column(name = "package_id", nullable = false, unique = true)
     private String mPackageId;
 
     @Column(name = "mCompany", nullable = false)

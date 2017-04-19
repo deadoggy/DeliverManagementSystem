@@ -15,7 +15,7 @@ public class Point {
     @Column(name = "id", nullable = false)
     private int mId;
 
-    @Column(name = "business_point_id", nullable = false)
+    @Column(name = "business_point_id", nullable = false, unique = true)
     private String mBusinessPointId;
 
     @Column(name = "name", nullable = false)

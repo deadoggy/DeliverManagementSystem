@@ -15,7 +15,7 @@ public class Shelf {
     @GeneratedValue
     private int mId;
 
-    @Column(name = "shelf_id", nullable = false)
+    @Column(name = "shelf_id", nullable = false, unique = true)
     private String mShelfId;
 
     @Column(name = "empty_sum", nullable = false)

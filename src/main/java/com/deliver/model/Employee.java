@@ -2,6 +2,7 @@ package com.deliver.model;
 
 import javax.persistence.*;
 import java.security.Timestamp;
+import java.util.List;
 
 /**
  * Created by 91574 on 2017/4/18.
@@ -15,7 +16,7 @@ public class Employee {
     private int mId;
 
     @Column(name="employee_id",unique = true,nullable = false)
-    private String mEmployee_id;
+    private String mEmployeeId;
 
     @Column(name="age",nullable = false)
     private int mAge;
@@ -23,22 +24,30 @@ public class Employee {
     @Column(name="salary",nullable = false)
     private float mSalary;
 
-    @Column(name="point_id",nullable = false)//foreign
-    private String mPoint_id;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    private Point mPoint;
 
     @Column(name="entering_time",nullable = false)
-    private Timestamp mEntering_time;
+    private Timestamp mEnteringTime;
+
+
+    @OneToMany(mappedBy = "mId")
+    private List<Attendance> mAttendence;
+
+    @ManyToMany
+    private List<Position> mPosition;
+
 
     public Employee(){
 
     }
 
-    public Employee(String mEmployee_id, int mAge, float mSalary, String mPoint_id, Timestamp mEntering_time) {
-        this.mEmployee_id = mEmployee_id;
+    public Employee(String mEmployeeId, int mAge, float mSalary, Point mPoint, Timestamp mEnteringTime) {
+        this.mEmployeeId = mEmployeeId;
         this.mAge = mAge;
         this.mSalary = mSalary;
-        this.mPoint_id = mPoint_id;
-        this.mEntering_time = mEntering_time;
+        this.mPoint = mPoint;
+        this.mEnteringTime = mEnteringTime;
     }
 
     public int getmId() {
@@ -49,12 +58,12 @@ public class Employee {
         this.mId = mId;
     }
 
-    public String getmEmployee_id() {
-        return mEmployee_id;
+    public String getmEmployeeId() {
+        return mEmployeeId;
     }
 
-    public void setmEmployee_id(String mEmployee_id) {
-        this.mEmployee_id = mEmployee_id;
+    public void setmEmployeeId(String mEmployeeId) {
+        this.mEmployeeId = mEmployeeId;
     }
 
     public int getmAge() {
@@ -73,19 +82,35 @@ public class Employee {
         this.mSalary = mSalary;
     }
 
-    public String getmPoint_id() {
-        return mPoint_id;
+    public Point getmPoint() {
+        return mPoint;
     }
 
-    public void setmPoint_id(String mPoint_id) {
-        this.mPoint_id = mPoint_id;
+    public void setmPoint(Point mPoint) {
+        this.mPoint = mPoint;
     }
 
-    public Timestamp getmEntering_time() {
-        return mEntering_time;
+    public Timestamp getmEnteringTime() {
+        return mEnteringTime;
     }
 
-    public void setmEntering_time(Timestamp mEntering_time) {
-        this.mEntering_time = mEntering_time;
+    public void setmEnteringTime(Timestamp mEnteringTime) {
+        this.mEnteringTime = mEnteringTime;
+    }
+
+    public List<Attendance> getmAttendence() {
+        return mAttendence;
+    }
+
+    public void setmAttendence(List<Attendance> mAttendence) {
+        this.mAttendence = mAttendence;
+    }
+
+    public List<Position> getmPosition() {
+        return mPosition;
+    }
+
+    public void setmPosition(List<Position> mPosition) {
+        this.mPosition = mPosition;
     }
 }

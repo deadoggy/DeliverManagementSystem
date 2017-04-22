@@ -16,11 +16,12 @@ public class ProxyChargeRecord {
     @Column(name = "id", nullable = false)
     private int mId;
 
-    @Column(name = "package_id", nullable = false)
-    private String mPackageId;// foreign key
 
-    @Column(name = "company_id", nullable = false)
-    private String mCompanyId;// foreign key
+    @OneToOne
+    private Package mPackage;// foreign key
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private DeliverCompany mCompany;// foreign key
 
     @Column(name = "fee", nullable = false)
     private double mFee;
@@ -33,13 +34,29 @@ public class ProxyChargeRecord {
 
     public ProxyChargeRecord() {}
 
-    public ProxyChargeRecord(String mPackageId, String mCompanyId, double mFee,
-                             boolean mSendOrReceive, Timestamp mTime) {
-        this.mPackageId = mPackageId;
-        this.mCompanyId = mCompanyId;
+    public ProxyChargeRecord(Package mPackage, DeliverCompany mCompany,
+                             double mFee, boolean mSendOrReceive, Timestamp mTime) {
+        this.mPackage = mPackage;
+        this.mCompany = mCompany;
         this.mFee = mFee;
         this.mSendOrReceive = mSendOrReceive;
         this.mTime = mTime;
+    }
+
+    public Package getmPackage() {
+        return mPackage;
+    }
+
+    public void setmPackage(Package mPackage) {
+        this.mPackage = mPackage;
+    }
+
+    public DeliverCompany getmCompany() {
+        return mCompany;
+    }
+
+    public void setmCompany(DeliverCompany mCompany) {
+        this.mCompany = mCompany;
     }
 
     public int getmId() {
@@ -50,21 +67,6 @@ public class ProxyChargeRecord {
         this.mId = mId;
     }
 
-    public String getmPackageId() {
-        return mPackageId;
-    }
-
-    public void setmPackageId(String mPackageId) {
-        this.mPackageId = mPackageId;
-    }
-
-    public String getmCompanyId() {
-        return mCompanyId;
-    }
-
-    public void setmCompanyId(String mCompanyId) {
-        this.mCompanyId = mCompanyId;
-    }
 
     public double getmFee() {
         return mFee;

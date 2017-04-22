@@ -13,9 +13,6 @@ public class DayForm {
     @GeneratedValue
     private int mId;
 
-    @Column(name = "day_form_id", unique = true, nullable = false)
-    private String mDay_form_id;
-
     @Column(name = "year", nullable = false)
     private int mYear;
 
@@ -28,20 +25,19 @@ public class DayForm {
     @Column(name = "sum", nullable = false)
     private int mSum;
 
-    @Column(name = "company_id", nullable = false)
-    private String mCompany_id;//foreign
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    private DeliverCompany mCompany;//foreign
 
     public DayForm(){
 
     }
 
-    public DayForm(String mDay_form_id, int mYear, int mMonth, int mDay, int mSum, String mCompany_id) {
-        this.mDay_form_id = mDay_form_id;
+    public DayForm(int mYear, int mMonth, int mDay, int mSum, DeliverCompany mCompany) {
         this.mYear = mYear;
         this.mMonth = mMonth;
         this.mDay = mDay;
         this.mSum = mSum;
-        this.mCompany_id = mCompany_id;
+        this.mCompany = mCompany;
     }
 
     public int getmId() {
@@ -50,14 +46,6 @@ public class DayForm {
 
     public void setmId(int mId) {
         this.mId = mId;
-    }
-
-    public String getmDay_form_id() {
-        return mDay_form_id;
-    }
-
-    public void setmDay_form_id(String mDay_form_id) {
-        this.mDay_form_id = mDay_form_id;
     }
 
     public int getmYear() {
@@ -92,11 +80,11 @@ public class DayForm {
         this.mSum = mSum;
     }
 
-    public String getmCompany_id() {
-        return mCompany_id;
+    public DeliverCompany getmCompany() {
+        return mCompany;
     }
 
-    public void setmCompany_id(String mCompany_id) {
-        this.mCompany_id = mCompany_id;
+    public void setmCompany(DeliverCompany mCompany) {
+        this.mCompany = mCompany;
     }
 }

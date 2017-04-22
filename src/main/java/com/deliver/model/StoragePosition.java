@@ -1,6 +1,8 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by deadoggy on 17-4-18.
@@ -8,12 +10,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "shelf_position")
-public class ShelfPosition {
+public class StoragePosition {
 
     @Id
     @Column(name = "id")
     @GeneratedValue
     private int mId;
+
+    @Column(name = "cup_shelf")
+    private boolean CupOrShelf;
 
     @Column(name = "empty_full", nullable = false)
     private boolean mEmptyOrFull; // constant.Constant
@@ -27,13 +32,29 @@ public class ShelfPosition {
     @Column(name = "size", nullable = false)
     private int mSize;
 
-    public ShelfPosition() {}
 
-    public ShelfPosition(boolean mEmptyOrFull, int mLayer, int mColumn, int mSize) {
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private SmartCupboard mCup;
+
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
+    private Shelf mShelf;
+
+    @OneToMany(mappedBy = "mId")
+    private List<Package> mPackage;
+
+    public StoragePosition() {
+    }
+
+    public StoragePosition(boolean cupOrShelf, boolean mEmptyOrFull,
+                           int mLayer, int mColumn, int mSize,
+                           SmartCupboard mCup, Shelf mShelf) {
+        CupOrShelf = cupOrShelf;
         this.mEmptyOrFull = mEmptyOrFull;
         this.mLayer = mLayer;
         this.mColumn = mColumn;
         this.mSize = mSize;
+        this.mCup = mCup;
+        this.mShelf = mShelf;
     }
 
     public int getmId() {
@@ -42,6 +63,14 @@ public class ShelfPosition {
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    public boolean isCupOrShelf() {
+        return CupOrShelf;
+    }
+
+    public void setCupOrShelf(boolean cupOrShelf) {
+        CupOrShelf = cupOrShelf;
     }
 
     public boolean ismEmptyOrFull() {
@@ -74,5 +103,29 @@ public class ShelfPosition {
 
     public void setmSize(int mSize) {
         this.mSize = mSize;
+    }
+
+    public SmartCupboard getmCup() {
+        return mCup;
+    }
+
+    public void setmCup(SmartCupboard mCup) {
+        this.mCup = mCup;
+    }
+
+    public Shelf getmShelf() {
+        return mShelf;
+    }
+
+    public void setmShelf(Shelf mShelf) {
+        this.mShelf = mShelf;
+    }
+
+    public List<Package> getmPackage() {
+        return mPackage;
+    }
+
+    public void setmPackage(List<Package> mPackage) {
+        this.mPackage = mPackage;
     }
 }

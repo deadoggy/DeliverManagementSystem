@@ -14,7 +14,7 @@ public class YearForm {
     private int mId;
 
     @Column(name="year_form_id",unique = true,nullable = false)
-    private String mYear_form_id;
+    private String mYearFormId;
 
     @Column(name="year",nullable = false)
     private int mYear;
@@ -22,18 +22,18 @@ public class YearForm {
     @Column(name="sum",nullable = false)
     private int mSum;
 
-    @Column(name="company_id",nullable = false)
-    private String mCompany_id;//foreign
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    private DeliverCompany mCompany;//foreign
 
     public YearForm(){
 
     }
 
-    public YearForm(String mYear_form_id, int mYear, int mSum, String mCompany_id) {
-        this.mYear_form_id = mYear_form_id;
+    public YearForm(String mYearFormId, int mYear, int mSum, DeliverCompany mCompany) {
+        this.mYearFormId = mYearFormId;
         this.mYear = mYear;
         this.mSum = mSum;
-        this.mCompany_id = mCompany_id;
+        this.mCompany = mCompany;
     }
 
     public int getmId() {
@@ -44,12 +44,12 @@ public class YearForm {
         this.mId = mId;
     }
 
-    public String getmYear_form_id() {
-        return mYear_form_id;
+    public String getmYearFormId() {
+        return mYearFormId;
     }
 
-    public void setmYear_form_id(String mYear_form_id) {
-        this.mYear_form_id = mYear_form_id;
+    public void setmYearFormId(String mYearFormId) {
+        this.mYearFormId = mYearFormId;
     }
 
     public int getmYear() {
@@ -68,11 +68,11 @@ public class YearForm {
         this.mSum = mSum;
     }
 
-    public String getmCompany_id() {
-        return mCompany_id;
+    public DeliverCompany getmCompany() {
+        return mCompany;
     }
 
-    public void setmCompany_id(String mCompany_id) {
-        this.mCompany_id = mCompany_id;
+    public void setmCompany(DeliverCompany mCompany) {
+        this.mCompany = mCompany;
     }
 }

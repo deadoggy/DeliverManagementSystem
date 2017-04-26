@@ -23,18 +23,20 @@ public class Attendance {
     @Column(name="end_time")
     private Timestamp mEndTime;
 
-    @Column(name="point_id",nullable = false)
-    private String mPointId;
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    private Point mPoint;
+//    @Column(name="point_id",nullable = false)
+//    private String mPointId;
 
     public Attendance(){
 
     }
 
-    public Attendance(Employee mEmployee, Timestamp mBeginTime, Timestamp mEndTime, String mPointId) {
+    public Attendance(Employee mEmployee, Timestamp mBeginTime, Timestamp mEndTime, Point mPoint) {
         this.mEmployee = mEmployee;
         this.mBeginTime = mBeginTime;
         this.mEndTime = mEndTime;
-        this.mPointId = mPointId;
+        this.mPoint = mPoint;
     }
 
     public int getmId() {
@@ -69,11 +71,11 @@ public class Attendance {
         this.mEndTime = mEndTime;
     }
 
-    public String getmPointId() {
-        return mPointId;
+    public Point getmPoint() {
+        return mPoint;
     }
 
-    public void setmPointId(String mPointId) {
-        this.mPointId = mPointId;
+    public void setmPoint(Point mPoint) {
+        this.mPoint = mPoint;
     }
 }

@@ -1,11 +1,11 @@
 package com.deliver.dao;
+import com.deliver.model.DeliverCompany;
 import com.deliver.model.Package;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -29,4 +29,5 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
 
     Page<Package> findBymReceiveTime(Timestamp time);
 
+    Page<Package> findBymCompany(DeliverCompany company);
 }

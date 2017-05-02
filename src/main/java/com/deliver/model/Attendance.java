@@ -1,7 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  * Created by 91574 on 2017/4/19.

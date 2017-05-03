@@ -1,6 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by deadoggy on 17-4-18.
@@ -35,6 +36,9 @@ public class Point {
 
     @Column(name = "number", nullable = false)
     private String mNumber;
+
+    @OneToMany(mappedBy = "mEmployeeId")
+    private List<Employee> mEmployee;
 
     public Point() {}
 
@@ -112,5 +116,13 @@ public class Point {
 
     public void setmCounty(String mCounty) {
         this.mCounty = mCounty;
+    }
+
+    public List<Employee> getmEmployee() {
+        return mEmployee;
+    }
+
+    public void setmEmployee(List<Employee> mEmployee) {
+        this.mEmployee = mEmployee;
     }
 }

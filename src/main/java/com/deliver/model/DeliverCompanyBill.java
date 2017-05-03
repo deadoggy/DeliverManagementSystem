@@ -15,8 +15,8 @@ public class DeliverCompanyBill {
     @Column(name = "id")
     private int mId;
 
-    @Column(name = "company_id", nullable = false)
-    private String mCompanyId; // foreign key
+    @ManyToOne
+    private DeliverCompany mCompany; // foreign key
 
     @Column(name = "year", nullable = false)
     private int mYear;
@@ -42,11 +42,10 @@ public class DeliverCompanyBill {
 
     public DeliverCompanyBill() {}
 
-    public DeliverCompanyBill(String mCompanyId, int mYear, int mMonth,
-                              int mPackageSum, double mPerPackageFee,
-                              int mProxyChargeTimes, double mPerProxyChargeFee,
-                              boolean mPaid) {
-        this.mCompanyId = mCompanyId;
+    public DeliverCompanyBill(DeliverCompany mCompany, int mYear,
+                              int mMonth, int mPackageSum, double mPerPackageFee,
+                              int mProxyChargeTimes, double mPerProxyChargeFee, boolean mPaid) {
+        this.mCompany = mCompany;
         this.mYear = mYear;
         this.mMonth = mMonth;
         this.mPackageSum = mPackageSum;
@@ -56,7 +55,6 @@ public class DeliverCompanyBill {
         this.mPaid = mPaid;
     }
 
-
     public int getmId() {
         return mId;
     }
@@ -65,12 +63,12 @@ public class DeliverCompanyBill {
         this.mId = mId;
     }
 
-    public String getmCompanyId() {
-        return mCompanyId;
+    public DeliverCompany getmCompany() {
+        return mCompany;
     }
 
-    public void setmCompanyId(String mCompanyId) {
-        this.mCompanyId = mCompanyId;
+    public void setmCompany(DeliverCompany mCompany) {
+        this.mCompany = mCompany;
     }
 
     public int getmYear() {

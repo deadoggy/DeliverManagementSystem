@@ -16,28 +16,29 @@ public class SendingRecord {
     @Column(name = "sending_record_id",unique = true,nullable = false)
     private String mSending_record_id;
 
-    @Column(name = "package_number",nullable = false)
-    private String mPackage_number;//foreign
+    @ManyToOne
+    private Package mPackage;//foreign
 
     @Column(name="sender_name",nullable=false)
-    private String mSender_name;//foreign
+    private String mSenderName;
 
     @Column(name = "sender_tele",nullable = false)
-    private String mSender_tele;//foreign
+    private String mSenderTele;
 
-    @Column(name="company_id",nullable = false)
-    private String mCompany_id;//foreign
+    @ManyToOne
+    private DeliverCompany mCompany;//foreign
 
     public SendingRecord(){
 
     }
 
-    public SendingRecord(String mSending_record_id, String mPackage_number, String mSender_name, String mSender_tele, String mCompany_id) {
+    public SendingRecord(String mSending_record_id, Package mPackage,
+                         String mSenderName, String mSenderTele, DeliverCompany mCompany) {
         this.mSending_record_id = mSending_record_id;
-        this.mPackage_number = mPackage_number;
-        this.mSender_name = mSender_name;
-        this.mSender_tele = mSender_tele;
-        this.mCompany_id = mCompany_id;
+        this.mPackage = mPackage;
+        this.mSenderName = mSenderName;
+        this.mSenderTele = mSenderTele;
+        this.mCompany = mCompany;
     }
 
     public int getmId() {
@@ -56,35 +57,35 @@ public class SendingRecord {
         this.mSending_record_id = mSending_record_id;
     }
 
-    public String getmPackage_number() {
-        return mPackage_number;
+    public Package getmPackage() {
+        return mPackage;
     }
 
-    public void setmPackage_number(String mPackage_number) {
-        this.mPackage_number = mPackage_number;
+    public void setmPackage(Package mPackage) {
+        this.mPackage = mPackage;
     }
 
-    public String getmSender_name() {
-        return mSender_name;
+    public String getmSenderName() {
+        return mSenderName;
     }
 
-    public void setmSender_name(String mSender_name) {
-        this.mSender_name = mSender_name;
+    public void setmSenderName(String mSenderName) {
+        this.mSenderName = mSenderName;
     }
 
-    public String getmSender_tele() {
-        return mSender_tele;
+    public String getmSenderTele() {
+        return mSenderTele;
     }
 
-    public void setmSender_tele(String mSender_tele) {
-        this.mSender_tele = mSender_tele;
+    public void setmSenderTele(String mSenderTele) {
+        this.mSenderTele = mSenderTele;
     }
 
-    public String getmCompany_id() {
-        return mCompany_id;
+    public DeliverCompany getmCompany() {
+        return mCompany;
     }
 
-    public void setmCompany_id(String mCompany_id) {
-        this.mCompany_id = mCompany_id;
+    public void setmCompany(DeliverCompany mCompany) {
+        this.mCompany = mCompany;
     }
 }

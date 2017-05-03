@@ -1,7 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 /**
  * Created by 91574 on 2017/4/19.
@@ -14,62 +14,68 @@ public class Attendance {
     @GeneratedValue
     private int mId;
 
-    @Column(name="attendance_id",unique = true,nullable = false)
-    private String mAttendance_id;
-
-    @Column(name="employee_id",nullable = false)//foreign
-    private String mEmployee_id;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Employee mEmployee;
 
     @Column(name="begin_time",nullable = false)
-    private Timestamp mBegin_time;
+    private Timestamp mBeginTime;
 
     @Column(name="end_time")
-    private Timestamp mEnd_time;
+    private Timestamp mEndTime;
 
-    @Column(name="point_id",nullable = false)
-    private String mPoint_id;
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    private Point mPoint;
+//    @Column(name="point_id",nullable = false)
+//    private String mPointId;
 
     public Attendance(){
 
     }
 
-    public Attendance(String mAttendance_id, String mEmployee_id, Timestamp mBegin_time, Timestamp mEnd_time, String mPoint_id) {
-        this.mAttendance_id = mAttendance_id;
-        this.mEmployee_id = mEmployee_id;
-        this.mBegin_time = mBegin_time;
-        this.mEnd_time = mEnd_time;
-        this.mPoint_id = mPoint_id;
+    public Attendance(Employee mEmployee, Timestamp mBeginTime, Timestamp mEndTime, Point mPoint) {
+        this.mEmployee = mEmployee;
+        this.mBeginTime = mBeginTime;
+        this.mEndTime = mEndTime;
+        this.mPoint = mPoint;
     }
 
-    public String getmEmployee_id() {
-        return mEmployee_id;
+    public int getmId() {
+        return mId;
     }
 
-    public void setmEmployee_id(String mEmployee_id) {
-        this.mEmployee_id = mEmployee_id;
+    public void setmId(int mId) {
+        this.mId = mId;
     }
 
-    public Timestamp getmBegin_time() {
-        return mBegin_time;
+    public Employee getmEmployee() {
+        return mEmployee;
     }
 
-    public void setmBegin_time(Timestamp mBegin_time) {
-        this.mBegin_time = mBegin_time;
+    public void setmEmployee(Employee mEmployee) {
+        this.mEmployee = mEmployee;
     }
 
-    public Timestamp getmEnd_time() {
-        return mEnd_time;
+    public Timestamp getmBeginTime() {
+        return mBeginTime;
     }
 
-    public void setmEnd_time(Timestamp mEnd_time) {
-        this.mEnd_time = mEnd_time;
+    public void setmBeginTime(Timestamp mBeginTime) {
+        this.mBeginTime = mBeginTime;
     }
 
-    public String getmPoint_id() {
-        return mPoint_id;
+    public Timestamp getmEndTime() {
+        return mEndTime;
     }
 
-    public void setmPoint_id(String mPoint_id) {
-        this.mPoint_id = mPoint_id;
+    public void setmEndTime(Timestamp mEndTime) {
+        this.mEndTime = mEndTime;
+    }
+
+    public Point getmPoint() {
+        return mPoint;
+    }
+
+    public void setmPoint(Point mPoint) {
+        this.mPoint = mPoint;
     }
 }

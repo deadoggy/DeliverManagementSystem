@@ -18,8 +18,8 @@ public class Package {
     @Column(name = "package_id", nullable = false, unique = true)
     private String mPackageId;
 
-    @Column(name = "mCompany", nullable = false)
-    private String mCompany; // foreign key
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
+    private DeliverCompany mCompany; // foreign key
 
     @Column(name = "receive_time", nullable = false)
     private Timestamp mReceiveTime;
@@ -42,26 +42,12 @@ public class Package {
     @Column(name = "cup_shelf", nullable = false)
     private boolean mCupOrShelf; // constant.Constant
 
-    @Column(name = "position_id", nullable = false)
-    private int mPositionId; // foreign ??
+    @ManyToOne(cascade = {CascadeType.REMOVE})
+    private StoragePosition mPosition;
 
 
     public Package() {}
 
-    public Package(String mPackageId, String mCompany, Timestamp mReceiveTime,
-                   double mProxyChargeFee, boolean mTaken, Timestamp mTakenTime,
-                   String mReceiverName, String mReceiverTele, boolean mCupOrShelf, int mPositionId) {
-        this.mPackageId = mPackageId;
-        this.mCompany = mCompany;
-        this.mReceiveTime = mReceiveTime;
-        this.mProxyChargeFee = mProxyChargeFee;
-        this.mTaken = mTaken;
-        this.mTakenTime = mTakenTime;
-        this.mReceiverName = mReceiverName;
-        this.mReceiverTele = mReceiverTele;
-        this.mCupOrShelf = mCupOrShelf;
-        this.mPositionId = mPositionId;
-    }
 
     public int getmId() {
         return mId;
@@ -79,11 +65,11 @@ public class Package {
         this.mPackageId = mPackageId;
     }
 
-    public String getmCompany() {
+    public DeliverCompany getmCompany() {
         return mCompany;
     }
 
-    public void setmCompany(String mCompany) {
+    public void setmCompany(DeliverCompany mCompany) {
         this.mCompany = mCompany;
     }
 
@@ -143,11 +129,11 @@ public class Package {
         this.mCupOrShelf = mCupOrShelf;
     }
 
-    public int getmPositionId() {
-        return mPositionId;
+    public StoragePosition getmPosition() {
+        return mPosition;
     }
 
-    public void setmPositionId(int mPositionId) {
-        this.mPositionId = mPositionId;
+    public void setmPosition(StoragePosition mPosition) {
+        this.mPosition = mPosition;
     }
 }

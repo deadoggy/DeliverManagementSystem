@@ -13,9 +13,6 @@ public class HourForm {
     @GeneratedValue
     private int mId;
 
-    @Column(name = "hour_form_id", unique = true, nullable = false)
-    private String mHour_form_id;
-
     @Column(name = "year", nullable = false)
     private int mYear;
 
@@ -31,21 +28,20 @@ public class HourForm {
     @Column(name = "sum", nullable = false)
     private int mSum;
 
-    @Column(name = "company_id", nullable = false)
-    private String mCompany_id;//foreign
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private DeliverCompany mCompany;//foreign
 
     public HourForm(){
 
     }
 
-    public HourForm(String mHour_form_id, int mYear, int mMonth, int mDay, int mHour, int mSum, String mCompany_id) {
-        this.mHour_form_id = mHour_form_id;
+    public HourForm(int mYear, int mMonth, int mDay, int mHour, int mSum, DeliverCompany mCompany) {
         this.mYear = mYear;
         this.mMonth = mMonth;
         this.mDay = mDay;
         this.mHour = mHour;
         this.mSum = mSum;
-        this.mCompany_id = mCompany_id;
+        this.mCompany = mCompany;
     }
 
     public int getmId() {
@@ -54,14 +50,6 @@ public class HourForm {
 
     public void setmId(int mId) {
         this.mId = mId;
-    }
-
-    public String getmHour_form_id() {
-        return mHour_form_id;
-    }
-
-    public void setmHour_form_id(String mHour_form_id) {
-        this.mHour_form_id = mHour_form_id;
     }
 
     public int getmYear() {
@@ -104,11 +92,11 @@ public class HourForm {
         this.mSum = mSum;
     }
 
-    public String getmCompany_id() {
-        return mCompany_id;
+    public DeliverCompany getmCompany() {
+        return mCompany;
     }
 
-    public void setmCompany_id(String mCompany_id) {
-        this.mCompany_id = mCompany_id;
+    public void setmCompany(DeliverCompany mCompany) {
+        this.mCompany = mCompany;
     }
 }

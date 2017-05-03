@@ -1,6 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by 91574 on 2017/4/18.
@@ -14,17 +15,20 @@ public class Position {
     private int mId;
 
     @Column(name="position_id",unique = true,nullable = false)
-    private String position_id;
+    private String mPositionId;
 
     @Column(name = "name",nullable = false)
     private String mName;
+
+    @ManyToMany
+    private List<Employee> mEmployee;
 
     public Position(){
 
     }
 
-    public Position(String position_id, String mName) {
-        this.position_id = position_id;
+    public Position(String mPositionId, String mName) {
+        this.mPositionId = mPositionId;
         this.mName = mName;
     }
 
@@ -36,12 +40,12 @@ public class Position {
         this.mId = mId;
     }
 
-    public String getPosition_id() {
-        return position_id;
+    public String getmPositionId() {
+        return mPositionId;
     }
 
-    public void setPosition_id(String position_id) {
-        this.position_id = position_id;
+    public void setmPositionId(String mPositionId) {
+        this.mPositionId = mPositionId;
     }
 
     public String getmName() {
@@ -50,5 +54,13 @@ public class Position {
 
     public void setmName(String mName) {
         this.mName = mName;
+    }
+
+    public List<Employee> getmEmployee() {
+        return mEmployee;
+    }
+
+    public void setmEmployee(List<Employee> mEmployee) {
+        this.mEmployee = mEmployee;
     }
 }

@@ -18,9 +18,6 @@ public class YearForm {
     @Column(name = "date", nullable = false)
     private Date mDate;
 
-    @Column(name="year_form_id",unique = true,nullable = false)
-    private String mYearFormId;
-
     @Column(name="year",nullable = false)
     private int mYear;
 
@@ -34,16 +31,7 @@ public class YearForm {
 
     }
 
-    public YearForm(Date mDate, String mYearFormId, int mYear, int mSum, DeliverCompany mCompany) {
-        this.mDate = mDate;
-        this.mYearFormId = mYearFormId;
-        this.mYear = mYear;
-        this.mSum = mSum;
-        this.mCompany = mCompany;
-    }
-
-    public YearForm(String mYearFormId, int mYear, int mSum, DeliverCompany mCompany) {
-        this.mYearFormId = mYearFormId;
+    public YearForm( int mYear, int mSum, DeliverCompany mCompany) {
         this.mYear = mYear;
         this.mSum = mSum;
         this.mCompany = mCompany;
@@ -66,14 +54,6 @@ public class YearForm {
 
     public void setmDate(Date mDate) {
         this.mDate = mDate;
-    }
-
-    public String getmYearFormId() {
-        return mYearFormId;
-    }
-
-    public void setmYearFormId(String mYearFormId) {
-        this.mYearFormId = mYearFormId;
     }
 
     public int getmYear() {

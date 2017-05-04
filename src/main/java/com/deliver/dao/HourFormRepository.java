@@ -31,7 +31,7 @@ public interface HourFormRepository extends JpaRepository<HourForm, Integer> {
 
     Page<HourForm> findBymYear(int year);
 
-    @Query("select HourForm from HourForm as hf , DeliverCompany as c where hf.mDate >= ?1 and hf.mDate < ?2 and hf.mCompany = c")
-    Page<HourForm> findByPeriod(Date beg, Date end, DeliverCompany company);
+//    @Query("select HourForm from HourForm as hf , DeliverCompany as c where hf.mDate >= ?1 and hf.mDate < ?2 and hf.mCompany = c")
+//    Page<HourForm> findByPeriod(Date beg, Date end, DeliverCompany company);
 
 }

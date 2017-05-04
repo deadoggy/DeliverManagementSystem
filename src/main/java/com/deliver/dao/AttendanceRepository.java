@@ -26,4 +26,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     Page<Attendance> findBymEndTime(Timestamp endTime);
 
 
+
+
 }

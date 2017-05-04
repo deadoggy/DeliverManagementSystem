@@ -1,6 +1,8 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * Created by 91574 on 2017/4/19.
@@ -12,6 +14,9 @@ public class HourForm {
     @Column(name = "id")
     @GeneratedValue
     private int mId;
+
+    @Column(name = "date", nullable = false)
+    private Date mDate;
 
     @Column(name = "year", nullable = false)
     private int mYear;
@@ -35,7 +40,8 @@ public class HourForm {
 
     }
 
-    public HourForm(int mYear, int mMonth, int mDay, int mHour, int mSum, DeliverCompany mCompany) {
+    public HourForm(Date mDate, int mYear, int mMonth, int mDay, int mHour, int mSum, DeliverCompany mCompany) {
+        this.mDate = mDate;
         this.mYear = mYear;
         this.mMonth = mMonth;
         this.mDay = mDay;
@@ -44,12 +50,32 @@ public class HourForm {
         this.mCompany = mCompany;
     }
 
+    public HourForm(int mYear, int mMonth, int mDay, int mHour, int mSum, DeliverCompany mCompany) {
+        this.mYear = mYear;
+        this.mMonth = mMonth;
+        this.mDay = mDay;
+        this.mHour = mHour;
+        this.mSum = mSum;
+        this.mCompany = mCompany;
+        Calendar c = Calendar.getInstance();
+        c.set(mYear,mMonth-1, mDay, mHour,0);
+        this.mDate = new Date(c.getTimeInMillis());
+    }
+
     public int getmId() {
         return mId;
     }
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    public Date getmDate() {
+        return mDate;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
     }
 
     public int getmYear() {

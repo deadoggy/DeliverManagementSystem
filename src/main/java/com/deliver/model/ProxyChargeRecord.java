@@ -27,7 +27,7 @@ public class ProxyChargeRecord {
     private double mFee;
 
     @Column(name = "send_receive", nullable = false)
-    private boolean mSendOrReceive;
+    private boolean mSendorReceive;
 
     @Column(name = "time", nullable = false)
     private Timestamp mTime;
@@ -35,11 +35,11 @@ public class ProxyChargeRecord {
     public ProxyChargeRecord() {}
 
     public ProxyChargeRecord(Package mPackage, DeliverCompany mCompany,
-                             double mFee, boolean mSendOrReceive, Timestamp mTime) {
+                             double mFee, boolean mSendorReceive, Timestamp mTime) {
         this.mPackage = mPackage;
         this.mCompany = mCompany;
         this.mFee = mFee;
-        this.mSendOrReceive = mSendOrReceive;
+        this.mSendorReceive = mSendorReceive;
         this.mTime = mTime;
     }
 
@@ -76,12 +76,12 @@ public class ProxyChargeRecord {
         this.mFee = mFee;
     }
 
-    public boolean ismSendOrReceive() {
-        return mSendOrReceive;
+    public boolean ismSendorReceive() {
+        return mSendorReceive;
     }
 
-    public void setmSendOrReceive(boolean mSendOrReceive) {
-        this.mSendOrReceive = mSendOrReceive;
+    public void setmSendorReceive(boolean mSendorReceive) {
+        this.mSendorReceive = mSendorReceive;
     }
 
     public Timestamp getmTime() {

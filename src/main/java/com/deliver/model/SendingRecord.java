@@ -14,7 +14,7 @@ public class SendingRecord {
     private int mId;
 
     @Column(name = "sending_record_id",unique = true,nullable = false)
-    private String mSending_record_id;
+    private String mSendingRecordId;
 
     @ManyToOne
     private Package mPackage;//foreign
@@ -32,9 +32,9 @@ public class SendingRecord {
 
     }
 
-    public SendingRecord(String mSending_record_id, Package mPackage,
+    public SendingRecord(String mSendingRecordId, Package mPackage,
                          String mSenderName, String mSenderTele, DeliverCompany mCompany) {
-        this.mSending_record_id = mSending_record_id;
+        this.mSendingRecordId = mSendingRecordId;
         this.mPackage = mPackage;
         this.mSenderName = mSenderName;
         this.mSenderTele = mSenderTele;
@@ -50,11 +50,11 @@ public class SendingRecord {
     }
 
     public String getmSending_record_id() {
-        return mSending_record_id;
+        return mSendingRecordId;
     }
 
     public void setmSending_record_id(String mSending_record_id) {
-        this.mSending_record_id = mSending_record_id;
+        this.mSendingRecordId = mSending_record_id;
     }
 
     public Package getmPackage() {

@@ -2,6 +2,7 @@ package com.deliver.dao;
 import com.deliver.model.DeliverCompany;
 import com.deliver.model.Package;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,15 +20,15 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
 
 
 
-    Package findBymId(int id);
+    Package findByMId(int id);
 
-    Page<Package> findBymPackageId(String packageId);
+    Page<Package> findByMPackageId(String packageId, Pageable pageable);
 
-    Page<Package> findBymReceiverName(String receiverName);
+    Page<Package> findByMReceiverName(String receiverName, Pageable pageable);
 
-    Page<Package> findBymReceiverTele(String receiverTele);
+    Page<Package> findByMReceiverTele(String receiverTele, Pageable pageable);
 
-    Page<Package> findBymReceiveTime(Timestamp time);
+    Page<Package> findByMReceiveTime(Timestamp time, Pageable pageable);
 
-    Page<Package> findBymCompany(DeliverCompany company);
+    Page<Package> findByMCompany(DeliverCompany company, Pageable pageable);
 }

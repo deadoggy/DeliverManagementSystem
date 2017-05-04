@@ -18,10 +18,10 @@ public class StoragePosition {
     private int mId;
 
     @Column(name = "cup_shelf")
-    private boolean CupOrShelf;
+    private boolean mCuporShelf;
 
     @Column(name = "empty_full", nullable = false)
-    private boolean mEmptyOrFull; // constant.Constant
+    private boolean mEmptyorFull; // constant.Constant
 
     @Column(name = "layer_index", nullable = false)
     private int mLayer;
@@ -45,11 +45,11 @@ public class StoragePosition {
     public StoragePosition() {
     }
 
-    public StoragePosition(boolean cupOrShelf, boolean mEmptyOrFull,
+    public StoragePosition(boolean mCuporShelf, boolean mEmptyorFull,
                            int mLayer, int mColumn, int mSize,
                            SmartCupboard mCup, Shelf mShelf) {
-        CupOrShelf = cupOrShelf;
-        this.mEmptyOrFull = mEmptyOrFull;
+        this.mCuporShelf = mCuporShelf;
+        this.mEmptyorFull = mEmptyorFull;
         this.mLayer = mLayer;
         this.mColumn = mColumn;
         this.mSize = mSize;
@@ -65,20 +65,20 @@ public class StoragePosition {
         this.mId = mId;
     }
 
-    public boolean isCupOrShelf() {
-        return CupOrShelf;
+    public boolean ismCuporShelf() {
+        return mCuporShelf;
     }
 
-    public void setCupOrShelf(boolean cupOrShelf) {
-        CupOrShelf = cupOrShelf;
+    public void setmCuporShelf(boolean mCuporShelf) {
+        this.mCuporShelf = mCuporShelf;
     }
 
-    public boolean ismEmptyOrFull() {
-        return mEmptyOrFull;
+    public boolean ismEmptyorFull() {
+        return mEmptyorFull;
     }
 
-    public void setmEmptyOrFull(boolean mEmptyOrFull) {
-        this.mEmptyOrFull = mEmptyOrFull;
+    public void setmEmptyorFull(boolean mEmptyorFull) {
+        this.mEmptyorFull = mEmptyorFull;
     }
 
     public int getmLayer() {

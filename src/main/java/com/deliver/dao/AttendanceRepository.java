@@ -2,6 +2,7 @@ package com.deliver.dao;
 
 import com.deliver.model.Employee;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.deliver.model.Attendance;
@@ -17,13 +18,15 @@ import java.sql.Timestamp;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Integer>{
 
-    Attendance findBymId(int id);
+    Attendance findByMId(int id);
 
-    Page<Attendance> findBymEmployee(Employee employee);
+    Page<Attendance> findByMEmployee(Employee employee, Pageable pageable);
 
-    Page<Attendance> findBymBeginTime(Timestamp begTime);
+    Page<Attendance> findByMBeginTime( Timestamp begTime, Pageable pageable);
 
-    Page<Attendance> findBymEndTime(Timestamp endTime);
+    Page<Attendance> findByMEndTime(Timestamp endTime, Pageable pageable);
+
+
 
 
 }

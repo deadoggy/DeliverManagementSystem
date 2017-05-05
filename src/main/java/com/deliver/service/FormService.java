@@ -13,9 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by deadoggy on 17-5-4.
@@ -40,8 +38,22 @@ public class FormService {
     private YearFormRepository yearFormRepository;
 
 
+    /*Calender -> String*/
+    private static String CalendarToString(Calendar cal){
+        StringBuilder retStr = new StringBuilder();
+        retStr.append(cal.get(Calendar.YEAR))
+                .append("-")
+                .append(cal.get(Calendar.MONTH))
+                .append("-")
+                .append(cal.get(Calendar.DAY_OF_MONTH))
+                .append("-")
+                .append(cal.get(Calendar.HOUR));
+        return retStr.toString();
+
+    }
+
     /*获取一天之内各个小时的快递取货数量*/
-    public String getTakenSumByHourInDay(Integer year, Integer month, Integer day, DeliverCompany company) throws Exception{
+    public String getTakenSumByHourInDay(Integer year, Integer month, Integer day, DeliverCompany company){
         try{
             if(null == year || null == month || null == day){
                 throw new Exception("日期不合法");
@@ -53,40 +65,125 @@ public class FormService {
             retJsonObj.put("day", day);
 
             //找出一天内的数据
-            Page<HourForm> originData = this.hourFormRepository.findByMYearAndMMonthAndMDayAndMCompany(year, month, day, company,new PageRequest(0,5));
+            List<Integer> originData = this.hourFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(year, month, day, company);
 
             JSONArray dataArr = new JSONArray();
 
-            Iterator<HourForm> itr = originData.iterator();
-
-            while(itr.hasNext()){
-                HourForm item = itr.next();
-            }
+            dataArr.addAll(originData);
 
             //将数据加入retJsonObj
             retJsonObj.put("key", dataArr);
 
             return retJsonObj.toJSONString();
         }catch(Exception e){
-            throw e;
+            e.printStackTrace();
+            return null;
         }
 
 
     }
 
-    public String getTakenSumByHourInDay(Calendar date, DeliverCompany company) throws Exception{
+    /*获取一天之内各个小时的快递取货数量*/
+    public String getTakenSumByHourInDay(Calendar date, DeliverCompany company){
         try{
             return this.getTakenSumByHourInDay(
                     date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH), company
             );
         }catch (Exception e){
-            throw e;
+            e.printStackTrace();
+            return null;
         }
 
     }
 
-//    /*获取几天内的按照小时统计的函数*/
-//    public String getTakenSumByHourInPeriod(Calendar beg, Calendar end, DeliverCompany company){
-//
-//    }
+    /*获取一个时间段内的按照小时统计的函数, 包括end中小时对应的数据*/
+    public String getTakenSumByHourInPeriod(Calendar beg, Calendar end, DeliverCompany company){
+        try{
+            //获取所有的数据
+            LinkedList<Integer> list = new LinkedList<>();
+            Calendar flag = (Calendar) beg.clone();
+            while(flag.compareTo(end) <= 0){
+                list.addAll(this.hourFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(flag.get(Calendar.YEAR), flag.get(Calendar.MONTH), flag.get(Calendar.DAY_OF_MONTH), company));
+                flag.add(Calendar.DAY_OF_MONTH,1);
+            }
+            //处理小时
+            int begHour = beg.get(Calendar.HOUR_OF_DAY), endHour = end.get(Calendar.HOUR_OF_DAY);
+            if(0 != begHour){
+                for(int i=0; i<begHour;i++){
+                    list.remove(0);
+                }
+            }
+            if(23 != endHour){
+                for(int i=0; i<23 - endHour; i++){
+                    list.removeLast();
+                }
+            }
+            //转换成JSON
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("begTime", CalendarToString(beg));
+            jsonObj.put("endTime", CalendarToString(end));
+
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.addAll(list);
+
+            jsonObj.put("data", jsonArray);
+            return jsonObj.toJSONString();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /*获取一个月内各天的数据*/
+    public String getTakenSumByDayInMonth(Integer year, Integer month, DeliverCompany company){
+        try{
+            //TODO
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /*获取一年内各天的数据*/
+    public String getTakenSumByDayInYear(Integer year, DeliverCompany company){
+        try{
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /*获取一个时间段内按照天数统计的函数, 包括end中的天数*/
+    public String getTakenSumByDayInPeriod(Calendar beg, Calendar end, DeliverCompany company){
+        try{
+            //TODO:
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /*获取一年内各月的数据*/
+    public String getTakenSumByMonthInYear(Integer year, DeliverCompany){
+        try{
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    /*获取一个时间段内按照月统计的函数, 包括end中的天数*/
+    public String getTakenSumByMonthInPeriod(Calendar beg, Calendar end, DeliverCompany company){
+        try{
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

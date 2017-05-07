@@ -1,11 +1,14 @@
 package com.deliver.dao;
 
+import com.deliver.model.DeliverCompany;
 import com.deliver.model.MonthForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -17,8 +20,8 @@ public interface MonthFormRepository extends JpaRepository<MonthForm, Integer> {
 
     MonthForm findBymId(int id);
 
-    Page<MonthForm>  findByMYearAndMMonth( int year, int month, Pageable pageable);
+    List<Integer>  findMSumByMYearAndMMonthAndMCompany( int year, int month, DeliverCompany company);
 
-    Page<MonthForm> findByMYear( int year, Pageable pageable);
+    List<Integer> findMSumByMYearAndMCompany(int year, DeliverCompany company);
 
 }

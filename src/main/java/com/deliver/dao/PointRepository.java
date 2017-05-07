@@ -1,6 +1,7 @@
 package com.deliver.dao;
 import com.deliver.model.Point;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,20 +14,18 @@ import java.util.List;
 @Transactional
 @Repository
 public interface PointRepository extends JpaRepository<Point, Integer>{
-    Point findBymId(int id);
+    Point findByMId(int id);
 
-    Page<Point> findBymPositionId(String positionId);
+    Page<Point> findByMName(String name, Pageable pageable);
 
-    Page<Point> findBymName(String name);
+    Page<Point> findByMProvince(String province, Pageable pageable);
 
-    Page<Point> findBymProvince(String province);
+    Page<Point> findByMCity(String city, Pageable pageable);
 
-    Page<Point> findBymCity(String city);
+    Page<Point> findByMCounty(String country, Pageable pageable);
 
-    Page<Point> findBymCounty(String country);
+    Page<Point> findByMRoad(String road, Pageable pageable);
 
-    Page<Point> findBymRoad(String road);
-
-    Page<Point> findBymNumber(String number);
+    Page<Point> findByMNumber(String number, Pageable pageable);
 
 }

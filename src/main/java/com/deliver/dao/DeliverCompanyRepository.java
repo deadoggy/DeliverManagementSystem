@@ -2,6 +2,7 @@ package com.deliver.dao;
 
 import com.deliver.model.DeliverCompany;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +16,8 @@ public interface DeliverCompanyRepository extends JpaRepository<DeliverCompany, 
 
     DeliverCompany findBymId(int id);
 
-    Page<DeliverCompany> findBymCompanyId(String companyId);
+    Page<DeliverCompany> findByMCompanyId( String companyId, Pageable pageable);
 
-    Page<DeliverCompany> findBymName(String name);
+    Page<DeliverCompany> findByMName(String name, Pageable pageable);
 
 }

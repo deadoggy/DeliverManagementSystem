@@ -2,6 +2,7 @@ package com.deliver.dao;
 
 import com.deliver.model.SmartCupboard;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,17 +13,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 public interface SmartCupboardRepository extends JpaRepository<SmartCupboard,Integer>{
-    SmartCupboard findBymId(int id);
+    SmartCupboard findByMId(int id);
 
-    Page<SmartCupboard> findBymCupboardId(String cupboardId);
+    Page<SmartCupboard> findByMCupboardId(String cupboardId, Pageable pageable);
 
-    Page<SmartCupboard> findBymEmptySum(int emptySum);
+    Page<SmartCupboard> findByMEmptySum(int emptySum, Pageable pageable);
 
-    Page<SmartCupboard> findBymPositionSum(int positionSum);
+    Page<SmartCupboard> findByMPositionSum(int positionSum, Pageable pageable);
 
-    Page<SmartCupboard> findBymLayerSum(int layerSum);
+    Page<SmartCupboard> findByMLayerSum(int layerSum, Pageable pageable);
 
-    Page<SmartCupboard> findBymColumnSum(int columnSum);
+    Page<SmartCupboard> findByMColumnSum(int columnSum, Pageable pageable);
 
 
 }

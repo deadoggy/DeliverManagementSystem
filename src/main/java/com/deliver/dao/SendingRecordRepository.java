@@ -2,6 +2,7 @@ package com.deliver.dao;
 
 import com.deliver.model.SendingRecord;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 public interface SendingRecordRepository extends JpaRepository<SendingRecord,Integer>{
-    SendingRecord findBymId(int id);
+    SendingRecord findByMId(int id);
 
-    Page<SendingRecord> findBymSendingRecordId(String sendingRecordId);
+    Page<SendingRecord> findByMSendingRecordId(String sendingRecordId, Pageable pageable);
 
-    Page<SendingRecord> findBymSenderName(String senderName);
+    Page<SendingRecord> findByMSenderName(String senderName, Pageable pageable);
 
-    Page<SendingRecord> findBymSenderTele(String mSenderTele);
+    Page<SendingRecord> findByMSenderTele(String mSenderTele, Pageable pageable);
 }

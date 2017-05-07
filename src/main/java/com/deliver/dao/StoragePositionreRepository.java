@@ -2,6 +2,7 @@ package com.deliver.dao;
 
 import com.deliver.model.StoragePosition;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,15 +13,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 public interface StoragePositionreRepository extends JpaRepository<StoragePosition,Integer>{
-    StoragePosition findBymId(int id);
+    StoragePosition findByMId(int id);
 
-    Page<StoragePosition> findBymCupOrShelf(boolean cupOrShelf);
+    Page<StoragePosition> findByMCuporShelf(boolean cuporShelf, Pageable pageable);
 
-    Page<StoragePosition> findBymEmptyOrFull(boolean emptyOrFull);
+    Page<StoragePosition> findByMEmptyorFull(boolean emptyorFull, Pageable pageable);
 
-    Page<StoragePosition> findBymLayer(int layer);
+    Page<StoragePosition> findByMLayer(int layer, Pageable pageable);
 
-    Page<StoragePosition> findBymColumn(int column);
+    Page<StoragePosition> findByMColumn(int column, Pageable pageable);
 
-    Page<StoragePosition> findBymSize(int size);
+    Page<StoragePosition> findByMSize(int size, Pageable pageable);
 }

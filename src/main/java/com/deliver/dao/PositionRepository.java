@@ -2,6 +2,7 @@ package com.deliver.dao;
 
 import com.deliver.model.Position;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 public interface PositionRepository extends JpaRepository<Position,Integer>{
-    Position findBymId(int id);
+    Position findByMId(int id);
 
-    Page<Position> findBymPositionId(String positionId);
+    Page<Position> findByMPositionId(String positionId, Pageable pageable);
 
-    Page<Position> findBymName(String name);
+    Page<Position> findByMName(String name, Pageable pageable);
 }

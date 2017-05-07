@@ -1,10 +1,15 @@
 package com.deliver.dao;
 
+import com.deliver.model.DeliverCompany;
 import com.deliver.model.HourForm;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import java.sql.Date;
+import java.util.List;
 
 
 /**
@@ -17,12 +22,15 @@ public interface HourFormRepository extends JpaRepository<HourForm, Integer> {
 
     HourForm findBymId(int id);
 
-    Page<HourForm> findBymYearAndmMonthAndmDayAndmHour(int year, int month, int day, int hour);
+    Page<HourForm> findByMYearAndMMonthAndMDayAndMHour( int year, int month, int day, int hour, Pageable pageable);
 
-    Page<HourForm> findBymYearAndmMonthAndmDay(int year, int month, int day);
+    Page<HourForm> findByMYearAndMMonthAndMDay(int year, int month, int day,  Pageable pageable);
 
-    Page<HourForm> findBymYearAndmMonth(int year, int month);
+    List<Integer> findMSumByMYearAndMMonthAndMDayAndMCompany(int year, int month, int day, DeliverCompany company);
 
-    Page<HourForm> findBymYear(int year);
+    Page<HourForm> findByMYearAndMMonth(int year, int month, Pageable pageable);
+
+    Page<HourForm> findByMYear(int year, Pageable pageable);
+
 
 }

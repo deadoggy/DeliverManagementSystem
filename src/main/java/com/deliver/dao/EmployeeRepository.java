@@ -7,6 +7,7 @@ package com.deliver.dao;
 import com.deliver.model.Employee;
 import com.deliver.model.Point;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +18,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Employee findBymId(int id);
 
-    Employee findBymEmployeeId(String employeeId);
+    Employee findByMEmployeeId(String employeeId);
 
-    Page<Employee> findBymPoint(Point point);
+    Page<Employee> findByMPoint( Point point, Pageable pageable);
 
 }

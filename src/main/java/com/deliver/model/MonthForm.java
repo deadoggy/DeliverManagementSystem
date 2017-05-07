@@ -1,6 +1,8 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.util.Calendar;
 
 /**
  * Created by 91574 on 2017/4/19.
@@ -13,6 +15,8 @@ public class MonthForm {
     @GeneratedValue
     private int mId;
 
+    @Column(name = "date", nullable = false)
+    private Date mDate;
 
     @Column(name = "year", nullable = false)
     private int mYear;
@@ -30,11 +34,22 @@ public class MonthForm {
 
     }
 
+    public MonthForm(Date mDate, int mYear, int mMonth, int mSum, DeliverCompany mCompany) {
+        this.mDate = mDate;
+        this.mYear = mYear;
+        this.mMonth = mMonth;
+        this.mSum = mSum;
+        this.mCompany = mCompany;
+    }
+
     public MonthForm(int mYear, int mMonth, int mSum, DeliverCompany mCompany) {
         this.mYear = mYear;
         this.mMonth = mMonth;
         this.mSum = mSum;
         this.mCompany = mCompany;
+        Calendar c = Calendar.getInstance();
+        c.set(mYear,mMonth-1, 1);
+        this.mDate = new Date(c.getTimeInMillis());
     }
 
     public int getmId() {
@@ -43,6 +58,14 @@ public class MonthForm {
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    public Date getmDate() {
+        return mDate;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
     }
 
     public int getmYear() {

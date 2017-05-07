@@ -3,6 +3,7 @@ package com.deliver.dao;
 import com.deliver.model.DeliverCompany;
 import com.deliver.model.ProxyChargeRecord;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +17,12 @@ import java.sql.Timestamp;
 @Transactional
 @Repository
 public interface ProxyChargeRecordRepository extends JpaRepository<ProxyChargeRecord,Integer>{
-    ProxyChargeRecord findBymId(int id);
+    ProxyChargeRecord findByMId(int id);
 
-    Page<ProxyChargeRecord> findBymFee(double fee);
+    Page<ProxyChargeRecord> findByMFee(double fee, Pageable pageable);
 
-    Page<ProxyChargeRecord> findBymSendOrReceive(boolean sendOrReceive);
+    Page<ProxyChargeRecord> findByMSendorReceive(boolean sendorReceive, Pageable pageable);
 
-    Page<ProxyChargeRecord> findBymTime(Timestamp time);
+    Page<ProxyChargeRecord> findByMTime(Timestamp time, Pageable pageable);
 
 }

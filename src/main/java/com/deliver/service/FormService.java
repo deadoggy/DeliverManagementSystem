@@ -139,6 +139,7 @@ public class FormService {
     public String getTakenSumByDayInMonth(Integer year, Integer month, DeliverCompany company){
         try{
             //TODO
+            return null;
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -148,7 +149,7 @@ public class FormService {
     /*获取一年内各天的数据*/
     public String getTakenSumByDayInYear(Integer year, DeliverCompany company){
         try{
-
+            return null;
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -160,6 +161,7 @@ public class FormService {
     public String getTakenSumByDayInPeriod(Calendar beg, Calendar end, DeliverCompany company){
         try{
             //TODO:
+            return null;
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -167,9 +169,9 @@ public class FormService {
     }
 
     /*获取一年内各月的数据*/
-    public String getTakenSumByMonthInYear(Integer year, DeliverCompany){
+    public String getTakenSumByMonthInYear(Integer year, DeliverCompany company){
         try{
-
+            return null;
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -179,7 +181,7 @@ public class FormService {
     /*获取一个时间段内按照月统计的函数, 包括end中的天数*/
     public String getTakenSumByMonthInPeriod(Calendar beg, Calendar end, DeliverCompany company){
         try{
-
+            return null;
         }catch(Exception e){
             e.printStackTrace();
             return null;

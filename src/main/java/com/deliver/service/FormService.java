@@ -7,10 +7,7 @@ import com.deliver.dao.HourFormRepository;
 import com.deliver.dao.MonthFormRepository;
 import com.deliver.dao.YearFormRepository;
 import com.deliver.model.DeliverCompany;
-import com.deliver.model.HourForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -53,6 +50,7 @@ public class FormService {
     }
 
     /*获取一天之内各个小时的快递取货数量*/
+    /*month 1 ~ 12*/
     public String getTakenSumByHourInDay(Integer year, Integer month, Integer day, DeliverCompany company){
         try{
             if(null == year || null == month || null == day){
@@ -72,7 +70,7 @@ public class FormService {
             dataArr.addAll(originData);
 
             //将数据加入retJsonObj
-            retJsonObj.put("key", dataArr);
+            retJsonObj.put("data", dataArr);
 
             return retJsonObj.toJSONString();
         }catch(Exception e){
@@ -103,7 +101,7 @@ public class FormService {
             LinkedList<Integer> list = new LinkedList<>();
             Calendar flag = (Calendar) beg.clone();
             while(flag.compareTo(end) <= 0){
-                list.addAll(this.hourFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(flag.get(Calendar.YEAR), flag.get(Calendar.MONTH), flag.get(Calendar.DAY_OF_MONTH), company));
+                list.addAll(this.hourFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(flag.get(Calendar.YEAR), flag.get(Calendar.MONTH)+1, flag.get(Calendar.DAY_OF_MONTH), company));
                 flag.add(Calendar.DAY_OF_MONTH,1);
             }
             //处理小时
@@ -136,10 +134,26 @@ public class FormService {
     }
 
     /*获取一个月内各天的数据*/
+    /*month 1 ~ 12*/
     public String getTakenSumByDayInMonth(Integer year, Integer month, DeliverCompany company){
         try{
-            //TODO
-            return null;
+            if(month < 1 || month > 12){
+                throw new Exception("日期不合法");
+            }
+
+            //拿到所有数据
+            List<Integer> allData = this.dayFormRepository.findMSumByMYearAndMMonthAndMCompany(year, month, company);
+
+            //转换成json
+            JSONObject retJsonObj = new JSONObject();
+            retJsonObj.put("year", year);
+            retJsonObj.put("month", month);
+
+            JSONArray dataArr = new JSONArray();
+            dataArr.addAll(allData);
+            retJsonObj.put("data", dataArr);
+
+            return retJsonObj.toJSONString();
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -149,7 +163,19 @@ public class FormService {
     /*获取一年内各天的数据*/
     public String getTakenSumByDayInYear(Integer year, DeliverCompany company){
         try{
-            return null;
+            //拿到所有数据
+            List<Integer> allData = this.dayFormRepository.findMSumByMYearAndMCompany(year, company);
+
+            //生成Json
+            JSONObject retJsonObject = new JSONObject();
+
+            retJsonObject.put("year", year);
+
+            JSONArray dataArr = new JSONArray();
+            dataArr.addAll(allData);
+            retJsonObject.put("data", dataArr);
+
+            return retJsonObject.toJSONString();
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -160,8 +186,26 @@ public class FormService {
     /*获取一个时间段内按照天数统计的函数, 包括end中的天数*/
     public String getTakenSumByDayInPeriod(Calendar beg, Calendar end, DeliverCompany company){
         try{
-            //TODO:
-            return null;
+            Calendar flag = (Calendar) beg.clone();
+            List<Integer> allData = new LinkedList<>();
+            while(flag.compareTo(end) <= 0){
+                int year = flag.get(Calendar.YEAR);
+                int mon = flag.get(Calendar.MONTH) + 1;
+                int day = flag.get(Calendar.DAY_OF_MONTH);
+                allData.addAll(this.dayFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(year, mon, day, company));
+                flag.add(Calendar.DAY_OF_MONTH,1);
+            }
+
+            //JSON
+            JSONObject retJsonObject = new JSONObject();
+            retJsonObject.put("begTime", CalendarToString(beg));
+            retJsonObject.put("endTime", CalendarToString(end));
+
+            JSONArray dataArr = new JSONArray();
+            dataArr.addAll(allData);
+            retJsonObject.put("data", dataArr);
+
+            return retJsonObject.toJSONString();
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -171,17 +215,49 @@ public class FormService {
     /*获取一年内各月的数据*/
     public String getTakenSumByMonthInYear(Integer year, DeliverCompany company){
         try{
-            return null;
+            List<Integer> allData = this.monthFormRepository.findMSumByMYearAndMCompany(year, company);
+
+            JSONObject retJsonObject = new JSONObject();
+            retJsonObject.put("year", year);
+
+            JSONArray dataArr = new JSONArray();
+            dataArr.addAll(allData);
+
+            retJsonObject.put("data", dataArr);
+
+            return retJsonObject.toJSONString();
         }catch(Exception e){
             e.printStackTrace();
             return null;
         }
 
     }
-    /*获取一个时间段内按照月统计的函数, 包括end中的天数*/
+
+    /*获取一个时间段内按照月统计的函数, 包括end中的月数*/
     public String getTakenSumByMonthInPeriod(Calendar beg, Calendar end, DeliverCompany company){
         try{
-            return null;
+            List<Integer> allData = new LinkedList<>();
+            Calendar flag = (Calendar)beg.clone();
+
+            while(flag.compareTo(end) <= 0){
+                int year = flag.get(Calendar.YEAR);
+                int mon = flag.get(Calendar.MONTH) + 1;
+                int day = flag.get(Calendar.DAY_OF_MONTH);
+
+                allData.addAll(this.monthFormRepository.findMSumByMYearAndMMonthAndMCompany(year, mon, company));
+                flag.add(Calendar.MONTH,1);
+            }
+
+            JSONObject retJsonObj = new JSONObject();
+            retJsonObj.put("begTime", CalendarToString(beg));
+            retJsonObj.put("endTime", CalendarToString(end));
+
+            JSONArray dataArr = new JSONArray();
+            dataArr.addAll(dataArr);
+            retJsonObj.put("data", dataArr);
+
+            return retJsonObj.toJSONString();
+            
         }catch(Exception e){
             e.printStackTrace();
             return null;

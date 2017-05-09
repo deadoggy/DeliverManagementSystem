@@ -1,11 +1,14 @@
 package com.deliver.dao;
 
 import com.deliver.model.DayForm;
+import com.deliver.model.DeliverCompany;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -17,9 +20,9 @@ public interface DayFormRepository extends JpaRepository<DayForm, Integer>{
 
     DayForm findByMId(int id);
 
-    Page<DayForm> findByMYearAndMMonthAndMDay(int year, int mon, int day, Pageable pageable);
+    List<Integer> findMSumByMYearAndMMonthAndMDayAndMCompany(int year, int mon, int day, DeliverCompany company);
 
-    Page<DayForm> findByMYearAndMMonth(int year, int mon, Pageable pageable);
+    List<Integer> findMSumByMYearAndMMonthAndMCompany(int year, int mon, DeliverCompany company);
 
-    Page<DayForm> findByMYear(int year, Pageable pageable);
+    List<Integer> findMSumByMYearAndMCompany(int year, DeliverCompany company);
 }

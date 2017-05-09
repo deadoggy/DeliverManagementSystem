@@ -1,7 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -17,6 +17,9 @@ public class Employee {
 
     @Column(name="employee_id",unique = true,nullable = false)
     private String mEmployeeId;
+
+    @Column(name = "name", nullable = false)
+    private String mName;
 
     @Column(name="age",nullable = false)
     private int mAge;
@@ -42,8 +45,9 @@ public class Employee {
 
     }
 
-    public Employee(String mEmployeeId, int mAge, float mSalary, Point mPoint, Timestamp mEnteringTime) {
+    public Employee(String mEmployeeId, String mName, int mAge, float mSalary, Point mPoint, Timestamp mEnteringTime) {
         this.mEmployeeId = mEmployeeId;
+        this.mName = mName;
         this.mAge = mAge;
         this.mSalary = mSalary;
         this.mPoint = mPoint;
@@ -112,5 +116,13 @@ public class Employee {
 
     public void setmPosition(List<Position> mPosition) {
         this.mPosition = mPosition;
+    }
+
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 }

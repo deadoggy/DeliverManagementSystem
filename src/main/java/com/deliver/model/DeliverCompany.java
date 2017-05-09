@@ -1,6 +1,5 @@
 package com.deliver.model;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 
 import javax.persistence.*;
 import java.util.List;

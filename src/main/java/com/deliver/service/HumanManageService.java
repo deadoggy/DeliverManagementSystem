@@ -69,7 +69,7 @@ public class HumanManageService {
         }
     }
 
-    public boolean addNewEmployee(String employeeId, String name,int age, float salary, String pointId){
+    public boolean addNewEmployee(String employeeId, String name,int age, float salary, String pointId, String pwd){
 
         try{
             if(pointId == null || employeeId == null){
@@ -81,8 +81,11 @@ public class HumanManageService {
             if (point == null) {
                 throw new Exception("invalid point id");
             }
+            if(null == pwd){
+                pwd = "123456";
+            }
 
-            Employee noob = new Employee(employeeId, name, age, salary, point, new Timestamp(new java.util.Date().getTime()));
+            Employee noob = new Employee(employeeId, name, age, salary, point, new Timestamp(new java.util.Date().getTime()), pwd);
 
             this.employeeRepository.save(noob);
 
@@ -115,6 +118,7 @@ public class HumanManageService {
     *   Age
     *   Salary
     *   Point
+    *   Pwd
     * */
     public boolean changeAttribute(String employeeId, String attribute, Object newValue){
         try{

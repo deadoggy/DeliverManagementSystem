@@ -33,6 +33,9 @@ public class Employee {
     @Column(name="entering_time",nullable = false)
     private Timestamp mEnteringTime;
 
+    @Column(name="pwd", nullable = false)
+    private String mPwd;
+
 
     @OneToMany(mappedBy = "mId")
     private List<Attendance> mAttendence;
@@ -45,13 +48,14 @@ public class Employee {
 
     }
 
-    public Employee(String mEmployeeId, String mName, int mAge, float mSalary, Point mPoint, Timestamp mEnteringTime) {
+    public Employee(String mEmployeeId, String mName, int mAge, float mSalary, Point mPoint, Timestamp mEnteringTime, String mPwd) {
         this.mEmployeeId = mEmployeeId;
         this.mName = mName;
         this.mAge = mAge;
         this.mSalary = mSalary;
         this.mPoint = mPoint;
         this.mEnteringTime = mEnteringTime;
+        this.mPwd = mPwd;
     }
 
     public int getmId() {
@@ -124,5 +128,13 @@ public class Employee {
 
     public void setmName(String mName) {
         this.mName = mName;
+    }
+
+    public String getmPwd() {
+        return mPwd;
+    }
+
+    public void setmPwd(String mPwd) {
+        this.mPwd = mPwd;
     }
 }

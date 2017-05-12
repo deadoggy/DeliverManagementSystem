@@ -35,7 +35,7 @@ public class SelfAuthenticationProviderImpl implements AuthenticationProvider {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(inputUsername);
 
 
-            if(0 == userDetails.getPassword().compareTo(this.bcryptEncoder.encipher(inputUsername, inputPwd))){
+            if(bcryptEncoder.match(inputUsername,inputPwd, userDetails.getPassword())){
                 return new UsernamePasswordAuthenticationToken(inputUsername, inputPwd, userDetails.getAuthorities());
             }
 

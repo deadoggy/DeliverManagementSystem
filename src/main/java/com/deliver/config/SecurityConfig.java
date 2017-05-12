@@ -1,5 +1,7 @@
 package com.deliver.config;
 
+import com.deliver.dao.EmployeeRepository;
+import com.deliver.service.HumanManageService;
 import com.deliver.service.SelfAuthenticationProviderImpl;
 import com.deliver.service.SelfUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     @Override
 
     protected void configure(HttpSecurity http) throws Exception {
@@ -29,19 +34,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //静态资源通过nginx访问, 其他资源通过tomcat访问
         try{
-            http.authorizeRequests().anyRequest().authenticated();
-
+            http.authorizeRequests().anyRequest().authenticated()
+                .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home",true)
+                .and().csrf().disable();
         }catch(Exception e){
             e.printStackTrace();
             throw e;
         }
-
     }
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws  Exception{
 
-        SelfUserDetailsServiceImpl userDetailsService = new SelfUserDetailsServiceImpl();
+        SelfUserDetailsServiceImpl userDetailsService = new SelfUserDetailsServiceImpl(this.employeeRepository);
 
         SelfAuthenticationProviderImpl authenticationProvider = new SelfAuthenticationProviderImpl(userDetailsService);
 

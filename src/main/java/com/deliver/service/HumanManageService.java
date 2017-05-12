@@ -85,6 +85,10 @@ public class HumanManageService {
                 pwd = "123456";
             }
 
+            SelfBcryptEncoder encoder = new SelfBcryptEncoder();
+
+            pwd = encoder.encipher(employeeId, pwd);
+
             Employee noob = new Employee(employeeId, name, age, salary, point, new Timestamp(new java.util.Date().getTime()), pwd);
 
             this.employeeRepository.save(noob);

@@ -10,16 +10,22 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 /**
  * Created by deadoggy on 17-5-10.
  */
+
 public class SelfUserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
+
     private EmployeeRepository repo;
+
+    public SelfUserDetailsServiceImpl(EmployeeRepository repo) {
+        this.repo = repo;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -19,7 +19,7 @@
             <!--配置数据库密码 -->
             <property name="hibernate.connection.password" value="123456" />
             <!--配置数据库url -->
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Deliver" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Deliver?useUnicode=true&amp;characterEncoding=UTF-8" />
             <!-- 显示SQL语句 -->
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.connection.useUnicode" value="true"/>

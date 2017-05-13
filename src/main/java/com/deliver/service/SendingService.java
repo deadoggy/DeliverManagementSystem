@@ -19,28 +19,31 @@ public class SendingService {
     @Autowired
     private SendingRecordRepository sendingRecordRepository;
 
-    @Transactional
-    public JSONObject addSendingRecord(JSONObject jsonObj) {
+
+    public boolean addSendingRecord(JSONObject jsonObj) {
         try {
             String id=jsonObj.getString("sendingRecordId");
-            if(sendingRecordRepository.findBySendingRecord(id)!=null){
+            if(sendingRecordRepository.findByMSendingRecordId(id)!=null){
                 throw new Exception("已经存在此记录");
             }
             SendingRecord sendingRecord=JSON.parseObject(jsonObj.toString(),SendingRecord.class);
             sendingRecordRepository.saveAndFlush(sendingRecord);
-            JSONObject retJsonObj=new JSONObject();
-            retJsonObj.put("state","success");
-            return retJsonObj;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return false;
         }
     }
-    @Transactional
+
     public String getSendingRecordById(String sendingRecordId){
         try{
-            SendingRecord sendingRecord=sendingRecordRepository.findBySendingRecord(sendingRecordId);
-            return JSON.toJSONString(sendingRecord);
+            SendingRecord sendingRecord=sendingRecordRepository.findByMSendingRecordId(sendingRecordId);
+            if(sendingRecord==null){
+                return null;
+            }
+            else{
+                return JSON.toJSONString(sendingRecord);
+            }
         }catch (Exception e){
             e.printStackTrace();
             return null;

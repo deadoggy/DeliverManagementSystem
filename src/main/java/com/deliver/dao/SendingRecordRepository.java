@@ -16,12 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface SendingRecordRepository extends JpaRepository<SendingRecord,Integer>{
     SendingRecord findByMId(int id);
 
-    Page<SendingRecord> findByMSendingRecordId(String sendingRecordId, Pageable pageable);
+    SendingRecord findByMSendingRecordId(String sendingRecordId);
 
     Page<SendingRecord> findByMSenderName(String senderName, Pageable pageable);
 
     Page<SendingRecord> findByMSenderTele(String mSenderTele, Pageable pageable);
 
-    @Query("select sr from sending_record sr where sr.sending_record_id=?1")
-    SendingRecord findBySendingRecord(String id);
+
 }

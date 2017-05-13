@@ -36,18 +36,17 @@ public class ShelfService {
         }
     }
 
+
     @Transactional
-    public String addShelf(JSONObject jsonObject) {
+    public boolean addShelf(JSONObject jsonObject) {
         String shelfId = jsonObject.getString("shelfId");
         try {
             if (shelfRepository.findByMShelfId(shelfId) == null) {
                 Shelf shelf = jsonObject.toJavaObject(Shelf.class);
                 shelfRepository.saveAndFlush(shelf);
-                JSONObject retJsonObj = new JSONObject();
-                retJsonObj.put("state", "success");
-                return retJsonObj.toJSONString();
+                return true;
             } else {
-                return null;
+                return false;
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -55,6 +54,5 @@ public class ShelfService {
         }
     }
 
-    @Transactional
-    public String find
+
 }

@@ -1,0 +1,78 @@
+08-May-2017 22:46:27.758 SEVERE [main] org.apache.catalina.startup.Catalina.initDirs Cannot find specified temporary folder at /home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build/temp
+08-May-2017 22:46:28.186 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/9.0.0.M19
+08-May-2017 22:46:28.186 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Apr 14 2017 06:00:06 UTC
+08-May-2017 22:46:28.186 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         9.0.0.0
+08-May-2017 22:46:28.187 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+08-May-2017 22:46:28.187 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            4.4.0-75-generic
+08-May-2017 22:46:28.187 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+08-May-2017 22:46:28.187 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /var/lib/java/jdk1.8.0_121/jre
+08-May-2017 22:46:28.188 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_121-b13
+08-May-2017 22:46:28.188 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+08-May-2017 22:46:28.188 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:46:28.188 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:46:28.189 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build/conf/logging.properties
+08-May-2017 22:46:28.189 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-May-2017 22:46:28.189 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-May-2017 22:46:28.189 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+08-May-2017 22:46:28.190 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:46:28.190 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:46:28.190 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build/temp
+08-May-2017 22:46:28.190 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+08-May-2017 22:46:28.310 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:46:28.327 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+08-May-2017 22:46:28.330 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:46:28.332 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+08-May-2017 22:46:28.332 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 575 ms
+08-May-2017 22:46:28.355 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
+08-May-2017 22:46:28.355 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/9.0.0.M19
+08-May-2017 22:46:29.661 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-May-2017 22:46:29.708 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:46:29.716 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:46:29.718 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 1384 ms
+08-May-2017 22:46:44.994 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-May-2017 22:46:44.994 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:46:45.046 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:46:45.098 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service Catalina
+08-May-2017 22:46:45.130 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:46:45.132 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:46:45.133 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:46:45.134 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:47:04.584 SEVERE [main] org.apache.catalina.startup.Catalina.initDirs Cannot find specified temporary folder at /home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build/temp
+08-May-2017 22:47:04.987 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/9.0.0.M19
+08-May-2017 22:47:04.987 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Apr 14 2017 06:00:06 UTC
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         9.0.0.0
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            4.4.0-75-generic
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /var/lib/java/jdk1.8.0_121/jre
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_121-b13
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:47:04.988 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build/conf/logging.properties
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/home/deadoggy/WorkSpace/java/DeliverManagementSystem/Server/Build/temp
+08-May-2017 22:47:04.989 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+08-May-2017 22:47:05.114 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:47:05.126 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+08-May-2017 22:47:05.128 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:47:05.129 INFO [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+08-May-2017 22:47:05.129 INFO [main] org.apache.catalina.startup.Catalina.load Initialization processed in 545 ms
+08-May-2017 22:47:05.152 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service Catalina
+08-May-2017 22:47:05.152 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/9.0.0.M19
+08-May-2017 22:47:06.442 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+08-May-2017 22:47:06.482 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:47:06.488 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:47:06.490 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in 1360 ms
+08-May-2017 22:47:08.007 INFO [main] org.apache.catalina.core.StandardServer.await A valid shutdown command was received via the shutdown port. Stopping the Server instance.
+08-May-2017 22:47:08.008 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:47:08.013 INFO [main] org.apache.coyote.AbstractProtocol.pause Pausing ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:47:08.014 INFO [main] org.apache.catalina.core.StandardService.stopInternal Stopping service Catalina
+08-May-2017 22:47:08.027 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:47:08.029 INFO [main] org.apache.coyote.AbstractProtocol.stop Stopping ProtocolHandler ["ajp-nio-8009"]
+08-May-2017 22:47:08.030 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["http-nio-8080"]
+08-May-2017 22:47:08.031 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destroying ProtocolHandler ["ajp-nio-8009"]

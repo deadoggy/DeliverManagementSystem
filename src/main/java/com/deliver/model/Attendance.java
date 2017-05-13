@@ -1,6 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -17,6 +18,9 @@ public class Attendance {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Employee mEmployee;
 
+    @Column(name = "date", nullable = false)
+    private Date mDate;
+
     @Column(name="begin_time",nullable = false)
     private Timestamp mBeginTime;
 
@@ -25,15 +29,14 @@ public class Attendance {
 
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private Point mPoint;
-//    @Column(name="point_id",nullable = false)
-//    private String mPointId;
 
     public Attendance(){
 
     }
 
-    public Attendance(Employee mEmployee, Timestamp mBeginTime, Timestamp mEndTime, Point mPoint) {
+    public Attendance(Employee mEmployee, Date mDate, Timestamp mBeginTime, Timestamp mEndTime, Point mPoint) {
         this.mEmployee = mEmployee;
+        this.mDate = mDate;
         this.mBeginTime = mBeginTime;
         this.mEndTime = mEndTime;
         this.mPoint = mPoint;
@@ -77,5 +80,13 @@ public class Attendance {
 
     public void setmPoint(Point mPoint) {
         this.mPoint = mPoint;
+    }
+
+    public Date getmDate() {
+        return mDate;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.deliver.model.Attendance;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -21,6 +22,8 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     Attendance findByMId(int id);
 
     Page<Attendance> findByMEmployee(Employee employee, Pageable pageable);
+
+    Attendance findByMEmployeeAndMDate(Employee employee, Date date);
 
     Page<Attendance> findByMBeginTime( Timestamp begTime, Pageable pageable);
 

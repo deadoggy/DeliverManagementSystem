@@ -16,6 +16,8 @@ import java.util.List;
 public interface PointRepository extends JpaRepository<Point, Integer>{
     Point findByMId(int id);
 
+    Point findByMBusinessPointId(String id);
+
     Page<Point> findByMName(String name, Pageable pageable);
 
     Page<Point> findByMProvince(String province, Pageable pageable);

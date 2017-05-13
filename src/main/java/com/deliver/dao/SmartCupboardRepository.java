@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface SmartCupboardRepository extends JpaRepository<SmartCupboard,Integer>{
     SmartCupboard findByMId(int id);
 
-    Page<SmartCupboard> findByMCupboardId(String cupboardId, Pageable pageable);
+    SmartCupboard findByMCupboardId(String cupboardId);
 
     Page<SmartCupboard> findByMEmptySum(int emptySum, Pageable pageable);
 
@@ -24,6 +24,5 @@ public interface SmartCupboardRepository extends JpaRepository<SmartCupboard,Int
     Page<SmartCupboard> findByMLayerSum(int layerSum, Pageable pageable);
 
     Page<SmartCupboard> findByMColumnSum(int columnSum, Pageable pageable);
-
 
 }

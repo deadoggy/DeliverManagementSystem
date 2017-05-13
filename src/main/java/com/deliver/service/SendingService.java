@@ -4,6 +4,7 @@ package com.deliver.service;
  * Created by 91574 on 2017/5/7.
  */
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.SendingRecordRepository;
 import com.deliver.model.DeliverCompany;
@@ -25,9 +26,7 @@ public class SendingService {
             if(sendingRecordRepository.findBySendingRecord(id)!=null){
                 throw new Exception("已经存在此记录");
             }
-            SendingRecord sendingRecord=new SendingRecord(jsonObj.getString("sendingRecordId"),
-                    (Package)jsonObj.get("package"),jsonObj.getString("senderName"),
-                    jsonObj.getString("senderTele"),(DeliverCompany)jsonObj.get("delivercompany"));
+            SendingRecord sendingRecord=JSON.parseObject(jsonObj.toString(),SendingRecord.class);
             sendingRecordRepository.saveAndFlush(sendingRecord);
             JSONObject retJsonObj=new JSONObject();
             retJsonObj.put("state","success");
@@ -38,10 +37,10 @@ public class SendingService {
         }
     }
     @Transactional
-    public SendingRecord getSendingRecordById(String sendingRecordId){
+    public String getSendingRecordById(String sendingRecordId){
         try{
             SendingRecord sendingRecord=sendingRecordRepository.findBySendingRecord(sendingRecordId);
-            return sendingRecord;
+            return JSON.toJSONString(sendingRecord);
         }catch (Exception e){
             e.printStackTrace();
             return null;

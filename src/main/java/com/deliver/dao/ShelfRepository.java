@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by 91574 on 2017/5/3.
  */
@@ -25,5 +27,6 @@ public interface ShelfRepository extends JpaRepository<Shelf,Integer>{
     Page<Shelf> findByMLayerSum(int layerSum, Pageable pageable);
 
     Page<Shelf> findByMColumnSum(int columnSum, Pageable pageable);
+
 
 }

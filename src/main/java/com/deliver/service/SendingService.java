@@ -10,9 +10,14 @@ import com.deliver.dao.SendingRecordRepository;
 import com.deliver.model.DeliverCompany;
 import com.deliver.model.Package;
 import com.deliver.model.SendingRecord;
+import javafx.scene.control.DateCell;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class SendingService {
@@ -20,13 +25,14 @@ public class SendingService {
     private SendingRecordRepository sendingRecordRepository;
 
 
-    public boolean addSendingRecord(JSONObject jsonObj) {
+    public boolean addSendingRecord(JSONObject jsonObject) {
         try {
-            String id=jsonObj.getString("sendingRecordId");
-            if(sendingRecordRepository.findByMSendingRecordId(id)!=null){
+            String id = jsonObject.getString("mSendingRecordId");
+            if (sendingRecordRepository.findByMSendingRecordId(id) != null) {
                 throw new Exception("已经存在此记录");
             }
-            SendingRecord sendingRecord=JSON.parseObject(jsonObj.toString(),SendingRecord.class);
+            SendingRecord sendingRecord = JSON.parseObject(jsonObject.toString(), SendingRecord.class);
+            sendingRecord.setmSendTime(new Timestamp(System.currentTimeMillis()));
             sendingRecordRepository.saveAndFlush(sendingRecord);
             return true;
         } catch (Exception e) {
@@ -35,19 +41,8 @@ public class SendingService {
         }
     }
 
-    public String getSendingRecordById(String sendingRecordId){
-        try{
-            SendingRecord sendingRecord=sendingRecordRepository.findByMSendingRecordId(sendingRecordId);
-            if(sendingRecord==null){
-                return null;
-            }
-            else{
-                return JSON.toJSONString(sendingRecord);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+    public SendingRecord getSendingRecordById(String sendingRecordId) {
+        return sendingRecordRepository.findByMSendingRecordId(sendingRecordId);
     }
 
 }

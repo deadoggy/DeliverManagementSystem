@@ -14,8 +14,6 @@ public final class Constant {
     public static final boolean PROXY_CHARGE_SEND = false;
     public static final boolean PROXY_CHARGE_RECEIVE = true;
 
-    public static final int STORAGE_POSITION_SIZE_SMALL = 0;
-    public static final int STORAGE_POSITION_SIZE_MEDIUM = 1;
-    public static final int STORAGE_POSITION_SIZE_LARGE = 2;
+
     
 }

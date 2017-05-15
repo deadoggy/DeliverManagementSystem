@@ -1,6 +1,8 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 /**
  * Created by 91574 on 2017/4/19.
@@ -25,6 +27,36 @@ public class SendingRecord {
     @Column(name = "sender_tele",nullable = false)
     private String mSenderTele;
 
+    @Column(name="sender_address",nullable = false)
+    private String mSenderAddress;
+
+    @Column(name="sender_city",nullable = false)
+    private String mSenderCity;
+
+    @Column(name="sender_province",nullable = false)
+    private String mSenderProvince;
+
+    @Column(name="receiver_name",nullable = false)
+    private String mReceiverName;
+
+    @Column(name="receiver_tele",nullable = false)
+    private String mReceiverTele;
+
+    @Column(name="receiver_address",nullable = false)
+    private String mReceiverAddress;
+
+    @Column(name="receiver_city",nullable = false)
+    private String mReceiverCity;
+
+    @Column(name="receiver_province",nullable = false)
+    private String mReceiverProvince;
+
+    @Column(name="weight",nullable = false)
+    private double mWeight;
+
+    @Column(name="send_time")
+    private Timestamp mSendTime;
+
     @ManyToOne
     private DeliverCompany mCompany;//foreign
 
@@ -32,12 +64,24 @@ public class SendingRecord {
 
     }
 
-    public SendingRecord(String mSendingRecordId, Package mPackage,
-                         String mSenderName, String mSenderTele, DeliverCompany mCompany) {
+    public SendingRecord(String mSendingRecordId, Package mPackage, String mSenderName, String mSenderTele,
+                         String mSenderAddress, String mSenderCity, String mSenderProvince, String mReceiverName,
+                         String mReceiverTele, String mReceiverAddress, String mReceiverCity,
+                         String mReceiverProvince, double mWeight, Timestamp mSendTime, DeliverCompany mCompany) {
         this.mSendingRecordId = mSendingRecordId;
         this.mPackage = mPackage;
         this.mSenderName = mSenderName;
         this.mSenderTele = mSenderTele;
+        this.mSenderAddress = mSenderAddress;
+        this.mSenderCity = mSenderCity;
+        this.mSenderProvince = mSenderProvince;
+        this.mReceiverName = mReceiverName;
+        this.mReceiverTele = mReceiverTele;
+        this.mReceiverAddress = mReceiverAddress;
+        this.mReceiverCity = mReceiverCity;
+        this.mReceiverProvince = mReceiverProvince;
+        this.mWeight = mWeight;
+        this.mSendTime = mSendTime;
         this.mCompany = mCompany;
     }
 
@@ -81,6 +125,86 @@ public class SendingRecord {
         this.mSenderTele = mSenderTele;
     }
 
+    public String getmSenderAddress() {
+        return mSenderAddress;
+    }
+
+    public void setmSenderAddress(String mSenderAddress) {
+        this.mSenderAddress = mSenderAddress;
+    }
+
+    public String getmSenderCity() {
+        return mSenderCity;
+    }
+
+    public void setmSenderCity(String mSenderCity) {
+        this.mSenderCity = mSenderCity;
+    }
+
+    public String getmSenderProvince() {
+        return mSenderProvince;
+    }
+
+    public void setmSenderProvince(String mSenderProvince) {
+        this.mSenderProvince = mSenderProvince;
+    }
+
+    public String getmReceiverName() {
+        return mReceiverName;
+    }
+
+    public void setmReceiverName(String mReceiverName) {
+        this.mReceiverName = mReceiverName;
+    }
+
+    public String getmReceiverTele() {
+        return mReceiverTele;
+    }
+
+    public void setmReceiverTele(String mReceiverTele) {
+        this.mReceiverTele = mReceiverTele;
+    }
+
+    public String getmReceiverAddress() {
+        return mReceiverAddress;
+    }
+
+    public void setmReceiverAddress(String mReceiverAddress) {
+        this.mReceiverAddress = mReceiverAddress;
+    }
+
+    public String getmReceiverCity() {
+        return mReceiverCity;
+    }
+
+    public void setmReceiverCity(String mReceiverCity) {
+        this.mReceiverCity = mReceiverCity;
+    }
+
+    public String getmReceiverProvince() {
+        return mReceiverProvince;
+    }
+
+    public void setmReceiverProvince(String mReceiverProvince) {
+        this.mReceiverProvince = mReceiverProvince;
+    }
+
+    public double getmWeight() {
+        return mWeight;
+    }
+
+    public void setmWeight(double mWeight) {
+        this.mWeight = mWeight;
+    }
+
+    public Timestamp getmSendTime() {
+        return mSendTime;
+    }
+
+    public void setmSendTime(Timestamp mSendTime) {
+        this.mSendTime = mSendTime;
+    }
+
     public DeliverCompany getmCompany() {
         return mCompany;
     }
@@ -88,4 +212,6 @@ public class SendingRecord {
     public void setmCompany(DeliverCompany mCompany) {
         this.mCompany = mCompany;
     }
+
+
 }

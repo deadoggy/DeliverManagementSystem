@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SendingServiceTest extends BaseServiceTest {
     @Autowired
     private SendingService sendingService;
-//    @Test
-//    public void addSendingRecord(){
+
+    @Test
+    public void add(){
 //        JSONObject jsonObject=new JSONObject();
 //        jsonObject.put("")
 //        sendingService.addSendingRecord()
-//    }
+    }
 }

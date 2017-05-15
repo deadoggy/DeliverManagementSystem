@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface DeliverCompanyRepository extends JpaRepository<DeliverCompany, Integer> {
 
-    DeliverCompany findBymId(int id);
+    DeliverCompany findByMId(int id);
 
-    Page<DeliverCompany> findByMCompanyId( String companyId, Pageable pageable);
+    DeliverCompany findByMCompanyId(String companyId);
 
-    Page<DeliverCompany> findByMName(String name, Pageable pageable);
+    DeliverCompany findByMName(String name);
 
 }

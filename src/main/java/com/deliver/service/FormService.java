@@ -267,4 +267,10 @@ public class FormService {
         }
     }
 
+    /*获取一个公司一个月内的账单信息*/
+    public String getBillByCompanyAndMonth(DeliverCompany company, Calendar mon){
+        return "TODO";
+    }
+
+    /*获取一个公司一段时间内的账单信息*/
 }

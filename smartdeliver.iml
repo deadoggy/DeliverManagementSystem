@@ -89,5 +89,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-test:4.3.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: asm:asm:3.3.1" level="project" />
+    <orderEntry type="library" name="taobao-sdk-java-auto_1455552377940-20160607" level="project" />
   </component>
 </module>

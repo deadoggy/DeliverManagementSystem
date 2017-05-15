@@ -22,7 +22,7 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
 
     Package findByMId(int id);
 
-    Page<Package> findByMPackageId(String packageId, Pageable pageable);
+    Package findByMPackageId(String packageId);
 
     Page<Package> findByMReceiverName(String receiverName, Pageable pageable);
 

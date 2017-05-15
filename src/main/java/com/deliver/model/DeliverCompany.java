@@ -18,7 +18,7 @@ public class DeliverCompany {
     @Column(name="company_id",unique = true,nullable = false)
     private String mCompanyId;
 
-    @Column(name = "name",nullable = false)
+    @Column(name = "name",unique = true,nullable = false)
     private String mName;
 
     @OneToMany(mappedBy = "mId")

@@ -176,7 +176,6 @@ public class FormService {
             retJsonObject.put("data", dataArr);
 
             return retJsonObject.toJSONString();
-
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -207,7 +206,6 @@ public class FormService {
             retJsonObject.put("data", dataArr);
 
             return retJsonObject.toJSONString();
-
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -228,7 +226,6 @@ public class FormService {
             retJsonObject.put("data", dataArr);
 
             return retJsonObject.toJSONString();
-
         }catch(Exception e){
             e.printStackTrace();
             return null;

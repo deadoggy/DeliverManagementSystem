@@ -17,11 +17,9 @@ public interface StoragePositionreRepository extends JpaRepository<StoragePositi
 
     Page<StoragePosition> findByMCuporShelf(boolean cuporShelf, Pageable pageable);
 
-    Page<StoragePosition> findByMEmptyorFull(boolean emptyorFull, Pageable pageable);
+    Page<StoragePosition> findByMEmpty(boolean empty, Pageable pageable);
 
     Page<StoragePosition> findByMLayer(int layer, Pageable pageable);
 
     Page<StoragePosition> findByMColumn(int column, Pageable pageable);
-
-    Page<StoragePosition> findByMSize(int size, Pageable pageable);
 }

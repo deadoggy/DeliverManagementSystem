@@ -50,7 +50,7 @@ public class ShortMesgService {
 
     private void init() throws Exception{
         try{
-            String url = this.getClass().getResource("/").toURI().toString() + "../../../../static/" + ShortMesgService.mConfig;
+            String url = this.getClass().getResource("/").toURI().toString() + "../static/" + ShortMesgService.mConfig;
 
             url = url.substring(5);
 

@@ -19,10 +19,10 @@ public class Shelf {
     @Column(name = "shelf_id", nullable = false, unique = true)
     private String mShelfId;
 
-    @Column(name = "empty_sum", nullable = false)
+    @Column(name = "empty_sum")
     private int mEmptySum;
 
-    @Column(name = "position_sum", nullable = false)
+    @Column(name = "position_sum")
     private int mPositionSum;
 
     @Column(name = "layer_sum", nullable = false)

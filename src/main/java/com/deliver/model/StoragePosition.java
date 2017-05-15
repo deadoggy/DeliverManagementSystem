@@ -21,7 +21,7 @@ public class StoragePosition {
     private boolean mCuporShelf;
 
     @Column(name = "empty_full", nullable = false)
-    private boolean mEmptyorFull; // constant.Constant
+    private boolean mEmpty; // constant.Constant
 
     @Column(name = "layer_index", nullable = false)
     private int mLayer;
@@ -29,11 +29,10 @@ public class StoragePosition {
     @Column(name = "column_index", nullable = false)
     private int mColumn;
 
-    @Column(name = "size", nullable = false)
-    private int mSize;
+    @Column(name="identify_code")
+    private String mIdentifyCode;
 
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = { CascadeType.MERGE ,CascadeType.REFRESH})
     private SmartCupboard mCup;
 
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
@@ -45,16 +44,17 @@ public class StoragePosition {
     public StoragePosition() {
     }
 
-    public StoragePosition(boolean mCuporShelf, boolean mEmptyorFull,
-                           int mLayer, int mColumn, int mSize,
-                           SmartCupboard mCup, Shelf mShelf) {
+    public StoragePosition(boolean mCuporShelf, boolean mEmpty, int mLayer, int mColumn,
+                           String mIdentifyCode, SmartCupboard mCup, Shelf mShelf,
+                           List<Package> mPackage) {
         this.mCuporShelf = mCuporShelf;
-        this.mEmptyorFull = mEmptyorFull;
+        this.mEmpty = mEmpty;
         this.mLayer = mLayer;
         this.mColumn = mColumn;
-        this.mSize = mSize;
+        this.mIdentifyCode = mIdentifyCode;
         this.mCup = mCup;
         this.mShelf = mShelf;
+        this.mPackage = mPackage;
     }
 
     public int getmId() {
@@ -73,12 +73,12 @@ public class StoragePosition {
         this.mCuporShelf = mCuporShelf;
     }
 
-    public boolean ismEmptyorFull() {
-        return mEmptyorFull;
+    public boolean ismEmpty() {
+        return mEmpty;
     }
 
-    public void setmEmptyorFull(boolean mEmptyorFull) {
-        this.mEmptyorFull = mEmptyorFull;
+    public void setmEmpty(boolean mEmpty) {
+        this.mEmpty = mEmpty;
     }
 
     public int getmLayer() {
@@ -97,12 +97,12 @@ public class StoragePosition {
         this.mColumn = mColumn;
     }
 
-    public int getmSize() {
-        return mSize;
+    public String getmIdentifyCode() {
+        return mIdentifyCode;
     }
 
-    public void setmSize(int mSize) {
-        this.mSize = mSize;
+    public void setmIdentifyCode(String mIdentifyCode) {
+        this.mIdentifyCode = mIdentifyCode;
     }
 
     public SmartCupboard getmCup() {

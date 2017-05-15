@@ -23,7 +23,7 @@ import java.util.Date;
  * Created by deadoggy on 17-5-12.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/dispatcher-servlet.xml"})
 public class InsertDataTest {
 
     @Autowired

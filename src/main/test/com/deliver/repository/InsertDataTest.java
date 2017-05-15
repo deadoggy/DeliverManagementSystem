@@ -55,12 +55,12 @@ public class InsertDataTest {
     @Test
     public void insertPackage(){
         Package p = new Package();
-        p.setmPackageId("00000000000");
+        p.setmPackageId("00000000001");
         p.setmReceiveTime(new Timestamp(new Date().getTime()));
         p.setmProxyChargeFee(0.0d);
         p.setmTaken(false);
-        p.setmReceiverName("张尹嘉");
-        p.setmReceiverTele("13301856183");
+        p.setmReceiverName("老逼威");
+        p.setmReceiverTele("18221238151");
         p.setmCupOrShelf(Constant.POSITION_IN_CUPBOARD);
 
         this.packageRepository.save(p);

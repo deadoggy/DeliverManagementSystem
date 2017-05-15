@@ -36,7 +36,7 @@ public class StoragePosition {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private SmartCupboard mCup;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private Shelf mShelf;
 
     @OneToMany(mappedBy = "mId")

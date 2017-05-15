@@ -24,7 +24,7 @@ public class ShortMesgTest {
     public void send(){
         try{
             ShortMesgService shortMesgService = ShortMesgService.getInstance();
-            Package p = this.packageRepository.findByMPackageId("00000000000");
+            Package p = this.packageRepository.findByMPackageId("00000000001");
             shortMesgService.SendMessage(p,false);
         }catch(Exception e){
 

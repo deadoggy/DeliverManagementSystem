@@ -20,9 +20,6 @@ public class ProxyChargeRecord {
     @OneToOne
     private Package mPackage;// foreign key
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    private DeliverCompany mCompany;// foreign key
-
     @Column(name = "fee", nullable = false)
     private double mFee;
 
@@ -34,10 +31,9 @@ public class ProxyChargeRecord {
 
     public ProxyChargeRecord() {}
 
-    public ProxyChargeRecord(Package mPackage, DeliverCompany mCompany,
+    public ProxyChargeRecord(Package mPackage,
                              double mFee, boolean mSendorReceive, Timestamp mTime) {
         this.mPackage = mPackage;
-        this.mCompany = mCompany;
         this.mFee = mFee;
         this.mSendorReceive = mSendorReceive;
         this.mTime = mTime;
@@ -49,14 +45,6 @@ public class ProxyChargeRecord {
 
     public void setmPackage(Package mPackage) {
         this.mPackage = mPackage;
-    }
-
-    public DeliverCompany getmCompany() {
-        return mCompany;
-    }
-
-    public void setmCompany(DeliverCompany mCompany) {
-        this.mCompany = mCompany;
     }
 
     public int getmId() {

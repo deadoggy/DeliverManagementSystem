@@ -57,6 +57,8 @@ public class SendingRecord {
     @Column(name="send_time")
     private Timestamp mSendTime;
 
+
+
     @ManyToOne
     private DeliverCompany mCompany;//foreign
 

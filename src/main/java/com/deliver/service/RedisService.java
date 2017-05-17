@@ -28,6 +28,7 @@ public class RedisService {
             if(null == testCode || 0 != testCode.compareTo(code.toLowerCase())){
                 return false;
             }
+            connector.del(sessionId);
             return true;
         }catch(Exception e){
             e.printStackTrace();

@@ -22,8 +22,8 @@ public class CAPTCHAService {
     private String randString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";// 随机产生的字符串
 
 
-    @Autowired
-    private RedisService redisService;
+
+    private RedisService redisService = RedisService.getInstance();
 
     private int width = 80;// 图片宽
     private int height = 26;// 图片高

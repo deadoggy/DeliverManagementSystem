@@ -62,8 +62,9 @@ public class RedisService {
 
 
     public void saveCode(String sessionId, String code){
-        Jedis connector = pool.getResource();
-        connector.set(sessionId,code.toLowerCase());
+        try(Jedis connector = pool.getResource()){
+            connector.set(sessionId,code.toLowerCase());
+        }
     }
 
     public boolean checkCode(String sessionId, String code){

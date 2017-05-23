@@ -20,8 +20,8 @@
     <context:component-scan base-package="com.deliver.config"/>
 
     <!-- 静态资源(js、image等)的访问 -->
-    <!--<mvc:resources mapping="/resource/**" location="/WEB-INF/static/" />-->
-    <!--<mvc:default-servlet-handler/>-->
+    <mvc:resources  mapping="/static/**" location="/static/" />
+    <mvc:default-servlet-handler/>
 
     <!-- 开启注解 -->
     <mvc:annotation-driven>
@@ -38,30 +38,26 @@
 
 
     <!--ViewResolver 视图解析器-->
-    <!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
-    <bean id="viewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
-        <property name="templateEngine" ref="templateEngine" />
-        <property name="characterEncoding" value="UTF-8" />
-        <property name="order" value="0" />
+
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/view/pages/"/>
+        <property name="suffix" value=".jsp"/>
+        <property name="order" value="2"/>
     </bean>
 
-    <!-- Thymeleaf Template Engine (Spring4-specific version) -->
-    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
-        <property name="templateResolvers">
-            <set>
-                <ref bean="templateResolver" />
-            </set>
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="order" value="1" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+    </bean>
+
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/view/pages/tiles.xml</value>
+            </list>
         </property>
     </bean>
-
-    <!-- Thymeleaf Template Resolver -->
-    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
-        <property name="prefix" value="/WEB-INF/view/" />
-        <property name="suffix" value=".html"/>
-        <property name="templateMode" value="HTML" />
-        <property name="order" value="1" />
-    </bean>
-
 
     <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">-->
         <!--<property name="order" value="1" />-->

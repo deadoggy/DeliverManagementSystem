@@ -29,11 +29,11 @@ public class HomeController {
     }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(){
-        return "loginPage";
+        return "login";
     }
     @RequestMapping({"/home"})
-    public String showHomePage(ModelMap model){
-        return "test";
+    public String showHomePage(){
+        return "manage_cup";
     }
 
 

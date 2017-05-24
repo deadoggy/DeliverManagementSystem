@@ -20,7 +20,7 @@
         <put-attribute name="title" value="寄送快递"/>
         <put-attribute name="body" value="/WEB-INF/view/pages/寄送快递.jsp"/>
     </definition>
-    <definition name="package_enter_shelf" extends="base-definition">
+    <definition name="store_package" extends="base-definition">
         <put-attribute name="title" value="快递入库"/>
         <put-attribute name="body" value="/WEB-INF/view/pages/快递入库.jsp"/>
     </definition>

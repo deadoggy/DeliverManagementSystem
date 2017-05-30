@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "shelf_position")
+@Table(name = "storageposition")
 public class StoragePosition {
 
     @Id

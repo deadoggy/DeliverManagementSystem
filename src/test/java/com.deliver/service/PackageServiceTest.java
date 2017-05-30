@@ -1,6 +1,7 @@
 package com.deliver.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.deliver.model.Package;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,14 +16,8 @@ public class PackageServiceTest extends BaseServiceTest{
 
     @Test
     public void add(){
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("mPackageId","100");
-        jsonObject.put("mCompany","顺风");
-        jsonObject.put("mReceiverName","zhang");
-        jsonObject.put("mReceiverTele","123465789");
-        jsonObject.put("mCupOrShelf",false);
-        jsonObject.put("storageId",1);
-        boolean flag=packageService.addPackage(jsonObject);
+        boolean flag=packageService.addPackage("103","顺风","zhang","123465789"
+                ,false,1);
         assertTrue(flag);
     }
 }

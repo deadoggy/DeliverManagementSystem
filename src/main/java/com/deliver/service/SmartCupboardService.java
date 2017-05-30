@@ -3,7 +3,9 @@ package com.deliver.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.SmartCupboardRepository;
+import com.deliver.dao.StoragePositionreRepository;
 import com.deliver.model.SmartCupboard;
+import com.deliver.model.StoragePosition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,7 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.deliver.constant.Constant.POSITION_IN_CUPBOARD;
+import static com.deliver.constant.Constant.POSTION_EMPTY;
 
 /**
  * Created by 91574 on 2017/5/9.
@@ -21,40 +27,64 @@ public class SmartCupboardService {
     @Autowired
     private SmartCupboardRepository smartCupboardRepository;
 
-    @Transactional
-    public String getAllSmartCupboard(Integer page, Integer size) {
-        Pageable pageable = new PageRequest(page, size);
-        List<SmartCupboard> allSmartCupboard = smartCupboardRepository.findAll();
-        return JSON.toJSONString(allSmartCupboard);
+    @Autowired
+    private StoragePositionreRepository storagePositionreRepository;
+
+    //获取所有智能柜
+    public List<SmartCupboard> getAllSmartCupboard() {
+        return smartCupboardRepository.findAll();
+    }
+
+    //根据id找到对应智能柜
+    public SmartCupboard getSmartCupboardById(String id) {
+        return smartCupboardRepository.findByMCupboardId(id);
     }
 
     @Transactional
-    public String getSmartCupboardById(String id) {
-        SmartCupboard smartCupboard = smartCupboardRepository.findByMCupboardId(id);
-        if (smartCupboard == null) {
-            return null;
-        } else {
-            return JSON.toJSONString(smartCupboard);
-        }
-    }
-
-    @Transactional
-    public String addSmartCupboard(JSONObject jsonObject) {
-        String id = jsonObject.getString("smartCupBoardId");
+    public boolean addSmartCupboard(String id, int layerSum, int columnSum) {
         try {
-            if (smartCupboardRepository.findByMCupboardId(id) == null) {
-                SmartCupboard smartCupboard=jsonObject.toJavaObject(SmartCupboard.class);
-                smartCupboardRepository.saveAndFlush(smartCupboard);
-                JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("state","success");
-                return jsonObject1.toString();
+            SmartCupboard smartCupboard = new SmartCupboard();
+            smartCupboard.setmCupboardId(id);
+            smartCupboard.setmLayerSum(layerSum);
+            smartCupboard.setmColumnSum(columnSum);
+            smartCupboard.setmPositionSum(smartCupboard.getmColumnSum() * smartCupboard.getmLayerSum());
+            smartCupboard.setmEmptySum(smartCupboard.getmPositionSum());
+            smartCupboard.setmPosition(null);
+            smartCupboardRepository.saveAndFlush(smartCupboard);
+            List<StoragePosition> storagePositionList = new ArrayList<StoragePosition>(smartCupboard.getmPositionSum());
+            for (int i = 1; i <= smartCupboard.getmPositionSum(); i++) {
+                StoragePosition storagePosition = new StoragePosition(POSITION_IN_CUPBOARD, POSTION_EMPTY,
+                        i / smartCupboard.getmColumnSum(), i % smartCupboard.getmColumnSum(),
+                        null, smartCupboard, null, null);
+                storagePositionreRepository.saveAndFlush(storagePosition);
+                storagePositionList.add(storagePosition);
             }
-            else{
-                return null;
-            }
-        }catch (Exception e){
+            smartCupboard.setmPosition(storagePositionList);
+            smartCupboardRepository.saveAndFlush(smartCupboard);
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
-            throw e;
+            return false;
         }
+    }
+
+
+    //返回一个智能柜的空位
+    @Transactional
+    public StoragePosition getPosition() {
+        List<SmartCupboard> smartCupboardList = smartCupboardRepository.findAll();
+        for (SmartCupboard smartCupboard : smartCupboardList) {
+            if (smartCupboard.getmEmptySum() == 0) {
+                continue;
+            } else {
+                List<StoragePosition> storagePositionList = smartCupboard.getmPosition();
+                for (StoragePosition storage : storagePositionList) {
+                    if (storage.ismEmpty() == POSTION_EMPTY) {
+                        return storage;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

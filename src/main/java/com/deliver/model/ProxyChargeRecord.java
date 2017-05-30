@@ -29,7 +29,7 @@ public class ProxyChargeRecord {
     @Column(name = "send_receive", nullable = false)
     private boolean mSendorReceive;
 
-    @Column(name = "time", nullable = false)
+    @Column(name = "time")
     private Timestamp mTime;
 
     public ProxyChargeRecord() {}

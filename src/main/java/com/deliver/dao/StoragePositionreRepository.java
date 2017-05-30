@@ -22,4 +22,6 @@ public interface StoragePositionreRepository extends JpaRepository<StoragePositi
     Page<StoragePosition> findByMLayer(int layer, Pageable pageable);
 
     Page<StoragePosition> findByMColumn(int column, Pageable pageable);
+
+    StoragePosition findByMIdentifyCode(String identifyCode);
 }

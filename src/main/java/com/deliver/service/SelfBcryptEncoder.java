@@ -30,6 +30,10 @@ public class SelfBcryptEncoder {
         return encoder.encode(retBuilder.subSequence(0,retBuilder.length()));
     }
 
+    public String encipher(String code){
+        return encoder.encode(code.subSequence(0, code.length()));
+    }
+
     public boolean match(String username, String rawPwd, String pwd){
 
         StringBuilder raw = this.processStr(username,rawPwd);

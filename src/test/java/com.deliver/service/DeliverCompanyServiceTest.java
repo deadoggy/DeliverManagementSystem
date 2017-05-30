@@ -18,10 +18,7 @@ public class DeliverCompanyServiceTest extends BaseServiceTest {
 
     @Test
     public void add(){
-        JSONObject jsonObject=new JSONObject();
-        jsonObject.put("mCompanyId","1");
-        jsonObject.put("mName","顺风");
-        boolean add=deliverCompanyService.addDeliverCompany(jsonObject);
+        boolean add=deliverCompanyService.addDeliverCompany("1","顺风");
         assertTrue(add);
     }
 

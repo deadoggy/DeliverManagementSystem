@@ -41,13 +41,6 @@ public class DeliverCompany {
 
 
     public DeliverCompany(){
-
-    }
-
-    public DeliverCompany(String mCompanyId, String mName, List<Package> mPackage) {
-        this.mCompanyId = mCompanyId;
-        this.mName = mName;
-        this.mPackage = mPackage;
     }
 
     public int getmId() {

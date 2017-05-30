@@ -16,18 +16,8 @@ public class StorageService {
     private StoragePositionreRepository storagePositionreRepository;
 
     @Transactional
-    public String getIdentifyCodeById(int id) {
-        try {
-            StoragePosition storagePosition = storagePositionreRepository.findByMId(id);
-            if (storagePosition != null) {
-                return storagePosition.getmIdentifyCode();
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public StoragePosition getStorageById(int id) {
+        return storagePositionreRepository.findByMId(id);
     }
 
 

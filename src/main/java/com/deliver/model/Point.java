@@ -40,6 +40,12 @@ public class Point {
     @OneToMany(mappedBy = "mEmployeeId")
     private List<Employee> mEmployee;
 
+    @OneToMany(mappedBy = "mId")
+    private List<Shelf> mShelf;
+
+    @OneToMany(mappedBy = "mId")
+    private List<SmartCupboard> mSmartCupboard;
+
     public Point() {}
 
     public Point(String mBusinessPointId, String mName,
@@ -124,5 +130,21 @@ public class Point {
 
     public void setmEmployee(List<Employee> mEmployee) {
         this.mEmployee = mEmployee;
+    }
+
+    public List<Shelf> getmShelf() {
+        return mShelf;
+    }
+
+    public void setmShelf(List<Shelf> mShelf) {
+        this.mShelf = mShelf;
+    }
+
+    public List<SmartCupboard> getmSmartCupboard() {
+        return mSmartCupboard;
+    }
+
+    public void setmSmartCupboard(List<SmartCupboard> mSmartCupboard) {
+        this.mSmartCupboard = mSmartCupboard;
     }
 }

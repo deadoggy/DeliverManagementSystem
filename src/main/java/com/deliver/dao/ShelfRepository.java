@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by 91574 on 2017/5/3.
  */
-@Transactional
+
 @Repository
 public interface ShelfRepository extends JpaRepository<Shelf,Integer>{
     Shelf findByMId(int id);

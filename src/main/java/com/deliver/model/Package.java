@@ -18,13 +18,10 @@ public class Package {
     @Column(name = "package_id", nullable = false, unique = true)
     private String mPackageId;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
-    private DeliverCompany mCompany; // foreign key
-
-    @Column(name = "receive_time", nullable = false)
+    @Column(name = "receive_time")
     private Timestamp mReceiveTime;
 
-    @Column(name = "proxy_charge_fee", nullable = false)
+    @Column(name = "proxy_charge_fee")
     private double mProxyChargeFee;
 
     @Column(name = "taken", nullable = false)
@@ -45,6 +42,8 @@ public class Package {
     @ManyToOne(cascade = {CascadeType.REMOVE})
     private StoragePosition mPosition;
 
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
+    private DeliverCompany mCompany; // foreign key
 
     public Package() {}
 

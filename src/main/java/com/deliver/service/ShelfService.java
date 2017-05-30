@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.deliver.constant.Constant.POSITION_IN_SHELF;
@@ -43,30 +44,32 @@ public class ShelfService {
 
 
     @Transactional
-    public boolean addShelf(JSONObject jsonObject) {
+    public boolean addShelf(String id, int columnSum, int layerSum) {
         try {
-            String shelfId = jsonObject.getString("shelfId");
-            if (shelfRepository.findByMShelfId(shelfId) != null) {
-                throw new Exception("已经存在此记录");
-            } else {
-                Shelf shelf = jsonObject.toJavaObject(Shelf.class);
-                shelf.setmPositionSum(shelf.getmColumnSum() * shelf.getmLayerSum());
-                shelf.setmEmptySum(shelf.getmColumnSum());
-                shelf.setmPosition(null);
-                shelfRepository.saveAndFlush(shelf);
-                for (int i = 1; i <= shelf.getmPositionSum(); i++) {
-                    StoragePosition storagePosition = new StoragePosition(POSITION_IN_SHELF, POSTION_EMPTY,
-                            i / shelf.getmColumnSum(), i % shelf.getmColumnSum(),
-                            null,null, shelf,null);
-                    storagePositionreRepository.saveAndFlush(storagePosition);
-                }
-                return true;
+            Shelf shelf = new Shelf();
+            shelf.setmShelfId(id);
+            shelf.setmColumnSum(columnSum);
+            shelf.setmLayerSum(layerSum);
+            shelf.setmPositionSum(columnSum * layerSum);
+            shelf.setmEmptySum(columnSum * layerSum);
+            shelf.setmPosition(new ArrayList<StoragePosition>());
+            shelfRepository.saveAndFlush(shelf);
+            for (int i = 1; i <= shelf.getmPositionSum(); i++) {
+                StoragePosition storagePosition = new StoragePosition(POSITION_IN_SHELF, POSTION_EMPTY,
+                        i / shelf.getmColumnSum(), i % shelf.getmColumnSum(),
+                        null, null, shelf, null);
+                storagePositionreRepository.saveAndFlush(storagePosition);
+                //shelf.getmPosition().add(storagePosition);
             }
+            //shelfRepository.saveAndFlush(shelf);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
+
 
 
     @Transactional
@@ -80,6 +83,8 @@ public class ShelfService {
         }
     }
 
+
+    //返回一个货架的空位
     @Transactional
     public StoragePosition getPosition() {
         List<Shelf> shelfList = shelfRepository.findAll();
@@ -90,9 +95,7 @@ public class ShelfService {
                 List<StoragePosition> storagePositions = shelf.getmPosition();
                 for (StoragePosition position : storagePositions) {
                     if (position.ismEmpty()) {
-                        return  position;
-                    } else {
-                        continue;
+                        return position;
                     }
                 }
             }

@@ -31,4 +31,6 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
     Page<Package> findByMReceiveTime(Timestamp time, Pageable pageable);
 
     Page<Package> findByMCompany(DeliverCompany company, Pageable pageable);
+
+    List<Package> findByMReceiverTele(String tele);
 }

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Created by 91574 on 2017/5/3.
  */
-@Transactional
+
 @Repository
 public interface StoragePositionreRepository extends JpaRepository<StoragePosition,Integer>{
     StoragePosition findByMId(int id);
@@ -22,4 +22,6 @@ public interface StoragePositionreRepository extends JpaRepository<StoragePositi
     Page<StoragePosition> findByMLayer(int layer, Pageable pageable);
 
     Page<StoragePosition> findByMColumn(int column, Pageable pageable);
+
+    StoragePosition findByMIdentifyCode(String identifyCode);
 }

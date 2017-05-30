@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by 91574 on 2017/5/14.
  */
@@ -18,13 +20,17 @@ public class DeliverCompanyService {
     private DeliverCompanyRepository deliverCompanyRepository;
 
     @Transactional
-    public boolean addDeliverCompany(JSONObject jsonObject){
+    public boolean addDeliverCompany(String id,String name){
         try{
-            String id=jsonObject.getString("mCompanyId");
-            if(deliverCompanyRepository.findByMCompanyId(id)!=null){
-                throw new Exception("已经存在此记录");
-            }
-            DeliverCompany deliverCompany=JSON.parseObject(jsonObject.toString(),DeliverCompany.class);
+            DeliverCompany deliverCompany=new DeliverCompany();
+            deliverCompany.setmCompanyId(id);
+            deliverCompany.setmName(name);
+            deliverCompany.setmBills(null);
+            deliverCompany.setmDayForm(null);
+            deliverCompany.setmHourForm(null);
+            deliverCompany.setmMonthForm(null);
+            deliverCompany.setmPackage(null);
+            deliverCompany.setmYearForm(null);
             deliverCompanyRepository.saveAndFlush(deliverCompany);
             return true;
         }catch (Exception e){
@@ -38,6 +44,15 @@ public class DeliverCompanyService {
         return deliverCompanyRepository.findByMCompanyId(id);
     }
 
+    @Transactional
+    public List<DeliverCompany> findAllDeliverCompany(){
+        return deliverCompanyRepository.findAll();
+    }
+
+    @Transactional
+    public DeliverCompany getDeliverCompany(String name){
+        return deliverCompanyRepository.findByMName(name);
+    }
 }
 
 

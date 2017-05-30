@@ -2,16 +2,19 @@ package com.deliver.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.deliver.dao.DeliverCompanyRepository;
-import com.deliver.dao.PackageRepository;
-import com.deliver.dao.StoragePositionreRepository;
+import com.deliver.dao.*;
+import com.deliver.model.*;
 import com.deliver.model.Package;
-import com.deliver.model.StoragePosition;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+import static com.deliver.constant.Constant.*;
 
 /**
  * Created by 91574 on 2017/5/15.
@@ -27,27 +30,68 @@ public class PackageService {
     @Autowired
     private StoragePositionreRepository storagePositionreRepository;
 
+    @Autowired
+    private ShelfRepository shelfRepository;
+
+    @Autowired
+    private SmartCupboardRepository smartCupboardRepository;
+
     @Transactional
     public Package getPackage(String id) {
         return packageRepository.findByMPackageId(id);
     }
 
+    //将快件加入到一个智能柜or货架的位置上
+    //目前没考虑代收邮费的问题
+    //未测试
     @Transactional
-    public boolean addPackage(JSONObject jsonObject) {
+    public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, boolean cupOrShelf, StoragePosition storagePosition) {
         try {
-            String packageId = jsonObject.getString("mPackageId");
-            if (packageRepository.findByMPackageId(packageId) != null) {
-                throw new Exception("已经存在此记录");
+            Package aPackage = new Package();
+            aPackage.setmPackageId(id);
+            aPackage.setmCompany(deliverCompany);
+            aPackage.setmReceiveTime(new Timestamp(System.currentTimeMillis()));
+            aPackage.setmTaken(false);
+            aPackage.setmReceiverName(receiverName);
+            aPackage.setmReceiverTele(receiverTele);
+            aPackage.setmCupOrShelf(cupOrShelf);
+            aPackage.setmPosition(storagePosition);
+            packageRepository.saveAndFlush(aPackage);
+            //这里需要制作一个根据id形成的取件码
+            storagePosition.setmIdentifyCode(id);
+            storagePosition.setmEmpty(POSITION_FULL);
+            storagePositionreRepository.saveAndFlush(storagePosition);
+            if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
+                Shelf shelf=storagePosition.getmShelf();
+                shelf.setmEmptySum(shelf.getmEmptySum()-1);
+                shelfRepository.saveAndFlush(shelf);
+            }else{
+                SmartCupboard smartCupboard=storagePosition.getmCup();
+                smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()-1);
+                smartCupboardRepository.saveAndFlush(smartCupboard);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    //确认收货
+    @Transactional
+    public boolean confirmReceive(String identifyCode) {
+        try {
+            StoragePosition storagePosition = storagePositionreRepository.findByMIdentifyCode(identifyCode);
+            if (storagePosition == null) {
+                return false;
             } else {
-                Package aPackage = new Package();
-                aPackage.setmPackageId(jsonObject.getString("mPackageId"));
-                aPackage.setmCompany(deliverCompanyRepository.findByMName(jsonObject.getString("mCompany")));
-                aPackage.setmReceiveTime(new Timestamp(System.currentTimeMillis()));
-                aPackage.setmTaken(false);
-                aPackage.setmReceiverName(jsonObject.getString("mReceiverName"));
-                aPackage.setmReceiverTele(jsonObject.getString("mReceiverTele"));
-                aPackage.setmCupOrShelf(jsonObject.getBoolean("mCupOrShelf"));
-                aPackage.setmPosition(storagePositionreRepository.findByMId(jsonObject.getInteger("storageId")));
+                storagePosition.setmEmpty(POSTION_EMPTY);
+                storagePositionreRepository.saveAndFlush(storagePosition);
+                List<Package> packageList = storagePosition.getmPackage();
+                Package aPackage = packageList.get(packageList.size() - 1);
+                aPackage.setmTaken(true);
+                aPackage.setmTakenTime(new Timestamp(System.currentTimeMillis()));
                 packageRepository.saveAndFlush(aPackage);
                 return true;
             }
@@ -55,5 +99,33 @@ public class PackageService {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    //获取包裹所在的网点
+    public Point getPackagePoint(Package aPackage) {
+        try {
+            StoragePosition storagePosition = aPackage.getmPosition();
+            if (storagePosition.ismCuporShelf() == POSITION_IN_CUPBOARD) {
+                SmartCupboard smartCupboard = storagePosition.getmCup();
+                return smartCupboard.getmPoint();
+            } else {
+                Shelf shelf = storagePosition.getmShelf();
+                return shelf.getmPoint();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //获取所有包裹
+    public List<Package> getAllPackage() {
+        return packageRepository.findAll();
+    }
+
+    //通过手机获得所有包裹
+    public List<Package> getPackageByTele(String tele){
+        return packageRepository.findByMReceiverTele(tele);
     }
 }

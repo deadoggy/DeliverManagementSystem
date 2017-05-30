@@ -27,7 +27,7 @@ public class ShelfServiceTest extends BaseServiceTest {
         jsonObject.put("mPositionSum",1);
         jsonObject.put("mLayerSum",1);
         jsonObject.put("mColumnSum",2);
-        boolean flag=shelfService.addShelf(jsonObject);
+        boolean flag=shelfService.addShelf("1",1,2);
         assertTrue(flag);
     }
 

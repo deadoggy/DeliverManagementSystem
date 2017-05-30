@@ -33,6 +33,9 @@ public class SmartCupboard {
     @OneToMany(mappedBy = "mId")
     private List<StoragePosition> mPosition;
 
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    private Point mPoint;
+
     public SmartCupboard() {}
 
     public SmartCupboard(String mCupboardId, int mEmptySum, int mPositionSum, int mLayerSum, int mColumnSum) {
@@ -97,5 +100,13 @@ public class SmartCupboard {
 
     public void setmPosition(List<StoragePosition> mPosition) {
         this.mPosition = mPosition;
+    }
+
+    public Point getmPoint() {
+        return mPoint;
+    }
+
+    public void setmPoint(Point mPoint) {
+        this.mPoint = mPoint;
     }
 }

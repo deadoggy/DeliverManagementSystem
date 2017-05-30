@@ -25,13 +25,25 @@ public class SendingService {
     private SendingRecordRepository sendingRecordRepository;
 
 
-    public boolean addSendingRecord(JSONObject jsonObject) {
+    public boolean addSendingRecord(String id,Package aPackage,String sName,String sTele,String sAddress,String sCity,
+                                    String sProvince,String rName,String rTele,String rAddress,String rCity,
+                                    String rProvince,double weight) {
         try {
-            String id = jsonObject.getString("mSendingRecordId");
-            if (sendingRecordRepository.findByMSendingRecordId(id) != null) {
-                throw new Exception("已经存在此记录");
-            }
-            SendingRecord sendingRecord = JSON.parseObject(jsonObject.toString(), SendingRecord.class);
+            SendingRecord sendingRecord = new SendingRecord();
+            sendingRecord.setmSending_record_id(id);
+//            package这里需要确定下传入什么参数
+            sendingRecord.setmPackage(aPackage);
+            sendingRecord.setmSenderName(sName);
+            sendingRecord.setmSenderTele(sTele);
+            sendingRecord.setmSenderAddress(sAddress);
+            sendingRecord.setmSenderCity(sCity);
+            sendingRecord.setmSenderProvince(sProvince);
+            sendingRecord.setmReceiverName(rName);
+            sendingRecord.setmReceiverTele(rTele);
+            sendingRecord.setmReceiverAddress(rAddress);
+            sendingRecord.setmReceiverCity(rCity);
+            sendingRecord.setmReceiverProvince(rProvince);
+            sendingRecord.setmWeight(weight);
             sendingRecord.setmSendTime(new Timestamp(System.currentTimeMillis()));
             sendingRecordRepository.saveAndFlush(sendingRecord);
             return true;

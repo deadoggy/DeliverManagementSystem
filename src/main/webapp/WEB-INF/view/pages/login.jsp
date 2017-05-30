@@ -89,10 +89,15 @@ pageEncoding="utf-8"%>
 
       var code = form.elements[2].value
 
-      function callback(){
-          console.log(request.responseText)
+      function selfCallback(){
+          //alert("callback:"+request.readyState)
+          if(null == request.responseText){
+              console.log("null");
+          }else{
+              console.log(request.responseText);
+          }
 
-          if(request.responseText == "true"){
+          if(request.responseText == "true" && 3 == request.readyState){
               var postForm = document.createElement("form") //表单对象
               postForm.method="post"
               postForm.action = '/login'
@@ -116,7 +121,7 @@ pageEncoding="utf-8"%>
               document.body.removeChild(postForm)
 
           }
-          else{
+          else if(request.responseText == "false" && 3 == request.readyState){
               var td = document.getElementById("img_code")
               td.innerHTML = ""
               td.innerHTML = "<img src = \"/code\">"
@@ -125,8 +130,12 @@ pageEncoding="utf-8"%>
 
 
       var request = new XMLHttpRequest();
+      //alert("before open:" + request.readyState)
       request.open("GET", "http://" + host + "/checkCode?code=" + code)
-      request.onreadystatechange = callback
+      //alert("after open:" + request.readyState)
+      request.onreadystatechange = selfCallback
+      request.timeout = 3000;
+      //alert("before:" + request.readyState)
       request.send()
 
 

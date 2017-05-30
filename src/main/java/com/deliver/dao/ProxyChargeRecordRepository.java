@@ -28,8 +28,8 @@ public interface ProxyChargeRecordRepository extends JpaRepository<ProxyChargeRe
 
     Page<ProxyChargeRecord> findByMTime(Timestamp time, Pageable pageable);
 
-    @Query("select ProxyChargeRecord from ProxyChargeRecord as pc, Package  as pk where pc.mDate = ?1 and pk.mId = pc.mPackage")
-    List<ProxyChargeRecord> getByDate(Date date);
+    //@Query("select ProxyChargeRecord from ProxyChargeRecord as pc, Package  as pk where pc.mDate = ?1 and pk.mId = pc.mPackage")
+    //List<ProxyChargeRecord> getByDate(Date date);
 
 
 

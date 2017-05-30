@@ -93,7 +93,7 @@ public class PackageController {
             jsonObject.put("reason", "存储位置已经有货物");
             return jsonObject.toString();
         }
-        DeliverCompany deliverCompany=deliverCompanyService.getDeliverCompany(httpServletRequest.getParameter("company"));
+        DeliverCompany deliverCompany=deliverCompanyService.getDeliverCompany(httpServletRequest.getParameter("companyName"));
         if(deliverCompany==null){
             jsonObject.put("status", "fail");
             jsonObject.put("reason", "没有这家快递公司");
@@ -110,20 +110,21 @@ public class PackageController {
             jsonObject.put("reason", "包裹信息不符合要求");
             return jsonObject.toString();
         } else {
-            jsonObject.put("status", "success");
+            jsonObject.put("status", "ok");
             return jsonObject.toString();
         }
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    public String confirm() {
-        boolean flag = packageService.confirmReceive("111");
+    @RequestMapping(value = "/confirm/{confirmcode}", method = RequestMethod.POST)
+    public String confirm(@PathVariable String confirmcode) {
+        boolean flag = packageService.confirmReceive(confirmcode);
         JSONObject jsonObject = new JSONObject();
         if (flag == false) {
-            jsonObject.put("state", "fail");
+            jsonObject.put("status", "fail");
+            jsonObject.put("reason","取货失败");
             return jsonObject.toString();
         } else {
-            jsonObject.put("state", "success");
+            jsonObject.put("status", "ok");
             return jsonObject.toString();
         }
     }

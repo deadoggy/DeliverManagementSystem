@@ -22,7 +22,7 @@ public class ShelfController {
     @Autowired
     private ShelfService shelfService;
 
-    @RequestMapping(value = "shelf/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/shelf/{id}", method = RequestMethod.GET)
     public String getShelf(@PathVariable String id) {
         JSONObject jsonObject = new JSONObject();
         Shelf shelf = shelfService.getShelfById(id);
@@ -67,7 +67,7 @@ public class ShelfController {
             jsonObject.put("reason", "货架信息不符合要求");
             return jsonObject.toString();
         } else {
-            jsonObject.put("status", "success");
+            jsonObject.put("status", "ok");
             return jsonObject.toString();
         }
     }

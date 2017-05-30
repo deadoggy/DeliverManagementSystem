@@ -31,9 +31,6 @@ public class PackageService {
     private StoragePositionreRepository storagePositionreRepository;
 
     @Autowired
-    private SelfBcryptEncoder selfBcryptEncoder;
-
-    @Autowired
     private ShelfRepository shelfRepository;
 
     @Autowired
@@ -60,8 +57,8 @@ public class PackageService {
             aPackage.setmCupOrShelf(cupOrShelf);
             aPackage.setmPosition(storagePosition);
             packageRepository.saveAndFlush(aPackage);
-
-            storagePosition.setmIdentifyCode(selfBcryptEncoder.encipher(id));
+            //这里需要制作一个根据id形成的取件码
+            storagePosition.setmIdentifyCode(id);
             storagePosition.setmEmpty(POSITION_FULL);
             storagePositionreRepository.saveAndFlush(storagePosition);
             if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){

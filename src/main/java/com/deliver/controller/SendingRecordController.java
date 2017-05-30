@@ -21,7 +21,7 @@ public class SendingRecordController {
     @Autowired
     private PackageService packageService;
 
-    @RequestMapping(value = "sendrecord/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/sendrecord/{id}",method = RequestMethod.GET)
     public String getSendRecordById(@PathVariable String id){
         JSONObject jsonObject=new JSONObject();
         SendingRecord sendingRecord=sendingService.getSendingRecordById(id);
@@ -36,7 +36,7 @@ public class SendingRecordController {
         }
     }
 
-    @RequestMapping(value = "sendrecord",method = RequestMethod.POST)
+    @RequestMapping(value = "/sendrecord",method = RequestMethod.POST)
     public String addSendRecord(HttpServletRequest httpServletRequest){
         String id=httpServletRequest.getParameter("id");
         JSONObject jsonObject=new JSONObject();
@@ -57,7 +57,7 @@ public class SendingRecordController {
             jsonObject.put("reason", "寄件信息不正确");
             return jsonObject.toString();
         } else {
-            jsonObject.put("status", "success");
+            jsonObject.put("status", "ok");
             return jsonObject.toString();
         }
     }

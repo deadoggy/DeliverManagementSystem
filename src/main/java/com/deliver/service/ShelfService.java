@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.deliver.constant.Constant.POSITION_IN_SHELF;
@@ -49,18 +50,18 @@ public class ShelfService {
             shelf.setmShelfId(id);
             shelf.setmColumnSum(columnSum);
             shelf.setmLayerSum(layerSum);
-            shelf.setmPositionSum(shelf.getmColumnSum() * shelf.getmLayerSum());
-            shelf.setmEmptySum(shelf.getmColumnSum());
-            shelf.setmPosition(null);
+            shelf.setmPositionSum(columnSum * layerSum);
+            shelf.setmEmptySum(columnSum * layerSum);
+            shelf.setmPosition(new ArrayList<StoragePosition>());
             shelfRepository.saveAndFlush(shelf);
             for (int i = 1; i <= shelf.getmPositionSum(); i++) {
                 StoragePosition storagePosition = new StoragePosition(POSITION_IN_SHELF, POSTION_EMPTY,
                         i / shelf.getmColumnSum(), i % shelf.getmColumnSum(),
                         null, null, shelf, null);
                 storagePositionreRepository.saveAndFlush(storagePosition);
-                shelf.getmPosition().add(storagePosition);
+                //shelf.getmPosition().add(storagePosition);
             }
-            shelfRepository.saveAndFlush(shelf);
+            //shelfRepository.saveAndFlush(shelf);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -22,8 +22,6 @@ public class PackageControllerTest extends BaseControllerTest {
     private WebApplicationContext wac;
     private MockMvc mockMvc;
 
-    @Autowired
-    private PackageController packageController;
 
     @Before
     public void setUp() throws Exception {

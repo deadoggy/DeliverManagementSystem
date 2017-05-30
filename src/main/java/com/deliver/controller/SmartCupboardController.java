@@ -67,7 +67,7 @@ public class SmartCupboardController {
             jsonObject.put("reason","智能柜信息不符合要求");
             return jsonObject.toString();
         } else {
-            jsonObject.put("status", "success");
+            jsonObject.put("status", "ok");
             return jsonObject.toString();
         }
     }

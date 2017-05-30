@@ -19,9 +19,6 @@ public class DeliverCompanyControllerTest extends BaseControllerTest{
     private WebApplicationContext wac;
     private MockMvc mockMvc;
 
-    @Autowired
-    private DeliverCompanyController deliverCompanycontroller;
-
     @Before
     public void setUp() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
@@ -30,7 +27,7 @@ public class DeliverCompanyControllerTest extends BaseControllerTest{
     @Test
     public void add() throws Exception{
         RequestBuilder requestBuilder = post("/company")
-                .param("id", "100")
+                .param("id", "101")
                 .param("name","顺风");
         mockMvc.perform(requestBuilder).andDo(print());
     }

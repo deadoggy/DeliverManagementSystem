@@ -64,7 +64,7 @@ public class DeliverCompanyController {
             jsonObject.put("reason", "快递公司信息不符合要求");
             return jsonObject.toString();
         } else {
-            jsonObject.put("status", "success");
+            jsonObject.put("status", "ok");
             return jsonObject.toString();
         }
     }

@@ -1,6 +1,7 @@
 package com.deliver.service;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.AttendanceRepository;
 import com.deliver.dao.EmployeeRepository;
 import com.deliver.dao.PointRepository;
@@ -70,7 +71,7 @@ public class HumanManageService {
         }
     }
 
-    public boolean addNewEmployee(String employeeId, String name,int age, float salary, String pointId, String pwd){
+    public boolean addNewEmployee(String employeeId, String name,int age, boolean gender, float salary, String phone, String pointId, String pwd){
 
         try{
             if(pointId == null || employeeId == null){
@@ -90,7 +91,7 @@ public class HumanManageService {
 
             pwd = encoder.encipher(employeeId, pwd);
 
-            Employee noob = new Employee(employeeId, name, age, salary, point, new Timestamp(new java.util.Date().getTime()), pwd);
+            Employee noob = new Employee(employeeId, name, age, gender, salary, phone, point, new Timestamp(new java.util.Date().getTime()), pwd);
 
             this.employeeRepository.save(noob);
 
@@ -153,6 +154,26 @@ public class HumanManageService {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public String findByEmployeeId(String id){
+        try{
+            JSONObject ret = new JSONObject();
+            Employee employee = this.employeeRepository.findByMEmployeeId(id);
+
+            ret.put("id", employee.getmEmployeeId());
+            ret.put("name", employee.getmName());
+            ret.put("gender", employee.ismGender()? "male" : "female");
+            ret.put("age", employee.getmAge());
+            ret.put("phone", employee.getmPhone() != null ? employee.getmPhone() : "none");
+            ret.put("salary", employee.getmSalary());
+            ret.put("point", employee.getmPoint().getmName());
+
+            return ret.toJSONString();
+
+        }catch(Exception e){
+            return null;
         }
     }
 

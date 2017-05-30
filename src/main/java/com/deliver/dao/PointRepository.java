@@ -18,7 +18,7 @@ public interface PointRepository extends JpaRepository<Point, Integer>{
 
     Point findByMBusinessPointId(String id);
 
-    Page<Point> findByMName(String name, Pageable pageable);
+    List<Point> findByMName(String name);
 
     Page<Point> findByMProvince(String province, Pageable pageable);
 

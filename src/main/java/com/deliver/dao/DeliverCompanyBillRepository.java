@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 /**
  * Created by deadoggy on 17-5-2.
@@ -23,7 +25,7 @@ public interface DeliverCompanyBillRepository extends JpaRepository<DeliverCompa
 
     Page<DeliverCompanyBill> findBymCompanyAndMYear(DeliverCompany company, int year, Pageable pageable);
 
-    Page<DeliverCompanyBill> findBymCompanyAndMYearAndMMonth(DeliverCompany company, int year, int month, Pageable pageable);
+    List<DeliverCompanyBill> findBymCompanyAndMYearAndMMonth(DeliverCompany company, int year, int month);
 
 
 

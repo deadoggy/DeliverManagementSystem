@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+    <!-- Base Definition -->
+    <definition name="base-definition"
+                template="/WEB-INF/view/pages/base.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="body" value="" />
+
+    </definition>
+
+    <!-- Main Page -->
+    <definition name="taken_record" extends="base-definition">
+        <put-attribute name="title" value="取件记录"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/取件记录.jsp"/>
+    </definition>
+    <definition name="send_package" extends="base-definition">
+        <put-attribute name="title" value="寄送快递"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/寄送快递.jsp"/>
+    </definition>
+    <definition name="store_package" extends="base-definition">
+        <put-attribute name="title" value="快递入库"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/快递入库.jsp"/>
+    </definition>
+    <definition name="manage_cup" extends="base-definition">
+        <put-attribute name="title" value="智能柜管理"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/智能柜管理.jsp"/>
+    </definition>
+
+    <definition name="shelf_cup_transfer" extends="base-definition">
+        <put-attribute name="title" value="智能柜货架互转"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/智能柜货架互转.jsp"/>
+    </definition>
+
+    <definition name="generate_form" extends="base-definition">
+        <put-attribute name="title" value="生成报表"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/生成报表.jsp"/>
+    </definition>
+
+    <definition name="account_manage" extends="base-definition">
+        <put-attribute name="title" value="账号管理"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/账号管理.jsp"/>
+    </definition>
+
+    <definition name="search_package" extends="base-definition">
+        <put-attribute name="title" value="货物查询"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/货物查询.jsp"/>
+    </definition>
+
+    <definition name="taken_out_time" extends="base-definition">
+        <put-attribute name="title" value="过期取件"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/过期取件.jsp"/>
+    </definition>
+
+    <definition name="advanced_manage" extends="base-definition">
+        <put-attribute name="title" value="高级管理"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/高级管理.jsp"/>
+    </definition>
+
+
+</tiles-definitions>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        function refreshImg(){
+            var td = document.getElementById("img_code")
+            td.innerHTML = ""
+            td.innerHTML = "<img src = \"/code\" onclick='refreshImg()'>"
+        }
+
+        function subm() {
+
+            var host = window.location.host
+
+            var form = document.getElementById("login_form")
+
+            var code = form.elements[2].value
+
+            function callback(){
+                console.log(request.responseText)
+                if(request.responseText == "true"){
+                    var postForm = document.createElement("form") //表单对象
+                    postForm.method="post"
+                    postForm.action = '/login'
+
+                    var usernameInput = document.createElement("input") ; //username input
+                    usernameInput.setAttribute("name", "username") ;
+                    usernameInput.setAttribute("value", form.elements[0].value);
+                    postForm.appendChild(usernameInput) ;
+                    var pwdInput = document.createElement("input");// password input
+                    pwdInput.setAttribute("name","password");
+                    pwdInput.setAttribute("value",form.elements[1].value);
+                    postForm.appendChild(pwdInput);
+
+                    document.body.appendChild(postForm)
+                    postForm.submit()
+                    document.body.removeChild(postForm)
+
+                }
+                else{
+                    var td = document.getElementById("img_code")
+                    td.innerHTML = ""
+                    td.innerHTML = "<img src = \"/code\">"
+                }
+            }
+
+            var request = new XMLHttpRequest();
+            request.open("GET", "http://" + host + "/checkCode?code=" + code)
+            request.onreadystatechange = callback
+            request.send()
+
+        }
+
+    </script>
+    <form  id="login_form">
+        <table>
+            <tr>
+                <td>Username</td>
+                <td><input name = "username" id="username"/></td>
+            </tr>
+            <tr>
+                <td>password</td>
+                <td><input name = "password" id = "password" type="password"/></td>
+            </tr>
+            <tr>
+                <td id = "img_code"><img src = "/code" onclick="refreshImg()"></td>
+                <td><input name = "code" id = "code" type="text"></td>
+            </tr>
+            <tr>
+                <td><input type = "button" onclick="subm()"/></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+
+
+</html>

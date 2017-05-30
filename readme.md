@@ -6,6 +6,7 @@
 - Tomcat 9.0.0.M19
 - Spring[详情见pom.xml]
 - Hibernate
+- Redis
 
 ## 目录
 ```

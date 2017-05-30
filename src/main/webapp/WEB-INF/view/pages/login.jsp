@@ -90,9 +90,11 @@ pageEncoding="utf-8"%>
       var code = form.elements[2].value
 
       function callback(){
-          console.log(request.responseText)
+          alert(request.responseText)
 
           if(request.responseText == "true"){
+
+              //console.log("true");
               var postForm = document.createElement("form") //表单对象
               postForm.method="post"
               postForm.action = '/login'
@@ -117,6 +119,7 @@ pageEncoding="utf-8"%>
 
           }
           else{
+              //console.log("false");
               var td = document.getElementById("img_code")
               td.innerHTML = ""
               td.innerHTML = "<img src = \"/code\">"

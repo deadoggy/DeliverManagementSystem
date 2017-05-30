@@ -64,6 +64,8 @@ public class RedisService {
     public void saveCode(String sessionId, String code){
         try(Jedis connector = pool.getResource()){
             connector.set(sessionId,code.toLowerCase());
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

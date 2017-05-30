@@ -29,7 +29,7 @@
       <configuration />
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -130,5 +130,6 @@
     <orderEntry type="library" name="Maven: org.apache.cassandra:cassandra-thrift:0.8.1" level="project" />
     <orderEntry type="library" name="Maven: com.github.stephenc:jamm:0.2.2" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
+    <orderEntry type="library" name="taobao-sdk-java-auto_1455552377940-201606071" level="project" />
   </component>
 </module>

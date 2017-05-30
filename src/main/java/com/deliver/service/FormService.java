@@ -2,14 +2,13 @@ package com.deliver.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.deliver.dao.DayFormRepository;
-import com.deliver.dao.HourFormRepository;
-import com.deliver.dao.MonthFormRepository;
-import com.deliver.dao.YearFormRepository;
+import com.deliver.dao.*;
 import com.deliver.model.DeliverCompany;
+import com.deliver.model.DeliverCompanyBill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -32,7 +31,7 @@ public class FormService {
     private MonthFormRepository monthFormRepository;
 
     @Autowired
-    private YearFormRepository yearFormRepository;
+    private DeliverCompanyBillRepository deliverCompanyBillRepository;
 
 
     /*Calender -> String*/
@@ -266,8 +265,49 @@ public class FormService {
 
     /*获取一个公司一个月内的账单信息*/
     public String getBillByCompanyAndMonth(DeliverCompany company, Calendar mon){
-        return "TODO";
+        try{
+            List<DeliverCompanyBill> list = this.deliverCompanyBillRepository
+                    .findBymCompanyAndMYearAndMMonth(company, mon.get(Calendar.YEAR), mon.get(Calendar.MONTH) + 1);
+
+            JSONArray ret = new JSONArray();
+            for(DeliverCompanyBill bill : list){
+                JSONArray item = new JSONArray();
+                int packageSum = bill.getmPackageSum();
+                double sumPrice = (double)packageSum * bill.getmPerPackageFee();
+                int proxySum = bill.getmProxyChargeTimes();
+                double proxyPrice = proxySum * bill.getmPerProxyChargeFee();
+
+                item.add(packageSum); // 代收包裹数量
+                item.add(sumPrice); //代收包裹总价
+                item.add(proxySum); // 代收邮费次数
+                item.add(proxyPrice); //代收邮费总价
+                item.add(proxyPrice + sumPrice); //结算
+
+                ret.add(item);
+            }
+            JSONObject retJson = new JSONObject();
+            JSONArray  title = new JSONArray();
+
+            title.add("package_sum");
+            title.add("package_price");
+            title.add("proxy_times");
+            title.add("proxy_price");
+            title.add("sum");
+
+            retJson.put("title", title);
+            retJson.put("data", ret);
+
+            Timestamp time = new Timestamp(new Date().getTime());
+
+            return retJson.toJSONString();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    /*获取一个公司一段时间内的账单信息*/
+    /*获取一段时间内的代收款记录*/
+
+
 }

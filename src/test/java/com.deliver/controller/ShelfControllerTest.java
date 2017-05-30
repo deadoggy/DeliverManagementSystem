@@ -27,7 +27,7 @@ public class ShelfControllerTest extends BaseControllerTest {
     @Test
     public void add()throws Exception{
         RequestBuilder requestBuilder = post("/shelf").
-                param("id","4").param("columnSum","2").param("layerSum","3");
+                param("id","6").param("columnSum","2").param("layerSum","3");
         mockMvc.perform(requestBuilder).andDo(print());
     }
 
@@ -39,7 +39,7 @@ public class ShelfControllerTest extends BaseControllerTest {
 
     @Test
     public void getShelf()throws Exception{
-        RequestBuilder requestBuilder = get("/shelf/2");
+        RequestBuilder requestBuilder = get("/shelf/6");
         mockMvc.perform(requestBuilder).andDo(print());
     }
 

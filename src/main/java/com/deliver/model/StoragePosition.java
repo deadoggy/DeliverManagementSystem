@@ -32,14 +32,14 @@ public class StoragePosition {
     @Column(name="identify_code")
     private String mIdentifyCode;
 
-    @ManyToOne(cascade = { CascadeType.MERGE ,CascadeType.REFRESH})
+    @ManyToOne(cascade = { CascadeType.ALL})
     private SmartCupboard mCup;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Shelf mShelf;
 
-    @OneToMany(mappedBy = "mId")
-    private List<Package> mPackage;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private List<Package> mPackage=new ArrayList<Package>();
 
     public StoragePosition() {
     }

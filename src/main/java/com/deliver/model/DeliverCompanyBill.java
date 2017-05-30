@@ -15,7 +15,7 @@ public class DeliverCompanyBill {
     @Column(name = "id")
     private int mId;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private DeliverCompany mCompany; // foreign key
 
     @Column(name = "year", nullable = false)

@@ -27,7 +27,7 @@ public class Employee {
     @Column(name="salary",nullable = false)
     private float mSalary;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Point mPoint;
 
     @Column(name="entering_time",nullable = false)
@@ -37,10 +37,10 @@ public class Employee {
     private String mPwd;
 
 
-    @OneToMany(mappedBy = "mId")
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
     private List<Attendance> mAttendence;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<Position> mPosition;
 
 

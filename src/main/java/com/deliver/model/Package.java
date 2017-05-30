@@ -39,10 +39,10 @@ public class Package {
     @Column(name = "cup_shelf", nullable = false)
     private boolean mCupOrShelf; // constant.Constant
 
-    @ManyToOne(cascade = {CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private StoragePosition mPosition;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private DeliverCompany mCompany; // foreign key
 
     public Package() {}

@@ -2,6 +2,7 @@ package com.deliver.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by deadoggy on 17-4-18.
@@ -37,14 +38,14 @@ public class Point {
     @Column(name = "number", nullable = false)
     private String mNumber;
 
-    @OneToMany(mappedBy = "mEmployeeId")
-    private List<Employee> mEmployee;
+    @OneToMany(mappedBy = "mEmployeeId",fetch = FetchType.EAGER)
+    private Set<Employee> mEmployee;
 
-    @OneToMany(mappedBy = "mId")
-    private List<Shelf> mShelf;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<Shelf> mShelf;
 
-    @OneToMany(mappedBy = "mId")
-    private List<SmartCupboard> mSmartCupboard;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<SmartCupboard> mSmartCupboard;
 
     public Point() {}
 
@@ -124,27 +125,27 @@ public class Point {
         this.mCounty = mCounty;
     }
 
-    public List<Employee> getmEmployee() {
+    public Set<Employee> getmEmployee() {
         return mEmployee;
     }
 
-    public void setmEmployee(List<Employee> mEmployee) {
+    public void setmEmployee(Set<Employee> mEmployee) {
         this.mEmployee = mEmployee;
     }
 
-    public List<Shelf> getmShelf() {
+    public Set<Shelf> getmShelf() {
         return mShelf;
     }
 
-    public void setmShelf(List<Shelf> mShelf) {
+    public void setmShelf(Set<Shelf> mShelf) {
         this.mShelf = mShelf;
     }
 
-    public List<SmartCupboard> getmSmartCupboard() {
+    public Set<SmartCupboard> getmSmartCupboard() {
         return mSmartCupboard;
     }
 
-    public void setmSmartCupboard(List<SmartCupboard> mSmartCupboard) {
+    public void setmSmartCupboard(Set<SmartCupboard> mSmartCupboard) {
         this.mSmartCupboard = mSmartCupboard;
     }
 }

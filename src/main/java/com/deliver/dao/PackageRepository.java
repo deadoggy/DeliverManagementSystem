@@ -33,4 +33,6 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
     Page<Package> findByMCompany(DeliverCompany company, Pageable pageable);
 
     List<Package> findByMReceiverTele(String tele);
+
+    List<Package> findByMPackageIdLike(String id);
 }

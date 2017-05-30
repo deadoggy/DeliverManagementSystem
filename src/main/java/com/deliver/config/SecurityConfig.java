@@ -35,12 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //静态资源通过nginx访问, 其他资源通过tomcat访问
         try{
             http.authorizeRequests()
-                    .antMatchers("/checkCode").permitAll()
-                    .antMatchers("/code").permitAll()
-                    .antMatchers("/static/**").permitAll()
-                    .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home",true)
-                .and().csrf().disable();
+                    .antMatchers("/**").permitAll()
+                    .and().csrf().disable();
+//                    .antMatchers("/checkCode").permitAll()
+//                    .antMatchers("/code").permitAll()
+//                    .antMatchers("/static/**").permitAll()
+//                    .anyRequest().authenticated()
+//                .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home",true)
+//                .and().csrf().disable();
         }catch(Exception e){
             e.printStackTrace();
             throw e;

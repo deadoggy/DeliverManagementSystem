@@ -17,7 +17,7 @@ public class ProxyChargeRecord {
     private int mId;
 
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
     private Package mPackage;// foreign key
 
     @Column(name = "fee", nullable = false)

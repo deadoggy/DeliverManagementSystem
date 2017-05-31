@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Tue May 30 14:26:43 CST 2017
+cassandra-all-0.8.1-sources.jar>central=
+cassandra-all-0.8.1-javadoc.jar>central=
+cassandra-all-0.8.1.jar>central=
+cassandra-all-0.8.1.pom>central=

@@ -1,6 +1,7 @@
 package com.deliver.service;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.AttendanceRepository;
 import com.deliver.dao.EmployeeRepository;
@@ -16,6 +17,7 @@ import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by deadoggy on 17-5-9.
@@ -162,6 +164,7 @@ public class HumanManageService {
             JSONObject ret = new JSONObject();
             Employee employee = this.employeeRepository.findByMEmployeeId(id);
 
+            ret.put("result", "success");
             ret.put("id", employee.getmEmployeeId());
             ret.put("name", employee.getmName());
             ret.put("gender", employee.ismGender()? "male" : "female");
@@ -173,7 +176,35 @@ public class HumanManageService {
             return ret.toJSONString();
 
         }catch(Exception e){
-            return null;
+            return "{\"result\": \"fail\", \"reason\" : \"no such id\"}";
+        }
+    }
+
+
+    public String findByEmployName(String name){
+        try{
+            JSONObject ret = new JSONObject();
+            JSONArray arr = new JSONArray();
+            List<Employee> emList = this.employeeRepository.findByMName(name);
+
+            for(Employee employee : emList){
+                JSONObject item = new JSONObject();
+                item.put("result", "success");
+                item.put("id", employee.getmEmployeeId());
+                item.put("name", employee.getmName());
+                item.put("gender", employee.ismGender()? "male" : "female");
+                item.put("age", employee.getmAge());
+                item.put("phone", employee.getmPhone() != null ? employee.getmPhone() : "none");
+                item.put("salary", employee.getmSalary());
+                item.put("point", employee.getmPoint().getmName());
+                arr.add(item);
+            }
+            ret.put("result", "success");
+            ret.put("data", arr);
+            return ret.toJSONString();
+
+        }catch(Exception e){
+            return "{\"result\": \"fail\", \"reason\" : \"no such name\"}";
         }
     }
 

@@ -88,5 +88,9 @@ public class HomeController {
         return "advanced_manage";
     }
 
+    @RequestMapping({"/down"})
+    public String down(){
+        return "test";
+    }
 
 }

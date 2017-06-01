@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -26,10 +26,12 @@ public interface ProxyChargeRecordRepository extends JpaRepository<ProxyChargeRe
 
     Page<ProxyChargeRecord> findByMSendorReceive(boolean sendorReceive, Pageable pageable);
 
-    Page<ProxyChargeRecord> findByMTime(Timestamp time, Pageable pageable);
 
-    //@Query("select ProxyChargeRecord from ProxyChargeRecord as pc, Package  as pk where pc.mDate = ?1 and pk.mId = pc.mPackage")
-    //List<ProxyChargeRecord> getByDate(Date date);
+    @Query("select pc from ProxyChargeRecord as pc where pc.mDate between ?1 and ?2")
+    List<ProxyChargeRecord> getByDate(Date beg, Date end);
+
+    @Query("select pc from ProxyChargeRecord as pc where pc.mDate between ?1 and ?2 and pc.mPackage.mCompany = ?3")
+    List<ProxyChargeRecord> getByDateAndCompany(Date beg, Date end, DeliverCompany company);
 
 
 

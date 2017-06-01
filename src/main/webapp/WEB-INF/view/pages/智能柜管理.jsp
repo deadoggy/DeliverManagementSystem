@@ -28,7 +28,7 @@
 							<input type="text" name="zngID" />
 						</div>
 						<div class="field">
-							<button class="ui button primary "  id="zngCxbtn">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</button>
+							<button class="ui button primary "   id="zngCxbtn">&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;</button>
 						</div>
 					</div>
 				</form>
@@ -71,7 +71,7 @@
 						<td>G03</td>
 						<td>200</td>
 						<td>故障，维修中</td>
-						<td><button class="ui yellow button">编辑</button>
+						<td><button class="ui yellow button" onclick="test()">编辑</button>
 							<button class="ui red button">删除</button>
 						</td>
 					</tr>
@@ -137,4 +137,19 @@
 				</div>
 			</form>
 		</div>
+		<script>
+
+			function test(){
+                var host = window.location.host
+                var request = new XMLHttpRequest();
+                request.open("GET", "http://" + host + "/shelf/1000");
+                request.onreadystatechange = function(){
+                    alert("true");
+                    console.log(request.responseText);
+                }
+                request.send();
+			}
+
+
+		</script>
 		

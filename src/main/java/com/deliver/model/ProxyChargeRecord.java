@@ -1,7 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 
 /**
@@ -27,20 +27,15 @@ public class ProxyChargeRecord {
     @Column(name = "send_receive", nullable = false)
     private boolean mSendorReceive;
 
-    @Column(name = "time")
-    private Timestamp mTime;
-
     @Column(name = "date", nullable = false)
     private Date mDate;
 
     public ProxyChargeRecord() {}
 
-    public ProxyChargeRecord(Package mPackage,
-                             double mFee, boolean mSendorReceive, Timestamp mTime, Date mDate) {
+    public ProxyChargeRecord(Package mPackage, double mFee, boolean mSendorReceive, Date mDate) {
         this.mPackage = mPackage;
         this.mFee = mFee;
         this.mSendorReceive = mSendorReceive;
-        this.mTime = mTime;
         this.mDate = mDate;
     }
 
@@ -75,14 +70,6 @@ public class ProxyChargeRecord {
 
     public void setmSendorReceive(boolean mSendorReceive) {
         this.mSendorReceive = mSendorReceive;
-    }
-
-    public Timestamp getmTime() {
-        return mTime;
-    }
-
-    public void setmTime(Timestamp mTime) {
-        this.mTime = mTime;
     }
 
     public Date getmDate() {

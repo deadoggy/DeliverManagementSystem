@@ -4,11 +4,10 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.*;
 import com.deliver.model.DeliverCompany;
-import com.deliver.model.DeliverCompanyBill;
+import com.deliver.model.ProxyChargeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -17,7 +16,10 @@ import java.util.*;
  * 返回Json字符串
  */
 
-
+//taken_sum: 取件总量
+//post_fee: 邮费统计
+//package_info:包裹信息
+//send_rec: 寄件记录
 @Service
 public class FormService {
 
@@ -31,172 +33,47 @@ public class FormService {
     private MonthFormRepository monthFormRepository;
 
     @Autowired
-    private DeliverCompanyBillRepository deliverCompanyBillRepository;
+    private DeliverCompanyRepository deliverCompanyRepository;
+
+    @Autowired
+    private ProxyChargeRecordRepository proxyChargeRecordRepository;
+
+    private static String opt[] = {"taken_sum", "post_fee", "package_info", "send_rec"};
+
+    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
 
 
     /*Calender -> String*/
     private static String CalendarToString(Calendar cal){
         StringBuilder retStr = new StringBuilder();
         retStr.append(cal.get(Calendar.YEAR))
-                .append("-")
+                .append("/")
                 .append(cal.get(Calendar.MONTH))
-                .append("-")
+                .append("/")
                 .append(cal.get(Calendar.DAY_OF_MONTH))
-                .append("-")
+                .append("/")
                 .append(cal.get(Calendar.HOUR));
         return retStr.toString();
-
-    }
-
-    /*获取一天之内各个小时的快递取货数量*/
-    /*month 1 ~ 12*/
-    public String getTakenSumByHourInDay(Integer year, Integer month, Integer day, DeliverCompany company){
-        try{
-            if(null == year || null == month || null == day){
-                throw new Exception("日期不合法");
-            }
-            //添加年月日
-            JSONObject retJsonObj = new JSONObject();
-            retJsonObj.put("year", year);
-            retJsonObj.put("month", month);
-            retJsonObj.put("day", day);
-
-            //找出一天内的数据
-            List<Integer> originData = this.hourFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(year, month, day, company);
-
-            JSONArray dataArr = new JSONArray();
-
-            dataArr.addAll(originData);
-
-            //将数据加入retJsonObj
-            retJsonObj.put("data", dataArr);
-
-            return retJsonObj.toJSONString();
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-
-    }
-
-    /*获取一天之内各个小时的快递取货数量*/
-    public String getTakenSumByHourInDay(Calendar date, DeliverCompany company){
-        try{
-            return this.getTakenSumByHourInDay(
-                    date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH), company
-            );
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    /*获取一个时间段内的按照小时统计的函数, 包括end中小时对应的数据*/
-    public String getTakenSumByHourInPeriod(Calendar beg, Calendar end, DeliverCompany company){
-        try{
-            //获取所有的数据
-            LinkedList<Integer> list = new LinkedList<>();
-            Calendar flag = (Calendar) beg.clone();
-            while(flag.compareTo(end) <= 0){
-                list.addAll(this.hourFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(flag.get(Calendar.YEAR), flag.get(Calendar.MONTH)+1, flag.get(Calendar.DAY_OF_MONTH), company));
-                flag.add(Calendar.DAY_OF_MONTH,1);
-            }
-            //处理小时
-            int begHour = beg.get(Calendar.HOUR_OF_DAY), endHour = end.get(Calendar.HOUR_OF_DAY);
-            if(0 != begHour){
-                for(int i=0; i<begHour;i++){
-                    list.remove(0);
-                }
-            }
-            if(23 != endHour){
-                for(int i=0; i<23 - endHour; i++){
-                    list.removeLast();
-                }
-            }
-            //转换成JSON
-            JSONObject jsonObj = new JSONObject();
-            jsonObj.put("begTime", CalendarToString(beg));
-            jsonObj.put("endTime", CalendarToString(end));
-
-            JSONArray jsonArray = new JSONArray();
-            jsonArray.addAll(list);
-
-            jsonObj.put("data", jsonArray);
-            return jsonObj.toJSONString();
-
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /*获取一个月内各天的数据*/
-    /*month 1 ~ 12*/
-    public String getTakenSumByDayInMonth(Integer year, Integer month, DeliverCompany company){
-        try{
-            if(month < 1 || month > 12){
-                throw new Exception("日期不合法");
-            }
-
-            //拿到所有数据
-            List<Integer> allData = this.dayFormRepository.findMSumByMYearAndMMonthAndMCompany(year, month, company);
-
-            //转换成json
-            JSONObject retJsonObj = new JSONObject();
-            retJsonObj.put("year", year);
-            retJsonObj.put("month", month);
-
-            JSONArray dataArr = new JSONArray();
-            dataArr.addAll(allData);
-            retJsonObj.put("data", dataArr);
-
-            return retJsonObj.toJSONString();
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /*获取一年内各天的数据*/
-    public String getTakenSumByDayInYear(Integer year, DeliverCompany company){
-        try{
-            //拿到所有数据
-            List<Integer> allData = this.dayFormRepository.findMSumByMYearAndMCompany(year, company);
-
-            //生成Json
-            JSONObject retJsonObject = new JSONObject();
-
-            retJsonObject.put("year", year);
-
-            JSONArray dataArr = new JSONArray();
-            dataArr.addAll(allData);
-            retJsonObject.put("data", dataArr);
-
-            return retJsonObject.toJSONString();
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
 
     }
 
     /*获取一个时间段内按照天数统计的函数, 包括end中的天数*/
     public String getTakenSumByDayInPeriod(Calendar beg, Calendar end, DeliverCompany company){
         try{
-            Calendar flag = (Calendar) beg.clone();
-            List<Integer> allData = new LinkedList<>();
-            while(flag.compareTo(end) <= 0){
-                int year = flag.get(Calendar.YEAR);
-                int mon = flag.get(Calendar.MONTH) + 1;
-                int day = flag.get(Calendar.DAY_OF_MONTH);
-                allData.addAll(this.dayFormRepository.findMSumByMYearAndMMonthAndMDayAndMCompany(year, mon, day, company));
-                flag.add(Calendar.DAY_OF_MONTH,1);
+            List<Integer> allData;
+
+            if(null == company){
+                allData = this.dayFormRepository.findInPeriod(beg.getTime(), end.getTime());
+            }else{
+                allData = this.dayFormRepository.findInPeriodOfCompany(company, beg.getTime(), end.getTime());
             }
 
             //JSON
+
             JSONObject retJsonObject = new JSONObject();
+            retJsonObject.put("result", "success");
             retJsonObject.put("begTime", CalendarToString(beg));
             retJsonObject.put("endTime", CalendarToString(end));
 
@@ -211,95 +88,34 @@ public class FormService {
         }
     }
 
-    /*获取一年内各月的数据*/
-    public String getTakenSumByMonthInYear(Integer year, DeliverCompany company){
+    /*获取一个时间段内按照天数统计的代收邮费的数据*/
+    public String getProxyChargeInPeriod(Calendar beg, Calendar end, DeliverCompany company){
         try{
-            List<Integer> allData = this.monthFormRepository.findMSumByMYearAndMCompany(year, company);
-
-            JSONObject retJsonObject = new JSONObject();
-            retJsonObject.put("year", year);
-
-            JSONArray dataArr = new JSONArray();
-            dataArr.addAll(allData);
-
-            retJsonObject.put("data", dataArr);
-
-            return retJsonObject.toJSONString();
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-
-    }
-
-    /*获取一个时间段内按照月统计的函数, 包括end中的月数*/
-    public String getTakenSumByMonthInPeriod(Calendar beg, Calendar end, DeliverCompany company){
-        try{
-            List<Integer> allData = new LinkedList<>();
-            Calendar flag = (Calendar)beg.clone();
-
-            while(flag.compareTo(end) <= 0){
-                int year = flag.get(Calendar.YEAR);
-                int mon = flag.get(Calendar.MONTH) + 1;
-                int day = flag.get(Calendar.DAY_OF_MONTH);
-
-                allData.addAll(this.monthFormRepository.findMSumByMYearAndMMonthAndMCompany(year, mon, company));
-                flag.add(Calendar.MONTH,1);
+            List<ProxyChargeRecord> data;
+            if(null == company){
+                data = this.proxyChargeRecordRepository.getByDate(beg.getTime(), end.getTime());
+            }else{
+                data = this.proxyChargeRecordRepository.getByDateAndCompany(beg.getTime(), end.getTime(), company);
             }
 
-            JSONObject retJsonObj = new JSONObject();
-            retJsonObj.put("begTime", CalendarToString(beg));
-            retJsonObj.put("endTime", CalendarToString(end));
-
             JSONArray dataArr = new JSONArray();
-            dataArr.addAll(dataArr);
-            retJsonObj.put("data", dataArr);
 
-            return retJsonObj.toJSONString();
 
-        }catch(Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /*获取一个公司一个月内的账单信息*/
-    public String getBillByCompanyAndMonth(DeliverCompany company, Calendar mon){
-        try{
-            List<DeliverCompanyBill> list = this.deliverCompanyBillRepository
-                    .findBymCompanyAndMYearAndMMonth(company, mon.get(Calendar.YEAR), mon.get(Calendar.MONTH) + 1);
-
-            JSONArray ret = new JSONArray();
-            for(DeliverCompanyBill bill : list){
-                JSONArray item = new JSONArray();
-                int packageSum = bill.getmPackageSum();
-                double sumPrice = (double)packageSum * bill.getmPerPackageFee();
-                int proxySum = bill.getmProxyChargeTimes();
-                double proxyPrice = proxySum * bill.getmPerProxyChargeFee();
-
-                item.add(packageSum); // 代收包裹数量
-                item.add(sumPrice); //代收包裹总价
-                item.add(proxySum); // 代收邮费次数
-                item.add(proxyPrice); //代收邮费总价
-                item.add(proxyPrice + sumPrice); //结算
-
-                ret.add(item);
+            for(ProxyChargeRecord item : data){
+                JSONArray record = new JSONArray();
+                record.add(item.getmPackage().getmPackageId());
+                record.add(formater.format(item.getmDate()));
+                record.add(item.getmFee());
+                dataArr.add(record);
             }
-            JSONObject retJson = new JSONObject();
-            JSONArray  title = new JSONArray();
 
-            title.add("package_sum");
-            title.add("package_price");
-            title.add("proxy_times");
-            title.add("proxy_price");
-            title.add("sum");
+            JSONObject ret = new JSONObject();
+            ret.put("result", "success");
+            ret.put("beg", this.formater.format(beg.getTime()));
+            ret.put("end", this.formater.format(end.getTime()));
+            ret.put("data", dataArr);
 
-            retJson.put("title", title);
-            retJson.put("data", ret);
-
-            Timestamp time = new Timestamp(new Date().getTime());
-
-            return retJson.toJSONString();
+            return ret.toJSONString();
 
         }catch(Exception e){
             e.printStackTrace();
@@ -307,7 +123,40 @@ public class FormService {
         }
     }
 
-    /*获取一段时间内的代收款记录*/
 
+    public String dispatcher(String company, Calendar beg, Calendar end, String opt){
+
+        String ret = null;
+        int cmp=0;
+        DeliverCompany comObj = null;
+        if(null != company){
+            comObj = this.deliverCompanyRepository.findByMName(company);
+            if(null == comObj){
+                return "{\"result\":\"failure\", \"reason\": \"no such company\"}";
+            }
+        }
+
+
+        for(int i=0; i<FormService.opt.length; i++){
+            if(0 == opt.compareTo(FormService.opt[i])){
+                cmp = (cmp + 1) << i;
+                break;
+            }
+        }
+
+        switch(cmp){
+            case 0 : return "{\"result\": \"failure\", \"reason\": \"no such opt\"}";
+            case 1 : ret = this.getTakenSumByDayInPeriod(beg, end,comObj); //taken_sum
+                break;
+            case 2 : ret = this.getProxyChargeInPeriod(beg, end, comObj); //post_fee
+                break;
+            case 4 :
+                break;
+            case 8 : //TODO
+                break;
+        }
+
+        return "test";
+    }
 
 }

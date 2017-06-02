@@ -7,6 +7,7 @@ import com.deliver.model.*;
 import com.deliver.model.Package;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -127,5 +128,10 @@ public class PackageService {
     //通过手机获得所有包裹
     public List<Package> getPackageByTele(String tele){
         return packageRepository.findByMReceiverTele(tele);
+    }
+
+    //
+    public List<Package> getPackageTaken(String id){
+        return packageRepository.findByMPackageIdLike(id);
     }
 }

@@ -4,9 +4,9 @@
     pageEncoding="utf-8"%>
 
   <div class="ui link list tab segment active" data-tab="sm2">
-        <a class="active item" href="货物查询.jsp">货物查询</a>
-        <a class="item" href="取件记录.jsp">取件记录</a>
-        <a class=" item" href="过期取件.jsp">过期取件</a>
+        <a class="active item" href="/search_package">货物查询</a>
+        <a class="item" href="/taken_record">取件记录</a>
+        <a class="item" href="/taken_out_time">过期取件</a>
         
       </div>
 		</div>
@@ -22,16 +22,16 @@
 			    <div class="three fields">
 			      <div class="field">	 				
 				        <label>手机号：</label>
-				        <input type="text" name="kdNumber" placeholder="手机号"/>		   
+				        <input type="text" name="kdNumber" placeholder="手机号" id="tel"/>
 				  </div>
 			      <div class="field">
 				        <label>货物单号：</label>
-				        <input type="text" name="kdNumber" placeholder="货物单号"/>		  
+				        <input type="text" name="kdNumber" placeholder="货物单号" id="goodId"/>
 				  </div>
 				  <div class="field">
 				  <h2></h2>
 				  <h4></h4>
-				  <button class="ui button" id="hwCxbtn">查询</button>
+				  <button class="ui button" id="hwCxbtn" onclick="goodQuery()">查询</button>
 				  
 				  </div>
 			    </div>
@@ -52,14 +52,14 @@
 						<th>取件操作</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="goodContent">
 					<tr>
 						<td>ID01</td>
 						<td>G54</td>
 						<td>2017/4/17 13:00:00</td>
 						<td>48h</td>
 						<td>刘伟：133xxxxxxxx</td>
-						<td><button class="ui yellow button">取件</button></td>
+						<td><button class="ui yellow button" onclick="confirmBox()">取件</button></td>
 					</tr>
 					<tr>
 						<td>ID03</td>
@@ -97,8 +97,4 @@
 			</table>
 		</div>	
 <!--2.hwcx  -->
-<script type="text/javascript">
-$(function (){
-	$("#seg2").addClass("active");
-})
-</script>
+<script src="/static/myjs/goodQuery.js">

@@ -21,7 +21,7 @@ public class YearForm {
     @Column(name="sum",nullable = false)
     private int mSum;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private DeliverCompany mCompany;//foreign
 
     public YearForm(){

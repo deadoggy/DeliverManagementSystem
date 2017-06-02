@@ -7,7 +7,7 @@
 
 
    <div class="ui link list tab segment active" data-tab="sm3" >
-        <a class="active item" href="寄送快递.jsp">寄送快递</a>
+        <a class="active item" href="/send_package">寄送快递</a>
       
    </div>
    </div>
@@ -42,87 +42,26 @@
   <div class="field">
     <label>姓名</label>
       <div class="field">
-        <input type="text" name="shipping_name" placeholder="收货人姓名">
+        <input type="text" name="shipping_name" placeholder="收货人姓名" id="rName">
       </div>
    </div>
    <div class="field">
       <label>联系电话</label>
       <div class="field">
-        <input type="text" name="shipping_phone" placeholder="收货人电话">
+        <input type="text" name="shipping_phone" placeholder="收货人电话" id="rTele">
       </div>
   </div>
   </div>
 
-  <div class="two fields">
+  <div class="two fields" id="rPos">
       <div class="field">
       <label>省/特别行政区</label>
-    <select class="ui fluid dropdown">
-    <option value="VT">上海</option>
-    <option value="VT">Vermont</option>
-    <option value="VA">Virginia</option>
-    <option value="WA">Washington</option>
-    <option value="WV">West Virginia</option>
-    <option value="WI">Wisconsin</option>
-    <option value="WY">Wyoming</option>
-    </select>
+    <select class="ui fluid dropdown prov" id="rProvince"></select>
 
     </div>
     <div class="field">
       <label>城市</label>
-      <select class="ui fluid dropdown">
-      <option value="">上海</option>
-    <option value="AL">Alabama</option>
-    <option value="AK">Alaska</option>
-    <option value="AZ">Arizona</option>
-    <option value="AR">Arkansas</option>
-    <option value="CA">California</option>
-    <option value="CO">Colorado</option>
-    <option value="CT">Connecticut</option>
-    <option value="DE">Delaware</option>
-    <option value="DC">District Of Columbia</option>
-    <option value="FL">Florida</option>
-    <option value="GA">Georgia</option>
-    <option value="HI">Hawaii</option>
-    <option value="ID">Idaho</option>
-    <option value="IL">Illinois</option>
-    <option value="IN">Indiana</option>
-    <option value="IA">Iowa</option>
-    <option value="KS">Kansas</option>
-    <option value="KY">Kentucky</option>
-    <option value="LA">Louisiana</option>
-    <option value="ME">Maine</option>
-    <option value="MD">Maryland</option>
-    <option value="MA">Massachusetts</option>
-    <option value="MI">Michigan</option>
-    <option value="MN">Minnesota</option>
-    <option value="MS">Mississippi</option>
-    <option value="MO">Missouri</option>
-    <option value="MT">Montana</option>
-    <option value="NE">Nebraska</option>
-    <option value="NV">Nevada</option>
-    <option value="NH">New Hampshire</option>
-    <option value="NJ">New Jersey</option>
-    <option value="NM">New Mexico</option>
-    <option value="NY">New York</option>
-    <option value="NC">North Carolina</option>
-    <option value="ND">North Dakota</option>
-    <option value="OH">Ohio</option>
-    <option value="OK">Oklahoma</option>
-    <option value="OR">Oregon</option>
-    <option value="PA">Pennsylvania</option>
-    <option value="RI">Rhode Island</option>
-    <option value="SC">South Carolina</option>
-    <option value="SD">South Dakota</option>
-    <option value="TN">Tennessee</option>
-    <option value="TX">Texas</option>
-    <option value="UT">Utah</option>
-    <option value="VT">Vermont</option>
-    <option value="VA">Virginia</option>
-    <option value="WA">Washington</option>
-    <option value="WV">West Virginia</option>
-    <option value="WI">Wisconsin</option>
-    <option value="WY">Wyoming</option>
-      </select>
+      <select class="ui fluid dropdown city" id="rCity"></select>
     </div>
 
   </div>
@@ -130,7 +69,7 @@
     <label>收货人地址</label>
     <div class="fields">
       <div class="twelve wide field">
-        <input type="text" name="shipping[address]" placeholder="街道信息">
+        <input type="text" name="shipping[address]" placeholder="街道信息" id="rAdderss">
       </div>
       <div class="four wide field">
         <input type="text" name="shipping[address-2]" placeholder="备注">
@@ -147,13 +86,13 @@
   <div class="field">
     <label>姓名</label>
       <div class="field">
-        <input type="text" name="shipping_name" placeholder="寄件人姓名">
+        <input type="text" name="shipping_name" placeholder="寄件人姓名" id="sName">
       </div>
    </div>
    <div class="field">
       <label>联系电话</label>
       <div class="field">
-        <input type="text" name="shipping_phone" placeholder="寄件人电话">
+        <input type="text" name="shipping_phone" placeholder="寄件人电话" id="sTele">
       </div>
   </div>
   </div>
@@ -161,82 +100,21 @@
     <label>寄件人地址</label>
     <div class="fields">
       <div class="twelve wide field">
-        <input type="text" name="shipping[address]" placeholder="街道信息">
+        <input type="text" name="shipping[address]" placeholder="街道信息" id="sAdderss">
       </div>
       <div class="four wide field">
         <input type="text" name="shipping[address-2]" placeholder="备注">
       </div>
     </div>
   </div>
-  <div class="two fields">
-    <div class="field">
-      <label>城市</label>
-      <select class="ui fluid dropdown">
-      <option value="">上海</option>
-    <option value="AL">Alabama</option>
-    <option value="AK">Alaska</option>
-    <option value="AZ">Arizona</option>
-    <option value="AR">Arkansas</option>
-    <option value="CA">California</option>
-    <option value="CO">Colorado</option>
-    <option value="CT">Connecticut</option>
-    <option value="DE">Delaware</option>
-    <option value="DC">District Of Columbia</option>
-    <option value="FL">Florida</option>
-    <option value="GA">Georgia</option>
-    <option value="HI">Hawaii</option>
-    <option value="ID">Idaho</option>
-    <option value="IL">Illinois</option>
-    <option value="IN">Indiana</option>
-    <option value="IA">Iowa</option>
-    <option value="KS">Kansas</option>
-    <option value="KY">Kentucky</option>
-    <option value="LA">Louisiana</option>
-    <option value="ME">Maine</option>
-    <option value="MD">Maryland</option>
-    <option value="MA">Massachusetts</option>
-    <option value="MI">Michigan</option>
-    <option value="MN">Minnesota</option>
-    <option value="MS">Mississippi</option>
-    <option value="MO">Missouri</option>
-    <option value="MT">Montana</option>
-    <option value="NE">Nebraska</option>
-    <option value="NV">Nevada</option>
-    <option value="NH">New Hampshire</option>
-    <option value="NJ">New Jersey</option>
-    <option value="NM">New Mexico</option>
-    <option value="NY">New York</option>
-    <option value="NC">North Carolina</option>
-    <option value="ND">North Dakota</option>
-    <option value="OH">Ohio</option>
-    <option value="OK">Oklahoma</option>
-    <option value="OR">Oregon</option>
-    <option value="PA">Pennsylvania</option>
-    <option value="RI">Rhode Island</option>
-    <option value="SC">South Carolina</option>
-    <option value="SD">South Dakota</option>
-    <option value="TN">Tennessee</option>
-    <option value="TX">Texas</option>
-    <option value="UT">Utah</option>
-    <option value="VT">Vermont</option>
-    <option value="VA">Virginia</option>
-    <option value="WA">Washington</option>
-    <option value="WV">West Virginia</option>
-    <option value="WI">Wisconsin</option>
-    <option value="WY">Wyoming</option>
-      </select>
-    </div>
+  <div class="two fields" id="sPos">
     <div class="field">
       <label>省/特别行政区</label>
-    <select class="ui fluid dropdown">
-    <option value="VT">上海</option>
-    <option value="VT">Vermont</option>
-    <option value="VA">Virginia</option>
-    <option value="WA">Washington</option>
-    <option value="WV">West Virginia</option>
-    <option value="WI">Wisconsin</option>
-    <option value="WY">Wyoming</option>
-    </select>
+      <select class="ui fluid dropdown prov" id="sProvince"></select>
+    </div>
+    <div class="field">
+      <label>城市</label>
+    <select class="ui fluid dropdown city" id="sCity"></select>
 
     </div>
   </div>
@@ -246,17 +124,10 @@
   </div>
   <h2></h2>
   <div class="field">
-    <label>货物重量级别</label>
-    <div class="ui selection dropdown">
-      <input type="hidden" name="card[type]">
-      <div class="default text">类型</div>
-      <i class="dropdown icon"></i>
-      <div class="menu">
-        <div class="item" data-value="visa"><i class="visa icon"></i> Visa </div>
-        <div class="item" data-value="amex"><i class="amex icon"></i> American Express </div>
-        <div class="item" data-value="discover"><i class="discover icon"></i> Discover </div>
+    <label>货物重量</label>
+      <div class="field">
+      <input type="text" placeholder="货物重量（单位：kg）" id="weight">
       </div>
-    </div>
   </div>
   
   <div class="fields">
@@ -312,12 +183,11 @@
       </div>
     </div>
   </div>
-  <div class="ui button" tabindex="0" style="float:right">提交订单</div>
+  <div class="ui button" tabindex="0" style="float:right" onclick="sendPackage()">提交订单</div>
 </form>
 
-<script type="text/javascript">
-$(function (){
-	$("#seg3").addClass("active");
-})
-</script>
+
+    <%--<script src="/static/myjs/city.min.js"></script>--%>
+    <script src="/static/myjs/jquery.cityselect.js"></script>
+<script src="/static/myjs/sendPackage.js"></script>
 

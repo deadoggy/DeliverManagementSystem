@@ -5,7 +5,7 @@
 
 	   <div class="ui link list tab segment active" data-tab="sm1" >
         <a class="active item" href="#" >快递入库</a>
-        <a class="item" href="智能柜货架互转.jsp" >智能柜货架互转</a>
+        <a class="item" href="/shelf_cup_transfer" >智能柜货架互转</a>
       </div>
 		</div>
 	</div>
@@ -22,7 +22,7 @@
 				<div class="ui divider"></div>
 				<div style="display:flex ;justify-content:space-between;" >
 				<div class="ui input focus" style="width:36em">
-			  		<input type="text" placeholder="请输入货物单号，或者使用扫码器扫描">
+			  		<input type="text" placeholder="请输入货物单号，或者使用扫码器扫描" id="goodId" required>
 			    </div>
 				
 				<div class="ui animated fade button" tabindex="0">
@@ -46,16 +46,16 @@
 				<div class="ui divider"></div>
 				<div style="display:flex ;justify-content:    space-between; ">
 				<div class="ui input focus" style="width:36em">
-			  		<input type="text" placeholder="请输入存放位置，或者系统随机生成">
+			  		<input type="text" placeholder="请输入存放位置，或者系统随机生成" id="storageId" required>
 			    </div>
 				
 				<div>
 				  <div class="ui floating labeled icon dropdown button" id="dropdownBtn">
 				    <i class="wrench icon"></i>
 					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-					  <span class="text">货架</span>
+					  <span class="text">选择存放位置</span>
 					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-					  <div class="menu">
+					  <div class="menu" id="menu">
 					    <div class="item">
 					      <span class="description">212剩余</span>
 					      <span class="text">智能柜</span>
@@ -68,7 +68,7 @@
 					</div>
 				</div>
 				
-				<div class="ui animated fade button" tabindex="0">
+				<div class="ui animated fade button" tabindex="0" onclick="generatePos()">
 				  <div class="visible content">自动生成</div>
 				  <div class="hidden content">自动生成 </div>
 				</div>
@@ -93,14 +93,14 @@
 					    <label>货物是否以及通过安检？</label>
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="frequency" checked="checked">
+					        <input type="radio" name="frequency" checked="checked" id="passCheckTrue">
 					        <label>是，我确认货物通过了安检</label>
 					      </div>
 					    </div>
 				
 					    <div class="field">
 					      <div class="ui radio checkbox">
-					        <input type="radio" name="frequency">
+					        <input type="radio" name="frequency" id="passCheckFalse">
 					        <label>否，货物没有通过安检</label>
 					      </div>
 					    </div>
@@ -111,7 +111,7 @@
 			<p></p>
 			<h1></h1>
 			<h2></h2>
-			<button class="positive fluid ui button"> 确认入库</button>
+			<button class="positive fluid ui button" onclick="store()"> 确认入库</button>
 		
 	    </div>
 
@@ -119,11 +119,5 @@
 		
 	
 
-	
-<script type="text/javascript">
-$(function (){
-	$("#seg1").addClass("active");
-	$("#dropdownBtn").dropdown();
-});
 
-</script>
+<script src="/static/myjs/storePackage.js"></script>

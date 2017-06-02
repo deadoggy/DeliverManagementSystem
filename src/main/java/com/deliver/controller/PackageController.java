@@ -57,7 +57,9 @@ public class PackageController {
         jsonObject.put("status", "ok");
         JSONArray jsonArray = new JSONArray();
         for (Package aPackage : packageList) {
-            jsonArray.add(aPackage);
+            if(aPackage.ismTaken()==false){
+                jsonArray.add(aPackage);
+            }
         }
         jsonObject.put("packages", jsonArray);
         return jsonObject.toJSONString();
@@ -72,7 +74,9 @@ public class PackageController {
         jsonObject.put("status", "ok");
         JSONArray jsonArray = new JSONArray();
         for (Package aPackage : packageList) {
-            jsonArray.add(aPackage);
+            if(aPackage.ismTaken()==false){
+                jsonArray.add(aPackage);
+            }
         }
         jsonObject.put("packages", jsonArray);
         return JSONObject.toJSONString(jsonObject);
@@ -127,5 +131,18 @@ public class PackageController {
             jsonObject.put("status", "ok");
             return jsonObject.toString();
         }
+    }
+
+    @RequestMapping(value = "/package/taken/{id}",method = RequestMethod.GET)
+    public String getPackageTaken(@PathVariable String id){
+        List<Package> packageList = packageService.getPackageTaken(id);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("status", "ok");
+        JSONArray jsonArray = new JSONArray();
+        for (Package aPackage : packageList) {
+            jsonArray.add(aPackage);
+        }
+        jsonObject.put("packages", jsonArray);
+        return JSONObject.toJSONString(jsonObject);
     }
 }

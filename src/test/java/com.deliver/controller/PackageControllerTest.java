@@ -43,17 +43,23 @@ public class PackageControllerTest extends BaseControllerTest {
     public void add() throws Exception {
         RequestBuilder requestBuilder = post("/package")
                 .param("id", "102")
-                .param("company", "顺风")
+                .param("companyName", "顺风")
                 .param("receiverName", "zhang")
                 .param("receiverTele", "123465789")
                 .param("cupOrShelf", "false")
-                .param("storageId", "1");
+                .param("storageId", "67");
         mockMvc.perform(requestBuilder).andDo(print());
     }
 
     @Test
     public void getPackagesByTele() throws Exception {
         RequestBuilder requestBuilder=get("/package/tele/123465789");
+        mockMvc.perform(requestBuilder).andDo(print());
+    }
+
+    @Test
+    public void getPackageTaken()throws Exception{
+        RequestBuilder requestBuilder=get("/package/taken/1");
         mockMvc.perform(requestBuilder).andDo(print());
     }
 }

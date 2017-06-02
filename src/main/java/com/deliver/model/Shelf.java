@@ -31,10 +31,10 @@ public class Shelf {
     @Column(name = "col_sum", nullable = false)
     private int mColumnSum;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mShelf",fetch = FetchType.EAGER)
     private List<StoragePosition> mPosition;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Point mPoint;
 
     public Shelf() {}

@@ -3,6 +3,7 @@ package com.deliver.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 91574 on 2017/4/19.
@@ -21,23 +22,23 @@ public class DeliverCompany {
     @Column(name = "name",unique = true,nullable = false)
     private String mName;
 
-    @OneToMany(mappedBy = "mId")
-    private List<Package> mPackage;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<Package> mPackage;
 
-    @OneToMany(mappedBy = "mId")
-    private List<YearForm> mYearForm;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<YearForm> mYearForm;
 
-    @OneToMany(mappedBy = "mId")
-    private List<MonthForm> mMonthForm;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<MonthForm> mMonthForm;
 
-    @OneToMany(mappedBy = "mId")
-    private List<DayForm> mDayForm;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<DayForm> mDayForm;
 
-    @OneToMany(mappedBy = "mId")
-    private List<HourForm> mHourForm;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<HourForm> mHourForm;
 
-    @OneToMany(mappedBy = "mId")
-    private List<DeliverCompanyBill> mBills;
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    private Set<DeliverCompanyBill> mBills;
 
 
     public DeliverCompany(){
@@ -67,51 +68,51 @@ public class DeliverCompany {
         this.mName = mName;
     }
 
-    public List<Package> getmPackage() {
+    public Set<Package> getmPackage() {
         return mPackage;
     }
 
-    public void setmPackage(List<Package> mPackage) {
+    public void setmPackage(Set<Package> mPackage) {
         this.mPackage = mPackage;
     }
 
-    public List<YearForm> getmYearForm() {
+    public Set<YearForm> getmYearForm() {
         return mYearForm;
     }
 
-    public void setmYearForm(List<YearForm> mYearForm) {
+    public void setmYearForm(Set<YearForm> mYearForm) {
         this.mYearForm = mYearForm;
     }
 
-    public List<MonthForm> getmMonthForm() {
+    public Set<MonthForm> getmMonthForm() {
         return mMonthForm;
     }
 
-    public void setmMonthForm(List<MonthForm> mMonthForm) {
+    public void setmMonthForm(Set<MonthForm> mMonthForm) {
         this.mMonthForm = mMonthForm;
     }
 
-    public List<DayForm> getmDayForm() {
+    public Set<DayForm> getmDayForm() {
         return mDayForm;
     }
 
-    public void setmDayForm(List<DayForm> mDayForm) {
+    public void setmDayForm(Set<DayForm> mDayForm) {
         this.mDayForm = mDayForm;
     }
 
-    public List<HourForm> getmHourForm() {
+    public Set<HourForm> getmHourForm() {
         return mHourForm;
     }
 
-    public void setmHourForm(List<HourForm> mHourForm) {
+    public void setmHourForm(Set<HourForm> mHourForm) {
         this.mHourForm = mHourForm;
     }
 
-    public List<DeliverCompanyBill> getmBills() {
+    public Set<DeliverCompanyBill> getmBills() {
         return mBills;
     }
 
-    public void setmBills(List<DeliverCompanyBill> mBills) {
+    public void setmBills(Set<DeliverCompanyBill> mBills) {
         this.mBills = mBills;
     }
 }

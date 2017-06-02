@@ -3,9 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
       	<div class="ui link list tab segment active" data-tab="sm5">
-	        <a class="active item" href="生成报表.jsp">生成报表</a>
-	        <a class="item" href="账号管理.jsp">账号管理</a>
-	        <a class="item" href="智能柜管理.jsp">智能柜管理</a>
+	        <a class="active item" href="/generate_form">生成报表</a>
+	        <a class="item" href="/account_manage">账号管理</a>
+	        <a class="item" href="/cupboard">智能柜管理</a>
       	</div>
 	 </div>
 	</div>
@@ -108,9 +108,4 @@
 			</div>
 		</div>
 
-<script type="text/javascript">
-$(function (){
-	$("#seg5").addClass("active");
-});
-
-</script>		
+<script src="/static/myjs/generateForm.js"></script>

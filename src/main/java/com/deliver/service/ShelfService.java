@@ -52,7 +52,6 @@ public class ShelfService {
             shelf.setmLayerSum(layerSum);
             shelf.setmPositionSum(columnSum * layerSum);
             shelf.setmEmptySum(columnSum * layerSum);
-            shelf.setmPosition(new ArrayList<StoragePosition>());
             shelfRepository.saveAndFlush(shelf);
             for (int i = 1; i <= shelf.getmPositionSum(); i++) {
                 StoragePosition storagePosition = new StoragePosition(POSITION_IN_SHELF, POSTION_EMPTY,

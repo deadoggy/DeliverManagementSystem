@@ -21,7 +21,7 @@ public class HourForm {
     @Column(name = "sum", nullable = false)
     private int mSum;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private DeliverCompany mCompany;//foreign
 
     public HourForm(){

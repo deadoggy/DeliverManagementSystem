@@ -43,7 +43,7 @@ public class InsertDataTest {
 
     @Test
     public void insertEmployee(){
-        this.humanManageService.addNewEmployee("1452716", "zhang", 22, true, 200, "13301856183","0","123456");
+        this.humanManageService.addNewEmployee("1452717", "zhang", 21, true, 200, "13301856183","0","123456");
     }
 
     @Test

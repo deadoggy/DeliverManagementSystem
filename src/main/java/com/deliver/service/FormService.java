@@ -2,11 +2,19 @@ package com.deliver.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.deliver.constant.Constant;
 import com.deliver.dao.*;
 import com.deliver.model.DeliverCompany;
+import com.deliver.model.Package;
 import com.deliver.model.ProxyChargeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -38,10 +46,13 @@ public class FormService {
     @Autowired
     private ProxyChargeRecordRepository proxyChargeRecordRepository;
 
+    @Autowired
+    private PackageRepository packageRepository;
+
     private static String opt[] = {"taken_sum", "post_fee", "package_info", "send_rec"};
 
     SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+    SimpleDateFormat fileFormater = new SimpleDateFormat("yyyy_MM_dd");
 
 
 
@@ -74,8 +85,8 @@ public class FormService {
 
             JSONObject retJsonObject = new JSONObject();
             retJsonObject.put("result", "success");
-            retJsonObject.put("begTime", CalendarToString(beg));
-            retJsonObject.put("endTime", CalendarToString(end));
+            retJsonObject.put("beg", CalendarToString(beg));
+            retJsonObject.put("end", CalendarToString(end));
 
             JSONArray dataArr = new JSONArray();
             dataArr.addAll(allData);
@@ -123,6 +134,64 @@ public class FormService {
         }
     }
 
+    /*获取一个时间段内某公司的所有的包裹信息，返回服务器上一个文件的位置*/
+    public String getPackageInfo(Calendar beg, Calendar end, DeliverCompany company){
+        try{
+            StringBuilder fileNameBuilder = new StringBuilder();
+            fileNameBuilder.append(this.fileFormater.format(beg.getTime()))
+                    .append("_")
+                    .append(this.fileFormater.format(end.getTime()));
+            if(null != company){
+                fileNameBuilder.append("_")
+                .append(company.getmName());
+            }
+            fileNameBuilder.append(".csv");
+
+            List<Package> list;
+            list =
+                    company != null ?
+                    this.packageRepository.getByCompanyAndReceTime(company, new Timestamp(beg.getTimeInMillis()), new Timestamp(end.getTimeInMillis()))
+                    :this.packageRepository.getByReceTime(new Timestamp(beg.getTimeInMillis()), new Timestamp(end.getTimeInMillis()));
+
+            File out = new File("File/" + fileNameBuilder.toString());
+
+            FileWriter of = new FileWriter(out);
+            of.write("Id, rece_time, receiver, rece_tele, company, taken, taken_time, in_cup, pos_1, pos_layer, pos_col");
+            for(Package p : list){
+                StringBuilder item = new StringBuilder();
+                item.append(p.getmPackageId()).append(",")
+                        .append(formater.format(p.getmReceiveTime())).append(",")
+                        .append(p.getmReceiverName()).append(",")
+                        .append(p.getmReceiverTele()).append(",")
+                        .append(p.getmCompany()).append(",")
+                        .append(p.ismTaken()).append(",")
+                        .append(formater.format(p.getmTakenTime())).append(",");
+
+                if(p.ismCupOrShelf() == Constant.POSITION_IN_CUPBOARD){
+                    item.append("smart_board").append(",")
+                    .append(p.getmPosition().getmCup().getmCupboardId()).append(",");
+                }else{
+                    item.append("shelf").append(",")
+                    .append(p.getmPosition().getmShelf().getmShelfId()).append(",");
+                }
+                item.append(p.getmPosition().getmLayer()).append(",");
+                item.append(p.getmPosition().getmColumn()).append("\n");
+                of.write(item.toString());
+            }
+
+            of.flush();
+            of.close();
+
+            FTPService.getInstantce().upload(fileNameBuilder.toString(), fileNameBuilder.toString());
+
+            return "{\"result\": \"success\", \"url\":\"/File/" + fileNameBuilder.toString() + "\"}";
+
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public String dispatcher(String company, Calendar beg, Calendar end, String opt){
 
@@ -150,7 +219,7 @@ public class FormService {
                 break;
             case 2 : ret = this.getProxyChargeInPeriod(beg, end, comObj); //post_fee
                 break;
-            case 4 :
+            case 4 : ret = this.getPackageInfo(beg, end, comObj);
                 break;
             case 8 : //TODO
                 break;

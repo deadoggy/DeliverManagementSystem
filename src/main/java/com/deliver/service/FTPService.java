@@ -3,10 +3,12 @@ package com.deliver.service;
 import com.deliver.dao.PackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import sun.net.ftp.FtpClient;
+import sun.net.ftp.FtpDirEntry;
 
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.util.Iterator;
 
 /**
  * Created by deadoggy on 17-6-1.
@@ -18,7 +20,7 @@ public class FTPService {
 
     private static FtpClient client;
     private static String user = "ftpuser";
-    private static String passwd = "123456789";
+    private static String passwd = "123456";
     private static String ip = "139.129.18.35";
     private static int port = 20;
 
@@ -97,6 +99,16 @@ public class FTPService {
             throw e;
         }
 
+    }
+
+    public boolean find(String fileName){
+        try{
+            client.login(user, passwd.toCharArray());
+            Iterator<FtpDirEntry> itr = client.listFiles(fileName);
+            return itr.hasNext();
+        }catch(Exception e){
+            return false;
+        }
     }
 
 }

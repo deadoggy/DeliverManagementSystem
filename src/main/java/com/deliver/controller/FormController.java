@@ -46,7 +46,7 @@ public class FormController {
 
             String company = json.getString("company");
 
-            return "test";
+            return this.formService.dispatcher(company, beg, end, json.getString("opt"));
 
 
         }catch(Exception e){

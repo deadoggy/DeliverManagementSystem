@@ -12,7 +12,7 @@
 </head>
 <body>
 
-   <a href = "/DownloadFile.txt"> file </a>
+   <a href = "ftp://139.129.18.35/make"> file </a>
 
 </body>
 </html>

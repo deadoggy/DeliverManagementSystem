@@ -21,7 +21,7 @@ public class DayForm {
     @Column(name = "sum", nullable = false)
     private int mSum;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private DeliverCompany mCompany;//foreign
 
     public DayForm(){

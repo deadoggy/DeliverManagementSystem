@@ -88,10 +88,11 @@ public class InsertDataTest {
         this.deliverCompanyRepository.save(company);
     }
 
-    //@Test
+    @Test
     public void insertPackage(){
 
         DeliverCompany com = this.deliverCompanyRepository.findByMCompanyId("0000");
+        com.getmDayForm().iterator();
         Calendar dateCal = Calendar.getInstance();
         dateCal.set(2014,10,1);
 
@@ -118,7 +119,7 @@ public class InsertDataTest {
         this.pointRepository.save(pt);
     }
 
-    //@Test
+    @Test
     public void insertDayForm(){
 
         DeliverCompany com = this.deliverCompanyRepository.findByMCompanyId("0000");

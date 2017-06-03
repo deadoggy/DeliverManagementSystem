@@ -32,7 +32,7 @@ public class StoragePosition {
     @Column(name="identify_code")
     private String mIdentifyCode;
 
-    @ManyToOne(cascade = { CascadeType.REFRESH,CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private SmartCupboard mCup;
 
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})

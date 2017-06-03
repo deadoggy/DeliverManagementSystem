@@ -30,7 +30,7 @@ public class SmartCupboard {
     @Column(name = "col_sum", nullable = false)
     private int mColumnSum;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "mCup",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<StoragePosition> mPosition;
 
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})

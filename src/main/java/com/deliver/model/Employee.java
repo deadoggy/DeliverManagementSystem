@@ -45,10 +45,10 @@ public class Employee {
     private String mPwd;
 
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "mEmployee",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<Attendance> mAttendence;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private List<Position> mPosition;
 
 

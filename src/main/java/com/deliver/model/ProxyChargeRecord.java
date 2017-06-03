@@ -18,7 +18,7 @@ public class ProxyChargeRecord {
     private int mId;
 
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}/*,fetch = FetchType.EAGER*/)
     private Package mPackage;// foreign key
 
     @Column(name = "fee", nullable = false)

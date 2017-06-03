@@ -12,7 +12,7 @@
 </head>
 <body>
 
-   <a href = "ftp://139.129.18.35/make"> file </a>
+   <a href = "/persistenceTest"> link </a>
 
 </body>
 </html>

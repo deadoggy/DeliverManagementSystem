@@ -12,6 +12,8 @@ public final class Constant {
     public static final boolean POSTION_EMPTY = true;
 
     public static final boolean PROXY_CHARGE_SEND = false;
+    public static final boolean PROXY_CHARGE_RECE = true;
+
     public static final boolean MALE = true;
     public static final boolean FEMALE = false;
 

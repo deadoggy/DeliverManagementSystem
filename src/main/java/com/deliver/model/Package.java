@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by deadoggy on 17-4-18.
  */
 @Entity
-@Table(name = "packege")
+@Table(name = "package")
 public class Package {
 
     @Id
@@ -39,10 +39,10 @@ public class Package {
     @Column(name = "cup_shelf", nullable = false)
     private boolean mCupOrShelf; // constant.Constant
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private StoragePosition mPosition;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private DeliverCompany mCompany; // foreign key
 
     public Package() {}

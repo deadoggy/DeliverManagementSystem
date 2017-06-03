@@ -34,7 +34,7 @@ public class Employee {
     @Column(name="phone")
     private String mPhone;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
 
     private Point mPoint;
 
@@ -45,7 +45,7 @@ public class Employee {
     private String mPwd;
 
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<Attendance> mAttendence;
 
     @ManyToMany(cascade = {CascadeType.ALL})

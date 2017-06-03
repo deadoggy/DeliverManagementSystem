@@ -15,7 +15,7 @@ public class Attendance {
     @GeneratedValue
     private int mId;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private Employee mEmployee;
 
     @Column(name = "date", nullable = false)
@@ -27,7 +27,7 @@ public class Attendance {
     @Column(name="end_time")
     private Timestamp mEndTime;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private Point mPoint;
 
     public Attendance(){

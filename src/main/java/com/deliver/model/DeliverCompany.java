@@ -22,22 +22,22 @@ public class DeliverCompany {
     @Column(name = "name",unique = true,nullable = false)
     private String mName;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<Package> mPackage;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<YearForm> mYearForm;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<MonthForm> mMonthForm;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<DayForm> mDayForm;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<HourForm> mHourForm;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<DeliverCompanyBill> mBills;
 
 

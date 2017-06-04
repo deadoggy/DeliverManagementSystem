@@ -35,7 +35,7 @@ public class PackageController {
     @Autowired
     private DeliverCompanyService deliverCompanyService;
 
-    @RequestMapping(value = "/package/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/package/{id}", method = RequestMethod.GET,produces = "application/json;charset=UTF-8")
     public String getAPackage(@PathVariable String id) {
         Package aPackage = packageService.getPackage(id);
         JSONObject jsonObject = new JSONObject();

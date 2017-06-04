@@ -3,9 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
       	<div class="ui link list tab segment active" data-tab="sm2">
-	        <a class="item" href="生成报表.jsp">生成报表</a>
-	        <a class="active item" href="账号管理.jsp">账号管理</a>
-	        <a class="item" href="智能柜管理.jsp">智能柜管理</a>
+	        <a class="item" href="/generate_form">生成报表</a>
+	        <a class="active item" href="/account_manage">账号管理</a>
+	        <a class="item" href="/cupboard">智能柜管理</a>
       	</div>
 	 </div>
 	</div>
@@ -20,44 +20,29 @@
 		</div>
 		<div class="ui bottom attached tab segment active" data-tab="ygList">
 			<div><br/></div>
-			<form class="ui form">
-				<div class="two fields">
-					<div class="ten wide field">
-						<div class="inline field">
-							<span class="two wide inline field">
-							</span>
-							<span class="ui checkbox" >
-								<input type="checkbox" />
-							</span>
-							<span class="inline field">
-								<label>&nbsp;&nbsp;&nbsp;员工号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-								<input type="text" name="employeeId"/>
-							</span>	
-						</div>
-					
-						<br />
-						<div class="inline field">
-							<span class="two wide inline field">
-							</span>
-							<span class="ui checkbox">
-								<input type="checkbox" />
-							</span>
-							<span class="inline field">
-								<label>&nbsp;&nbsp;&nbsp;员工姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-								<input type="text" name="employeeName"/>
-							</span>
-						</div>
+			<form class="ui form"  style="margin-left: 5%; width: 90%; height: 20%; margin-top: 2%">
+				<div class="fields inline">
+					<div class="four wide field">
+						<select class="ui fluid dropdown">
+							<div class="default text">查询条件</div>
+							<option value="1">员工号</option>
+							<option value="0">员工姓名</option>
+						</select>
+					</div>
+					<div class="eight wide field">
+						<input type="text" name="queryValue">
 					</div>
 					<div class="two wide field">
-						<button class="ui big blue button" type="submit" id="ygCxbtn">查询</button>
+						<input class="ui blue button" type="button" id="ygCxbtn" value="查询">
 					</div>
 				</div>
 				
 			</form>
 			
-			<div><br/></div>
+			<div></div>
 			<div class="ui divider"></div>
-			<div><br/><br/><br/></div>
+			<div>
+			</div>
 			
 			<table class="ui celled table">
 				<thead>
@@ -115,7 +100,7 @@
 		
 		<div class="ui bottom attached tab segment" data-tab="ygAdd">
 			<div><br/></div>
-			<form class="ui form">
+			<form class="ui form" style="margin-left: 5%; width: 90%">
 				<h3 class="ui dividing header">请填写相关信息！</h3>
 				<div class="fields inline">
 					<div class="two wide field">
@@ -206,3 +191,4 @@
 			</form>
 		</div>
 	</div>
+<script src="/static/myjs/accountManage.js"></script>

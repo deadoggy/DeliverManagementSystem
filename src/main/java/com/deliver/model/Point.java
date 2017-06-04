@@ -38,13 +38,13 @@ public class Point {
     @Column(name = "number", nullable = false)
     private String mNumber;
 
-    @OneToMany(mappedBy = "mEmployeeId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mEmployeeId",/*fetch = FetchType.EAGER,*/ cascade = {CascadeType.ALL})
     private Set<Employee> mEmployee;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mPoint",/*fetch = FetchType.EAGER,*/ cascade = {CascadeType.ALL})
     private Set<Shelf> mShelf;
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mPoint",/*fetch = FetchType.EAGER,*/ cascade = {CascadeType.ALL})
     private Set<SmartCupboard> mSmartCupboard;
 
     public Point() {}

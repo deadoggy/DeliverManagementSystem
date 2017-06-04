@@ -15,7 +15,7 @@ public class DeliverCompanyBill {
     @Column(name = "id")
     private int mId;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     private DeliverCompany mCompany; // foreign key
 
     @Column(name = "year", nullable = false)

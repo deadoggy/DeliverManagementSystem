@@ -26,7 +26,7 @@ public class CAPTCHAController {
     }
 
     @RequestMapping(value = "/checkCode", method = RequestMethod.GET)
-    public String checkCode(HttpServletResponse response, HttpServletRequest request){
+    public String checkCode(HttpServletRequest request){
         String val = request.getParameter("code");
 
         if(this.captchaService.check(request, val)){

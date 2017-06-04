@@ -11,6 +11,7 @@
 <script src="/static/myjs/jquery.address.js"></script>
 <script src="/static/semantic/semantic.js"></script>
 <script src="/static/semantic/semantic.min.js"></script>
+<script src="/static/fancybox/jquery.fancybox.min.js"></script>
 
 
 <link type="text/css" rel="stylesheet" href="/static/semantic/semantic.css" />
@@ -18,10 +19,17 @@
 <link type="text/css" rel="stylesheet" href="/static/mystyle/createChart.css">
 <link type="text/css" rel="stylesheet" href="/static/mystyle/middleBody.css">
 <link type="text/css" rel="stylesheet" href="/static/mystyle/exactContent.css">
+<link rel="stylesheet" type="text/css" href="/static/fancybox/jquery.fancybox.min.css">
+
+<link rel="shortcut icon" href="/static/img/anchor.ico">
 
 
 <style type="text/css">
-
+	html, body {
+		overflow-x: hidden;
+		overflow-y: auto;
+		font-family: Arial, sans-serif;
+	}
 
 
 
@@ -43,11 +51,11 @@
 	</div>
 	
 	<div class="ui secondary pointing menu" id="topmenu">
-		<a class="item " href="快递入库.jsp" id="seg1">快递入库</a>
-		<a class="item" href="货物查询.jsp" id="seg2">快递取件</a>
-		<a class="item" href="寄送快递.jsp" id="seg3">寄送快递</a>
+		<a class="item " href="/store_package" id="seg1">快递入库</a>
+		<a class="item" href="/search_package" id="seg2">快递取件</a>
+		<a class="item" href="/send_package" id="seg3">寄送快递</a>
 		<a class="item" href="#          " id="seg4">违禁品查询</a>
-		<a class="item" href="生成报表.jsp" id="seg5">高级管理</a>
+		<a class="item" href="/generate_form" id="seg5">高级管理</a>
 	</div>
 </div>
 <div class="middleBody" id="middleBody">

@@ -21,16 +21,4 @@ import java.util.List;
 public interface HourFormRepository extends JpaRepository<HourForm, Integer> {
 
     HourForm findBymId(int id);
-
-    Page<HourForm> findByMYearAndMMonthAndMDayAndMHour( int year, int month, int day, int hour, Pageable pageable);
-
-    Page<HourForm> findByMYearAndMMonthAndMDay(int year, int month, int day,  Pageable pageable);
-
-    List<Integer> findMSumByMYearAndMMonthAndMDayAndMCompany(int year, int month, int day, DeliverCompany company);
-
-    Page<HourForm> findByMYearAndMMonth(int year, int month, Pageable pageable);
-
-    Page<HourForm> findByMYear(int year, Pageable pageable);
-
-
 }

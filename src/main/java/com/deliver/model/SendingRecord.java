@@ -59,7 +59,7 @@ public class SendingRecord {
 
 
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private DeliverCompany mCompany;//foreign
 
     public SendingRecord(){

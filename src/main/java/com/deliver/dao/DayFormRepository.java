@@ -2,12 +2,12 @@ package com.deliver.dao;
 
 import com.deliver.model.DayForm;
 import com.deliver.model.DeliverCompany;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,9 +20,12 @@ public interface DayFormRepository extends JpaRepository<DayForm, Integer>{
 
     DayForm findByMId(int id);
 
-    List<Integer> findMSumByMYearAndMMonthAndMDayAndMCompany(int year, int mon, int day, DeliverCompany company);
+    List<DayForm> findMSumByMDateAndMCompany(Date date, DeliverCompany company);
 
-    List<Integer> findMSumByMYearAndMMonthAndMCompany(int year, int mon, DeliverCompany company);
+    @Query("select df.mSum from DayForm  as df where df.mDate between  ?1 and ?2")
+    List<Integer> findInPeriod(Date beg, Date end);
 
-    List<Integer> findMSumByMYearAndMCompany(int year, DeliverCompany company);
+    @Query("select df.mSum from DayForm  as df where df.mCompany=?1 and df.mDate between  ?2 and ?3")
+    List<Integer> findInPeriodOfCompany(DeliverCompany company, Date beg, Date end);
+
 }

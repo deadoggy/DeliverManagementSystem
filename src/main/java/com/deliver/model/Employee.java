@@ -2,6 +2,7 @@ package com.deliver.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,10 +25,17 @@ public class Employee {
     @Column(name="age",nullable = false)
     private int mAge;
 
+    @Column(name="gender", nullable = true)
+    private boolean mGender;
+
     @Column(name="salary",nullable = false)
     private float mSalary;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @Column(name="phone")
+    private String mPhone;
+
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+
     private Point mPoint;
 
     @Column(name="entering_time",nullable = false)
@@ -37,10 +45,10 @@ public class Employee {
     private String mPwd;
 
 
-    @OneToMany(mappedBy = "mId",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "mEmployee",fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<Attendance> mAttendence;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private List<Position> mPosition;
 
 
@@ -48,11 +56,13 @@ public class Employee {
 
     }
 
-    public Employee(String mEmployeeId, String mName, int mAge, float mSalary, Point mPoint, Timestamp mEnteringTime, String mPwd) {
+    public Employee(String mEmployeeId, String mName, int mAge, boolean mGender, float mSalary, String mPhone, Point mPoint, Timestamp mEnteringTime, String mPwd) {
         this.mEmployeeId = mEmployeeId;
         this.mName = mName;
         this.mAge = mAge;
+        this.mGender = mGender;
         this.mSalary = mSalary;
+        this.mPhone = mPhone;
         this.mPoint = mPoint;
         this.mEnteringTime = mEnteringTime;
         this.mPwd = mPwd;
@@ -136,5 +146,21 @@ public class Employee {
 
     public void setmPwd(String mPwd) {
         this.mPwd = mPwd;
+    }
+
+    public boolean ismGender() {
+        return mGender;
+    }
+
+    public void setmGender(boolean mGender) {
+        this.mGender = mGender;
+    }
+
+    public String getmPhone() {
+        return mPhone;
+    }
+
+    public void setmPhone(String mPhone) {
+        this.mPhone = mPhone;
     }
 }

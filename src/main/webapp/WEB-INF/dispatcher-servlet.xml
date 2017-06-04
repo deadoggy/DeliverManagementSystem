@@ -19,7 +19,7 @@
     <context:component-scan base-package="com.deliver.controller"/>
     <context:component-scan base-package="com.deliver.config"/>
 
-    <!-- 静态资源(js、image等)的访问 -->
+    <!--&lt;!&ndash; 静态资源(js、image等)的访问 &ndash;&gt;-->
     <mvc:resources  mapping="/static/**" location="/static/" />
     <mvc:default-servlet-handler/>
 
@@ -32,6 +32,7 @@
                 <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
             </bean>
         </mvc:message-converters>
+
 
     </mvc:annotation-driven>
 
@@ -77,6 +78,18 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
+
+
+    <!--hibernate的懒加载拦截器, 在请求的全程保持数据库session的开启. 由于是拦截器, 在单元测试中仍然会有问题, 但在正常请求的时候没有问题-->
+    <mvc:interceptors>
+        <bean id="openEntityManagerInViewInterceptor" class="org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor">
+            <property name="entityManagerFactory" ref="entityManagerFactory"/>
+            <property name="persistenceUnitName" value="DeliverPU"/>
+        </bean>
+    </mvc:interceptors>
+
+
+
     <!-- 开启事务管理注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
@@ -90,5 +103,6 @@
         <!--<property name="defaultEncoding" value="UTF-8"/>-->
         <!--<property name="maxUploadSize" value="5400000"/>-->
     <!--</bean>-->
+
 
 </beans>

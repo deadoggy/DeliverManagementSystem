@@ -4,7 +4,9 @@ package com.deliver.controller;
  * Created by deadoggy on 17-4-17.
  */
 
+import com.deliver.dao.DeliverCompanyRepository;
 import com.deliver.dao.PackageRepository;
+import com.deliver.model.DeliverCompany;
 import com.deliver.model.Package;
 import com.deliver.service.CAPTCHAService;
 import com.deliver.service.ShortMesgService;
@@ -19,12 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Set;
 
 
 @Controller
 public class HomeController {
 
-
+    @Autowired
+    DeliverCompanyRepository repository;
 
     public HomeController() {
     }
@@ -88,5 +92,18 @@ public class HomeController {
         return "advanced_manage";
     }
 
+    @RequestMapping({"/"})
+    public String down(){
+        return "test";
+    }
+
+    @RequestMapping({"/persistenceTest"})
+    public String test(){
+        DeliverCompany com = this.repository.findByMCompanyId("0000");
+
+        //int ps = com.getmPackage().size();
+
+        return "done";
+    }
 
 }

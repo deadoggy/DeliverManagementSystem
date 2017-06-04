@@ -14,8 +14,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface YearFormRepository extends JpaRepository<YearForm,Integer>{
     YearForm findByMId(int id);
-
-    Page<YearForm> findByMYear(int year, Pageable pageable);
-
-    Page<YearForm> findByMSum(int sum, Pageable pageable);
 }

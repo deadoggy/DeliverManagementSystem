@@ -5,9 +5,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <div class="ui link list tab segment active" data-tab="sm2">
-        <a class="item" href="货物查询.jsp">货物查询</a>
-        <a class=" active item" href="取件记录.jsp">取件记录</a>
-        <a class="item" href="过期取件.jsp">过期取件</a>
+        <a class="item" href="/search_package">货物查询</a>
+        <a class="active item" href="/taken_record">取件记录</a>
+        <a class="item" href="/taken_out_time">过期取件</a>
         
       </div>
 		</div>
@@ -22,10 +22,10 @@
 				<div class="two fields">
 					<div class="field inline">
 						<label style="font-size:15px;">货物单号: </label>
-						<input type="text" name="goodID" />
+						<input type="text" name="goodID" id="goodId" oninput="pickuptQuery()"/>
 					</div>
 					<div class="field">
-						<button class="ui button primary " style="float:right;margin-right:30vh">查询</button>
+						<input type="button" class="ui button primary " style="float:right;margin-right:30vh" onclick="pickuptQuery()" value="查询"></input>
 					</div>
 				</div>
 			</form>
@@ -42,7 +42,7 @@
 						
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="pickupContent">
 					<tr>
 						<td>ID01</td>
 						<td>G54</td>
@@ -77,8 +77,4 @@
 			</table>
 		</div>	
 <!--2.qjjl  -->	
-<script type="text/javascript">
-$(function (){
-	$("#seg2").addClass("active");
-})
-</script>
+<script src="/static/myjs/pickupRecord.js"></script>

@@ -20,7 +20,7 @@ public class Position {
     @Column(name = "name",nullable = false)
     private String mName;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private List<Employee> mEmployee;
 
     public Position(){

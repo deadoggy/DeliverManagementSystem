@@ -1,6 +1,8 @@
 package com.deliver.service;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.AttendanceRepository;
 import com.deliver.dao.EmployeeRepository;
 import com.deliver.dao.PointRepository;
@@ -15,6 +17,7 @@ import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by deadoggy on 17-5-9.
@@ -70,7 +73,7 @@ public class HumanManageService {
         }
     }
 
-    public boolean addNewEmployee(String employeeId, String name,int age, float salary, String pointId, String pwd){
+    public boolean addNewEmployee(String employeeId, String name,int age, boolean gender, float salary, String phone, String pointId, String pwd){
 
         try{
             if(pointId == null || employeeId == null){
@@ -90,7 +93,7 @@ public class HumanManageService {
 
             pwd = encoder.encipher(employeeId, pwd);
 
-            Employee noob = new Employee(employeeId, name, age, salary, point, new Timestamp(new java.util.Date().getTime()), pwd);
+            Employee noob = new Employee(employeeId, name, age, gender, salary, phone, point, new Timestamp(new java.util.Date().getTime()), pwd);
 
             this.employeeRepository.save(noob);
 
@@ -153,6 +156,55 @@ public class HumanManageService {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public String findByEmployeeId(String id){
+        try{
+            JSONObject ret = new JSONObject();
+            Employee employee = this.employeeRepository.findByMEmployeeId(id);
+
+            ret.put("result", "success");
+            ret.put("id", employee.getmEmployeeId());
+            ret.put("name", employee.getmName());
+            ret.put("gender", employee.ismGender()? "male" : "female");
+            ret.put("age", employee.getmAge());
+            ret.put("phone", employee.getmPhone() != null ? employee.getmPhone() : "none");
+            ret.put("salary", employee.getmSalary());
+            ret.put("point", employee.getmPoint().getmName());
+
+            return ret.toJSONString();
+
+        }catch(Exception e){
+            return "{\"result\": \"fail\", \"reason\" : \"no such id\"}";
+        }
+    }
+
+
+    public String findByEmployName(String name){
+        try{
+            JSONObject ret = new JSONObject();
+            JSONArray arr = new JSONArray();
+            List<Employee> emList = this.employeeRepository.findByMName(name);
+
+            for(Employee employee : emList){
+                JSONObject item = new JSONObject();
+                item.put("result", "success");
+                item.put("id", employee.getmEmployeeId());
+                item.put("name", employee.getmName());
+                item.put("gender", employee.ismGender()? "male" : "female");
+                item.put("age", employee.getmAge());
+                item.put("phone", employee.getmPhone() != null ? employee.getmPhone() : "none");
+                item.put("salary", employee.getmSalary());
+                item.put("point", employee.getmPoint().getmName());
+                arr.add(item);
+            }
+            ret.put("result", "success");
+            ret.put("data", arr);
+            return ret.toJSONString();
+
+        }catch(Exception e){
+            return "{\"result\": \"fail\", \"reason\" : \"no such name\"}";
         }
     }
 

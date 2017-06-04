@@ -20,8 +20,4 @@ public interface MonthFormRepository extends JpaRepository<MonthForm, Integer> {
 
     MonthForm findBymId(int id);
 
-    List<Integer>  findMSumByMYearAndMMonthAndMCompany( int year, int month, DeliverCompany company);
-
-    List<Integer> findMSumByMYearAndMCompany(int year, DeliverCompany company);
-
 }

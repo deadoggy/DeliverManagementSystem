@@ -1,6 +1,7 @@
 package com.deliver.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.sql.Timestamp;
 
 /**
@@ -17,7 +18,7 @@ public class ProxyChargeRecord {
     private int mId;
 
 
-    @OneToOne(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}/*,fetch = FetchType.EAGER*/)
     private Package mPackage;// foreign key
 
     @Column(name = "fee", nullable = false)
@@ -26,17 +27,16 @@ public class ProxyChargeRecord {
     @Column(name = "send_receive", nullable = false)
     private boolean mSendorReceive;
 
-    @Column(name = "time")
-    private Timestamp mTime;
+    @Column(name = "date", nullable = false)
+    private Date mDate;
 
     public ProxyChargeRecord() {}
 
-    public ProxyChargeRecord(Package mPackage,
-                             double mFee, boolean mSendorReceive, Timestamp mTime) {
+    public ProxyChargeRecord(Package mPackage, double mFee, boolean mSendorReceive, Date mDate) {
         this.mPackage = mPackage;
         this.mFee = mFee;
         this.mSendorReceive = mSendorReceive;
-        this.mTime = mTime;
+        this.mDate = mDate;
     }
 
     public Package getmPackage() {
@@ -72,11 +72,11 @@ public class ProxyChargeRecord {
         this.mSendorReceive = mSendorReceive;
     }
 
-    public Timestamp getmTime() {
-        return mTime;
+    public Date getmDate() {
+        return mDate;
     }
 
-    public void setmTime(Timestamp mTime) {
-        this.mTime = mTime;
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
     }
 }

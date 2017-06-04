@@ -35,4 +35,10 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
     List<Package> findByMReceiverTele(String tele);
 
     List<Package> findByMPackageIdLike(String id);
+
+    @Query("select p from Package  as p where p.mCompany = ?1 and p.mReceiveTime between ?2 and ?3")
+    List<Package> getByCompanyAndReceTime(DeliverCompany company, Timestamp beg, Timestamp end);
+
+    @Query("select p from Package  as p where p.mReceiveTime between ?2 and ?3")
+    List<Package> getByReceTime(Timestamp beg, Timestamp end);
 }

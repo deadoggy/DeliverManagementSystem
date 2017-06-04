@@ -4,7 +4,7 @@
     pageEncoding="utf-8"%>
 
   <div class="ui link list tab segment active" data-tab="sm1" >
-        <a class="item" href="快递入库.jsp" >快递入库</a>
+        <a class="item" href="/store_package" >快递入库</a>
         <a class="active item" href="#  " >智能柜货架互转</a>
       </div>
 		</div>
@@ -23,14 +23,14 @@
 		
 				<div style="display:flex ;justify-content:space-between;" >
 				<div class="ui input focus" style="width:36em">
-			  		<input type="text" placeholder="请输入货物的位置，或者系统自动生成已存在的位置">
+			  		<input type="text" placeholder="请输入货物的位置" id="fromPos">
 			    </div>
 				
 				   <div class="ui floating labeled icon dropdown button">
 				    <i class="wrench icon"></i>
 					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-					  <span class="text">货架</span>
-					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>	  <div class="menu">
+					  <span class="text">请选择转出位置</span>
+					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>	  <div class="menu" id="menuFrom">
 					    <div class="item">
 					      <span class="text">智能柜</span>
 					    </div>
@@ -40,10 +40,10 @@
 					  </div>
 					</div>
 					
-				<div class="ui animated fade button" tabindex="0">
-				  <div class="visible content">自动生成</div>
-				  <div class="hidden content">已存在位置</div>
-				</div>
+				<%--<div class="ui animated fade button" tabindex="0">--%>
+				  <%--<div class="visible content">自动生成</div>--%>
+				  <%--<div class="hidden content">已存在位置</div>--%>
+				<%--</div>--%>
 				</div>				
 			</div>		
 			<p></p>
@@ -62,14 +62,15 @@
 		
 	<div style="display:flex ;justify-content:    space-between; ">
 	<div class="ui input focus" style="width:36em">
-  		<input type="text" placeholder="请输入存放位置，或者系统自动生成">
+  		<input type="text" placeholder="请输入存放位置，或者系统自动生成" id="toPos">
     </div>
     
    <div class="ui floating labeled icon dropdown button" >
     <i class="wrench icon"></i>
 	  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-	  <span class="text">智能柜</span>
-	  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>	  <div class="menu">
+	  <span class="text">请选择转入位置</span>
+	  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	   <div class="menu" id="menuTo">
 	    <div class="item">
 	      <span class="text">智能柜</span>
 	    </div>
@@ -79,7 +80,7 @@
 	  </div>
 	</div>
 	
-	<div class="ui animated fade button" tabindex="0">
+	<div class="ui animated fade button" tabindex="0" onclick="generateToPos()">
 	  <div class="visible content">自动生成</div>
 	  <div class="hidden content">空余位置 </div>
 	</div>
@@ -91,14 +92,7 @@
 	<h2></h2>
 	
 	<div class="ui divider"></div>
-	<div class="ui bottom attached button" tabindex="0">转移完成</div>
+	<div class="ui bottom attached button" tabindex="0" onclick="shelfCupTransfer()">转移完成</div>
   
-    
-  
-<script type="text/javascript">
-$(function (){
-	$(".dropdown.button").dropdown();
 
-	$("#seg1").addClass("active");
-})
-</script>
+<script src="/static/myjs/shelfCupTransfer.js"></script>

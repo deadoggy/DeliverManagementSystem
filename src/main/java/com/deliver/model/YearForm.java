@@ -18,26 +18,20 @@ public class YearForm {
     @Column(name = "date", nullable = false)
     private Date mDate;
 
-    @Column(name="year",nullable = false)
-    private int mYear;
-
     @Column(name="sum",nullable = false)
     private int mSum;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private DeliverCompany mCompany;//foreign
 
     public YearForm(){
 
     }
 
-    public YearForm( int mYear, int mSum, DeliverCompany mCompany) {
-        this.mYear = mYear;
+    public YearForm(Date mDate, int mSum, DeliverCompany mCompany) {
+        this.mDate = mDate;
         this.mSum = mSum;
         this.mCompany = mCompany;
-        Calendar c = Calendar.getInstance();
-        c.set(mYear,0,1);
-        this.mDate = new Date(c.getTimeInMillis());
     }
 
     public int getmId() {
@@ -54,14 +48,6 @@ public class YearForm {
 
     public void setmDate(Date mDate) {
         this.mDate = mDate;
-    }
-
-    public int getmYear() {
-        return mYear;
-    }
-
-    public void setmYear(int mYear) {
-        this.mYear = mYear;
     }
 
     public int getmSum() {

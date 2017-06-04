@@ -5,6 +5,7 @@ import com.deliver.dao.DeliverCompanyRepository;
 import com.deliver.model.DayForm;
 import com.deliver.model.DeliverCompany;
 import com.deliver.model.Package;
+import com.deliver.service.FTPService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,17 @@ public class PersistenceTest {
         List<DayForm> dayFormList = this.dayFormRepository.findAll();
 
         out.print("done");
+
+    }
+
+    @Test
+    public void ftpTest(){
+        FTPService ftp = FTPService.getInstantce();
+        try{
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 

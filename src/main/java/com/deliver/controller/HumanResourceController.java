@@ -4,12 +4,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.deliver.constant.Constant;
 import com.deliver.dao.EmployeeRepository;
 import com.deliver.model.Employee;
+import com.deliver.service.FTPService;
 import com.deliver.service.HumanManageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -33,12 +32,12 @@ public class HumanResourceController {
         return humanManageService.findByEmployeeId(id);
     }
 
-    @RequestMapping(value = "findEmByName/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/findEmByName/{name}", method = RequestMethod.GET)
     public String findEmByName(@PathVariable String name){
         return humanManageService.findByEmployName(name);
     }
 
-    @RequestMapping(value = "save_em", method = RequestMethod.POST)
+    @RequestMapping(value = "/save_em", method = RequestMethod.POST)
     public String saveEmployee(HttpServletRequest request){
         try{
             StringBuilder strBuilder = new StringBuilder();
@@ -73,6 +72,23 @@ public class HumanResourceController {
         }catch(Exception e){
             return "{\"result\":\"failure\"}";
         }
+    }
+
+    @RequestMapping(value = "/upload_img", method = RequestMethod.POST)
+    public String uploadImg(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file){
+        try{
+            FTPService ftp = FTPService.getInstantce();
+
+
+//            String fileName = file.getOriginalFilename();
+//            String suffix = fileName.substring(fileName.lastIndexOf("."));
+            ftp.upload(file.getInputStream(), /*request.getRemoteUser()*/"133333");
+            return "{\"result\":\"success\"}";
+        }catch(Exception e){
+            e.printStackTrace();
+            return "{\"result\":\"failure\"}";
+        }
+
     }
 
 }

@@ -24,19 +24,29 @@
     <mvc:default-servlet-handler/>
 
     <!-- 开启注解 -->
+    <!--<mvc:annotation-driven>-->
+        <!--&lt;!&ndash; 消息转换器 &ndash;&gt;-->
+        <!--&lt;!&ndash; 全局解决Spring MVC返回中文显示问号的问题&ndash;&gt;-->
+        <!--<mvc:message-converters register-defaults="true">-->
+            <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
+                <!--<property name="supportedMediaTypes" value="text/plain;charset=UTF-8"/>-->
+            <!--</bean>-->
+        <!--</mvc:message-converters>-->
+
+
+    <!--</mvc:annotation-driven>-->
+
     <mvc:annotation-driven>
-        <!-- 消息转换器 -->
-        <!-- 全局解决Spring MVC返回中文显示问号的问题-->
-        <mvc:message-converters register-defaults="true">
+        <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
             </bean>
         </mvc:message-converters>
-
-
     </mvc:annotation-driven>
-
-
 
     <!--ViewResolver 视图解析器-->
 
@@ -87,8 +97,6 @@
             <property name="persistenceUnitName" value="DeliverPU"/>
         </bean>
     </mvc:interceptors>
-
-
 
     <!-- 开启事务管理注解 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>

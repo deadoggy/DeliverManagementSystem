@@ -100,7 +100,7 @@ public class Package {
         return mTakenTime;
     }
 
-    public void setmTakenTime(Timestamp mTakenTime) {
+    public void     setmTakenTime(Timestamp mTakenTime) {
         this.mTakenTime = mTakenTime;
     }
 

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.deliver.constant.Constant.POSITION_IN_SHELF;
+
 /**
  * Created by 91574 on 2017/5/29.
  */
@@ -25,50 +27,71 @@ public class ShelfController {
     @RequestMapping(value = "/shelf/{id}", method = RequestMethod.GET)
     public String getShelf(@PathVariable String id) {
         JSONObject jsonObject = new JSONObject();
-        Shelf shelf = shelfService.getShelfById(id);
-        if (shelf == null) {
+        try {
+            Shelf shelf = shelfService.getShelfById(id);
+            if (shelf == null) {
+                jsonObject.put("status", "fail");
+                jsonObject.put("reason", "找不到对应id的的货架");
+                return jsonObject.toString();
+            } else {
+                jsonObject.put("status", "ok");
+                jsonObject.put("shelf", shelf);
+                return jsonObject.toJSONString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             jsonObject.put("status", "fail");
-            jsonObject.put("reason", "找不到对应id的的货架");
-            return jsonObject.toString();
-        } else {
-            jsonObject.put("status", "ok");
-            jsonObject.put("shelf", shelf);
+            jsonObject.put("reason", "请求失败");
             return jsonObject.toJSONString();
         }
     }
 
     @RequestMapping(value = "/shelf/all", method = RequestMethod.GET)
     public String getAllPackage() {
-        List<Shelf> shelfList = shelfService.getAllShelf();
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("status", "ok");
-        JSONArray jsonArray = new JSONArray();
-        for (Shelf shelf : shelfList) {
-            jsonArray.add(shelf);
+        try {
+            List<Shelf> shelfList = shelfService.getAllShelf();
+            jsonObject.put("status", "ok");
+            JSONArray jsonArray = new JSONArray();
+            for (Shelf shelf : shelfList) {
+                jsonArray.add(shelf);
+            }
+            jsonObject.put("shelfs", jsonArray);
+            return JSONObject.toJSONString(jsonObject);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonObject.put("status", "fail");
+            jsonObject.put("reason", "请求失败");
+            return jsonObject.toJSONString();
         }
-        jsonObject.put("shelfs", jsonArray);
-        return JSONObject.toJSONString(jsonObject);
     }
 
     @RequestMapping(value = "/shelf", method = RequestMethod.POST)
     public String add(HttpServletRequest httpServletRequest) {
         JSONObject jsonObject = new JSONObject();
-        String id = httpServletRequest.getParameter("id");
-        if (shelfService.getShelfById(id) != null) {
-            jsonObject.put("status", "fail");
-            jsonObject.put("reason", "货架id重复");
-            return jsonObject.toString();
-        }
-        boolean flag = shelfService.addShelf(id, Integer.parseInt(httpServletRequest.getParameter("columnSum")),
-                Integer.parseInt(httpServletRequest.getParameter("layerSum")));
+        try {
+            String id = httpServletRequest.getParameter("id");
+            if (shelfService.getShelfById(id) != null) {
+                jsonObject.put("status", "fail");
+                jsonObject.put("reason", "货架id重复");
+                return jsonObject.toString();
+            }
+            boolean flag = shelfService.addShelf(id, Integer.parseInt(httpServletRequest.getParameter("columnSum")),
+                    Integer.parseInt(httpServletRequest.getParameter("layerSum")));
 
-        if (flag == false) {
+            if (flag == false) {
+                jsonObject.put("status", "fail");
+                jsonObject.put("reason", "货架信息不符合要求");
+                return jsonObject.toString();
+            } else {
+                jsonObject.put("status", "ok");
+                return jsonObject.toString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             jsonObject.put("status", "fail");
-            jsonObject.put("reason", "货架信息不符合要求");
-            return jsonObject.toString();
-        } else {
-            jsonObject.put("status", "ok");
-            return jsonObject.toString();
+            jsonObject.put("reason", "请求失败");
+            return jsonObject.toJSONString();
         }
     }
 
@@ -76,14 +99,24 @@ public class ShelfController {
     @RequestMapping(value = "/shelf/position", method = RequestMethod.GET)
     public String getPosition() {
         JSONObject jsonObject = new JSONObject();
-        StoragePosition storagePosition = shelfService.getPosition();
-        if (storagePosition == null) {
+        try {
+            StoragePosition storagePosition = shelfService.getPosition();
+            if (storagePosition == null) {
+                jsonObject.put("status", "fail");
+                jsonObject.put("reason", "货架没有空位置了");
+                return jsonObject.toString();
+            } else {
+                jsonObject.put("status", "ok");
+                jsonObject.put("column",storagePosition.getmColumn());
+                jsonObject.put("layer",storagePosition.getmLayer());
+                jsonObject.put("id",storagePosition.getmId());
+                jsonObject.put("shelfId",storagePosition.getmShelf().getmShelfId());
+                return jsonObject.toJSONString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             jsonObject.put("status", "fail");
-            jsonObject.put("reason", "货架没有空位置了");
-            return jsonObject.toString();
-        } else {
-            jsonObject.put("status", "ok");
-            jsonObject.put("storagePosition", storagePosition);
+            jsonObject.put("reason", "请求失败");
             return jsonObject.toJSONString();
         }
     }

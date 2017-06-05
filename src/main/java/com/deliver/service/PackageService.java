@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.deliver.constant.Constant.*;
@@ -38,9 +39,36 @@ public class PackageService {
     private SmartCupboardRepository smartCupboardRepository;
 
     @Transactional
-    public Package getPackage(String id) {
+    public Package getPackage(String id){
         return packageRepository.findByMPackageId(id);
     }
+
+    @Transactional
+    public List<Package> getPackageTakenStartingWith(String id) {
+        List<Package> packageList=packageRepository.findByMPackageIdBegin(id);
+        Iterator<Package> it=packageList.iterator();
+        while (it.hasNext()){
+            Package aPackage=it.next();
+            if(aPackage.ismTaken()==false){
+                it.remove();
+            }
+        }
+        return packageList;
+    }
+
+    @Transactional
+    public List<Package> getPackageNoTakenStartingWith(String id) {
+        List<Package> packageList=packageRepository.findByMPackageIdBegin(id);
+        Iterator<Package> it=packageList.iterator();
+        while (it.hasNext()){
+            Package aPackage=it.next();
+            if(aPackage.ismTaken()==true){
+                it.remove();
+            }
+        }
+        return packageList;
+    }
+
 
     //将快件加入到一个智能柜or货架的位置上
     //目前没考虑代收邮费的问题
@@ -125,13 +153,25 @@ public class PackageService {
         return packageRepository.findAll();
     }
 
+    public List<Package> getAllNoTakenPackage() {
+        return packageRepository.getAllNoTaken();
+    }
+
     //通过手机获得所有包裹
     public List<Package> getPackageByTele(String tele){
         return packageRepository.findByMReceiverTele(tele);
     }
 
-    //
-    public List<Package> getPackageTaken(String id){
-        return packageRepository.findByMPackageIdLike(id);
+    @Transactional
+    public List<Package> getPackageNoTakenByTele(String tele) {
+        List<Package> packageList=packageRepository.findByMPackageTeleBegin(tele);
+        Iterator<Package> it=packageList.iterator();
+        while (it.hasNext()){
+            Package aPackage=it.next();
+            if(aPackage.ismTaken()==true){
+                it.remove();
+            }
+        }
+        return packageList;
     }
 }

@@ -15,7 +15,7 @@ public class SmartCupboard {
     @Column(name = "id")
     private int mId;
 
-    @Column(name = "cupboard", nullable = false, unique = true)
+    @Column(name = "cupboard_id", nullable = false, unique = true)
     private String mCupboardId;
 
     @Column(name = "empty_sum", nullable = false)

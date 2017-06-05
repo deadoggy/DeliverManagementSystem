@@ -9,6 +9,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.sql.Timestamp;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -30,13 +32,14 @@ public class PackageControllerTest extends BaseControllerTest {
 
     @Test
     public void getPackage() throws Exception {
-        RequestBuilder requestBuilder = get("/package/102");
+        RequestBuilder requestBuilder = get("/package/1");
         mockMvc.perform(requestBuilder).andDo(print());
     }
 
     @Test
     public void getAll() throws Exception {
-        mockMvc.perform((get("/allpackage"))).andExpect(status().isOk()).andDo(print());
+        RequestBuilder requestBuilder = get("/package/all");
+        mockMvc.perform(requestBuilder).andDo(print());
     }
 
     @Test
@@ -61,5 +64,9 @@ public class PackageControllerTest extends BaseControllerTest {
     public void getPackageTaken()throws Exception{
         RequestBuilder requestBuilder=get("/package/taken/1");
         mockMvc.perform(requestBuilder).andDo(print());
+    }
+    @Test
+    public void printTime()throws Exception{
+        System.out.println(new Timestamp(System.currentTimeMillis()));
     }
 }

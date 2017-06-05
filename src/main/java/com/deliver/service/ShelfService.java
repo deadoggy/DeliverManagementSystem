@@ -55,7 +55,7 @@ public class ShelfService {
             shelfRepository.saveAndFlush(shelf);
             for (int i = 1; i <= shelf.getmPositionSum(); i++) {
                 StoragePosition storagePosition = new StoragePosition(POSITION_IN_SHELF, POSTION_EMPTY,
-                        i / shelf.getmColumnSum(), i % shelf.getmColumnSum(),
+                        i / shelf.getmColumnSum()+1, i % shelf.getmColumnSum(),
                         null, null, shelf, null);
                 storagePositionreRepository.saveAndFlush(storagePosition);
                 //shelf.getmPosition().add(storagePosition);

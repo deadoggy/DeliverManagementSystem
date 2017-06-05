@@ -97,13 +97,6 @@ public class HomeController {
         return "test";
     }
 
-    @RequestMapping({"/persistenceTest"})
-    public String test(){
-        DeliverCompany com = this.repository.findByMCompanyId("0000");
 
-        //int ps = com.getmPackage().size();
-
-        return "done";
-    }
 
 }

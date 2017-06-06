@@ -25,47 +25,47 @@
 					<div class="fields">
 						<div class="field">
 							<div class="inline field">
+								<label>公司名称</label>
+								<input type="text" placeholder="请输入公司名称" id="company" style="width:85%;">
+							</div>
+							<br/>
+
+							<div class="inline field">
 								<label>日期</label>
-								<input type="date" name="begintime"/>
+								<input type="date" name="begintime" id="fromTime"/>
 								<span>&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;&nbsp;</span>
-								<input type="date" name="endtime" />
+								<input type="date" name="endtime" id="toTime"/>
 							</div>
 							<br />
 							<div class="inline fields">
 								<div class="field">
 									<div class="ui checkbox">
-										<input type="checkbox"/>
+										<input type="checkbox" id="taken_sum"/>
 										<label>取件总量</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui checkbox">
-										<input type="checkbox"/>
+										<input type="checkbox" id="post_fee"/>
 										<label>邮费统计</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui checkbox">
-										<input type="checkbox"/>
+										<input type="checkbox" id="package_info"/>
 										<label>包裹情况</label>
 									</div>
 								</div>
 								<div class="field">
 									<div class="ui checkbox">
-										<input type="checkbox"/>
-										<label>员工签到</label>
-									</div>
-								</div>
-								<div class="field">
-									<div class="ui checkbox">
-										<input type="checkbox"/>
+										<input type="checkbox" id="send_rec"/>
 										<label>寄件记录</label>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="field">
-						<button class="ui big blue button" id="bbCxbtn">查询</button>
+						<input type="button" class="ui big blue button" id="bbCxbtn" value="查询" onclick="generateForm()"></input>
 						</div>
 					</div>
 				</form>

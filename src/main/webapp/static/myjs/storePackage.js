@@ -41,7 +41,7 @@ function store(){
                 if(res.status == "ok"){
                     $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功入库</p></div>');
                 }else{
-                    console.log(res.reason);
+                    //console.log(res.reason);
                     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                 }
             }

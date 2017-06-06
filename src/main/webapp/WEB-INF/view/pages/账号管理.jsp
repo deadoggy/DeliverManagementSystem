@@ -23,17 +23,17 @@
 			<form class="ui form"  style="margin-left: 5%; width: 90%; height: 20%; margin-top: 2%">
 				<div class="fields inline">
 					<div class="four wide field">
-						<select class="ui fluid dropdown">
+						<select class="ui fluid dropdown" id="condition">
 							<div class="default text">查询条件</div>
-							<option value="1">员工号</option>
-							<option value="0">员工姓名</option>
+							<option value="id">员工号</option>
+							<option value="name">员工姓名</option>
 						</select>
 					</div>
 					<div class="eight wide field">
-						<input type="text" name="queryValue">
+						<input type="text" name="queryValue" id="queryValue">
 					</div>
 					<div class="two wide field">
-						<input class="ui blue button" type="button" id="ygCxbtn" value="查询">
+						<input class="ui blue button" type="button" id="ygCxbtn" value="查询" onclick="searchAccount()">
 					</div>
 				</div>
 				
@@ -57,7 +57,7 @@
 						<th>操作</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="accountContent">
 					<tr>
 						<td>JD001</td>
 						<td>张三</td>
@@ -109,11 +109,51 @@
 						<label>员工姓名</label>
 					</div>
 					<div class="six wide field">
-						<input type="text" name="name" />
+						<input type="text" name="name" id="name"/>
 						
 					</div>
 				</div>
 				<br />
+
+				<div class="fields inline">
+					<div class="two wide field">
+					</div>
+					<div class="two wide field">
+						<label>职位</label>
+					</div>
+					<div class="six wide field">
+						<select class="form-control" id="position">
+							<%--<option value="male">男</option>--%>
+							<%--<option value="female">女</option>--%>
+						</select>
+					</div>
+				</div>
+				<br/>
+
+				<div class="fields inline">
+					<div class="two wide field">
+					</div>
+					<div class="two wide field">
+						<label>设置密码</label>
+					</div>
+					<div class="six wide field">
+						<input type="password" name="name" id="passwd"/>
+					</div>
+				</div>
+				<br />
+
+				<div class="fields inline">
+					<div class="two wide field">
+					</div>
+					<div class="two wide field">
+						<label>确认密码</label>
+					</div>
+					<div class="six wide field">
+						<input type="password" name="name" id="passwd2"/>
+					</div>
+				</div>
+				<br />
+
 				<div class="fields inline">
 					<div class="two wide field">
 					</div>
@@ -121,25 +161,26 @@
 						<label>性别</label>
 					</div>
 					<div class="six wide field">
-						<select class="form-control">
-							<option>男</option>
-							<option>女</option>
+						<select class="form-control" id="gender">
+							<option value="male">男</option>
+							<option value="female">女</option>
 						</select>
 					</div>	
 				</div>
-				<br />
+				<br/>
+
 				<div class="fields inline">
 					<div class="two wide field">
 					</div>
 					<div class="two wide field">
 						<label>年龄</label>
 					</div>
-				
-					<div class="two wide field">
-						<input class="two wide" type="text" name="age" /><span>&nbsp;&nbsp;&nbsp;岁</span>
+					<div class="six wide field">
+						<input class="five wide" type="text" name="age" id="age"/><span>岁</span>
 					</div>
 				</div>
 				<br />
+
 				<div class="fields inline">
 					<div class="two wide field">
 					</div>
@@ -148,9 +189,11 @@
 					</div>
 				
 					<div class="six wide field">
-						<input type="text" name="phone" />
+						<input type="text" name="phone" id="tele"/>
 					</div>
 				</div>
+				<br/>
+
 				<div class="fields inline">
 					<div class="two wide field">
 					</div>
@@ -159,10 +202,12 @@
 					</div>
 				
 					<div class="three wide field">
-						<input class="two wide" type="text" name="salary" /> 
+						<input class="two wide" type="text" name="salary" id="salary"/>
 					</div>
 					<span class="two wide">元（月）</span>
 				</div>
+				<br/>
+
 				<div class="fields inline">
 					<div class="two wide field">
 					</div>
@@ -171,21 +216,19 @@
 					</div>
 				
 					<div class="six wide field">
-						<input type="text" name="position" />
+						<input type="text" name="position" id="point"/>
 					</div>
 				</div>
-				
-				<div class="field">
-					<br /><br /><br /><br /><br />
-				</div>
+				<br/>
+
 				<div class="fields inline">
 					<div class="three wide field">
 					</div>
 					<div class="three wide field">
-						<button class="ui green button" type="submit">添加</button>
+						<input class="ui green button"  type="button" value="添加" onclick="addAccount()"></input>
 					</div>
 					<div class="two wide field">
-						<button class="ui red button" type="submit">取消</button>
+						<input class="ui red button" type="button" value="取消" onclick="cancelAdd()"></input>
 					</div>
 				</div>
 			</form>

@@ -63,9 +63,13 @@
 	<div class="leftSidePart">
 		 <div class="ui card" id="leftCard">
 		 <h3 class="header">登陆信息</h3>
-		  <div class="image">
-		    <img src="/static/temp/watchmen-horizontal.jpg">
+		  <div class="image" id="userImg">
+			  <div class="ui bottom attached buttons" style="display:none;" id="uploadDiv" >
+				  <div class="ui button" onclick="showUpload()"><i class="file image outline icon"></i>上传头像</div>
+			  </div>
+		    <img src="/static/temp/watchmen-horizontal.jpg" id="imgContent">
 		  </div>
+
 		  <div class="content">
 		    <div class="header">Vsooong</div>
 		    <div class="description ">工号：1452693 &nbsp; &nbsp;  职位： 店员 </div>
@@ -91,7 +95,28 @@
             $('.tabular .item').tab();
             $('.ui.checkbox').checkbox();
             setRCHeight();
+
+            var initImg = document.getElementById("imgContent");
+            //TODO
+//            var id = "01";
+//            var src = "ftp://139.129.18.35/" + id;
+//            var ftp = new
+//            if(src.log){
+//                // test access
+//                initImg.src = src;
+//			}else{
+//                initImg.src = "/static/img/defaultHeader.jpg";
+//            }
+
+            document.getElementById("userImg").onmouseover = function(){
+                var divFloat = document.getElementById("uploadDiv")
+                divFloat.style.display="block";
+                this.onmouseout = function (){
+                    divFloat.style.display="none";
+                }
+            }
         });
+
         function setRCHeight(){
             var obj=document.getElementById("middleBody");
             var rightContent=document.getElementById("rightContent");
@@ -104,6 +129,15 @@
             }
             rightContent.style.height=style.height+200;
             //alert("middleBody height:"+style.height);
+        }
+
+        function showUpload(){
+            $.fancybox.open('<div><h2 class="ui header"> <i class="file image outline icon blue"></i> <div class="content">请选择头像</div> </h2>' +
+					'<div class="description ">建议780*430像素，大小不超过2M，格式为bmp、png、jpeg、jpg、gif</div> <br/>'+
+				'<div><form action="/upload_img" enctype="multipart/form-data" method="post"> ' +
+				'<div class="ui bottom attached button">上传文件' +
+				'<input name="file" type="file" style="display:block;overflow: hidden;"></div><br/>' +
+				'<input type="submit" value="上传" class="positive fluid ui button"> </form></div></div>');
         }
 	</script>
 </body>

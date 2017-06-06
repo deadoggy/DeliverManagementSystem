@@ -31,13 +31,13 @@
 						<th>操作</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="expiredContent">
 					<tr>
 						<td>ID01</td>
 						<td>G54</td>
 						<td>2017/4/17 13:00:00</td>
 						<td>48h</td>
-						<td><button class="ui yellow button">强制开柜</button></td>
+						<td><input type="button" class="ui yellow button" value="强制开柜"></input></td>
 					</tr>
 					<tr>
 						<td>ID03</td>
@@ -71,19 +71,6 @@
 			</table>
 		</div>	
 <!-- gqqj -->
-<script type="text/javascript">
-$(function (){
-    $('.ui.checkbox').checkbox();
-    setRCHeight();
-	$("#seg2").addClass("active");
-
-    function trans(item) 
-    {
-      $(item).toggleClass("active");
-  }
- //   $("a .item").click(trans(this));
-
-})
-</script>
+<script src="/static/myjs/expiredPickup.js"></script>
 
 

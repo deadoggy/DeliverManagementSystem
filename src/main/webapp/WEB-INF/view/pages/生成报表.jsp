@@ -98,8 +98,8 @@
 					</tbody>
 				</table>
 				<br /><br /><br />
-				<img src="temp/pie.png" alt="chart1" />
-				<img src="temp/bar.png" alt="chart2" />
+				<img src="/static/temp/pie.png" alt="chart1" />
+				<img src="/static/temp/bar.png" alt="chart2" />
 				<br /><br /><br />
 				<div class="inline field">
 					<button class="ui blue button" type="submit">打印报表</button>

@@ -18,6 +18,7 @@ function getAllCup(){
                 var data = res.smartcupboards;
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
+                    console.log(data[i]);
                     str +='<tr><td>'+data[i].mCupboardId+'</td>'+'<td>'+data[i].mPositionSum+'</td>'+'<td>'+data[i].mEmptySum+'</td></tr>';
                 }
                 $("#cupContent").html(str);

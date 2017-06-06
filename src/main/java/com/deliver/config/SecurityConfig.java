@@ -36,13 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         try{
             http.authorizeRequests()
                     .antMatchers("/**").permitAll()
-                    .and().csrf().disable();
-//                    .antMatchers("/checkCode**").permitAll()
-//                    .antMatchers("/code").permitAll()
-//                    .antMatchers("/static/**").permitAll()
-//                    .anyRequest().authenticated()
-//                .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/home",true)
-//                .and().csrf().disable();
+                    .antMatchers("/checkCode**").permitAll()
+                    .antMatchers("/code").permitAll()
+                    .antMatchers("/static/**").permitAll()
+                    .anyRequest().authenticated()
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                .and().formLogin().loginPage("/login").permitAll()
+                    .defaultSuccessUrl("/home",true).failureUrl("/login")
+                .and().csrf().disable();
         }catch(Exception e){
             e.printStackTrace();
             throw e;

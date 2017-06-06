@@ -27,5 +27,5 @@ update deliver.storageposition set empty_full = false where id=1001;
 update deliver.storageposition set empty_full = false where id=1002;
 update deliver.storageposition set empty_full = false where id=2001;
 update deliver.shelf set empty_sum=4 where id=1;
-update deliver.smart_cupboard set empty_sum=4 where id=1;
+update deliver.smart_cupboard set empty_sum=5 where id=1;
 

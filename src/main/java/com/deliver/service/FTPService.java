@@ -13,6 +13,7 @@ import java.util.Iterator;
 /**
  * Created by deadoggy on 17-6-1.
  */
+
 public class FTPService {
 
     @Autowired
@@ -22,7 +23,8 @@ public class FTPService {
     private static String user = "ftpuser";
     private static String passwd = "123456";
     private static String ip = "139.129.18.35";
-    private static int port = 20;
+    private static int port = 21;
+    private static Object lock = new Object();
 
     private static FTPService instance = null;
 
@@ -40,14 +42,37 @@ public class FTPService {
             return instance;
         }
 
-        synchronized (instance){
+        synchronized (lock){
             instance = new FTPService();
         }
         return instance;
     }
 
+    public void upload(InputStream fileIn, String toFileName) throws Exception{
+        try{
+
+            client.connect(new InetSocketAddress(ip,port));
+            client.login(user, passwd.toCharArray());
+
+
+            BufferedInputStream in = new BufferedInputStream(fileIn);
+
+            client.putFile(toFileName, in);
+
+            in.close();
+
+            client.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     public void upload(String fromPath, String toFileName) throws Exception {
         try{
+            client.connect(new InetSocketAddress(ip,port));
+
             client.login(user, passwd.toCharArray());
 
             File upFile = new File(fromPath);
@@ -61,7 +86,6 @@ public class FTPService {
             client.putFile(toFileName, in);
 
             in.close();
-
             client.close();
 
         }catch(Exception e){

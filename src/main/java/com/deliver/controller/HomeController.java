@@ -4,6 +4,7 @@ package com.deliver.controller;
  * Created by deadoggy on 17-4-17.
  */
 
+import com.deliver.constant.Constant;
 import com.deliver.dao.DeliverCompanyRepository;
 import com.deliver.dao.PackageRepository;
 import com.deliver.model.DeliverCompany;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -29,6 +32,9 @@ public class HomeController {
 
     @Autowired
     DeliverCompanyRepository repository;
+
+    @Autowired
+    PackageRepository packageRepository;
 
     public HomeController() {
     }

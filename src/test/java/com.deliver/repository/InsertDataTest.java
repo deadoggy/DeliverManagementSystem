@@ -92,7 +92,6 @@ public class InsertDataTest {
     public void insertPackage(){
 
         DeliverCompany com = this.deliverCompanyRepository.findByMCompanyId("0000");
-        com.getmDayForm().iterator();
         Calendar dateCal = Calendar.getInstance();
         dateCal.set(2014,10,1);
 

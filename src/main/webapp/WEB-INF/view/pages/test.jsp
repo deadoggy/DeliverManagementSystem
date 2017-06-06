@@ -12,7 +12,12 @@
 </head>
 <body>
 
-   <a href = "/persistenceTest"> link </a>
+   <form action="/upload_img" enctype="multipart/form-data" method="post">
+       <input name="file" type="file">
+       upload
+       </input>
+       <input type="submit">
+   </form>
 
 </body>
 </html>

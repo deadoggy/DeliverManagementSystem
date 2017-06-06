@@ -117,6 +117,15 @@ public class PackageService {
             } else {
                 storagePosition.setmEmpty(POSTION_EMPTY);
                 storagePositionreRepository.saveAndFlush(storagePosition);
+                if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
+                    Shelf shelf=storagePosition.getmShelf();
+                    shelf.setmEmptySum(shelf.getmEmptySum()+1);
+                    shelfRepository.saveAndFlush(shelf);
+                }else{
+                    SmartCupboard smartCupboard=storagePosition.getmCup();
+                    smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()+1);
+                    smartCupboardRepository.saveAndFlush(smartCupboard);
+                }
                 List<Package> packageList = storagePosition.getmPackage();
                 Package aPackage = packageList.get(packageList.size() - 1);
                 aPackage.setmTaken(true);

@@ -42,7 +42,7 @@ public class Package {
     @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
     private StoragePosition mPosition;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST})
     private DeliverCompany mCompany; // foreign key
 
     public Package() {}

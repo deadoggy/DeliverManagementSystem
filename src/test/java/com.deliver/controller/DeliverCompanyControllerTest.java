@@ -27,7 +27,7 @@ public class DeliverCompanyControllerTest extends BaseControllerTest{
     @Test
     public void add() throws Exception{
         RequestBuilder requestBuilder = post("/company")
-                .param("id", "101")
+                .param("id", "100")
                 .param("name","顺风");
         mockMvc.perform(requestBuilder).andDo(print());
     }

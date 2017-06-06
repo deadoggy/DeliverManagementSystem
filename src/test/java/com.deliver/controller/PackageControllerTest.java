@@ -45,12 +45,12 @@ public class PackageControllerTest extends BaseControllerTest {
     @Test
     public void add() throws Exception {
         RequestBuilder requestBuilder = post("/package")
-                .param("id", "102")
+                .param("id", "20000255")
                 .param("companyName", "顺风")
                 .param("receiverName", "zhang")
-                .param("receiverTele", "123465789")
-                .param("cupOrShelf", "false")
-                .param("storageId", "67");
+                .param("receiverTele", "13968745213")
+                .param("cupOrShelf", "true")
+                .param("storageId", "2005");
         mockMvc.perform(requestBuilder).andDo(print());
     }
 

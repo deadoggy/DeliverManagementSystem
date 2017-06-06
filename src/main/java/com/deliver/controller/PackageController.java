@@ -122,8 +122,8 @@ public class PackageController {
 
     }
 
-
-    @RequestMapping(value = "/package/all", method = RequestMethod.GET)
+    //所有未取走包裹
+    @RequestMapping(value = "/package/allnotaken", method = RequestMethod.GET)
     public String getAllPackage() {
         JSONObject jsonObject = new JSONObject();
         try {
@@ -164,6 +164,49 @@ public class PackageController {
         }
 
     }
+    //所有取走包裹
+    @RequestMapping(value = "/package/alltaken", method = RequestMethod.GET)
+    public String getAllPackageTaken() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            List<Package> packageList = packageService.getAllTakenPackage();
+            if (packageList == null) {
+                jsonObject.put("status", "fail");
+                jsonObject.put("reason", "获取对象失败");
+                return jsonObject.toString();
+            } else {
+                jsonObject.put("status", "ok");
+                JSONArray jsonArray=new JSONArray();
+                for (Package aPackage:packageList) {
+                    JSONObject packageObject=new JSONObject();
+                    packageObject.put("packageId",aPackage.getmPackageId());
+                    packageObject.put("fee",aPackage.getmProxyChargeFee());
+                    packageObject.put("rName",aPackage.getmReceiverName());
+                    packageObject.put("rTele",aPackage.getmReceiverTele());
+                    DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    packageObject.put("rTime",sdf.format(aPackage.getmReceiveTime()));
+                    packageObject.put("takenTime",sdf.format(aPackage.getmTakenTime()));
+                    StoragePosition storagePosition=aPackage.getmPosition();
+                    if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
+                        packageObject.put("position","shelf "+storagePosition.getmShelf().getmShelfId()+" "+
+                                storagePosition.getmLayer()+" "+storagePosition.getmColumn());
+                    }else{
+                        packageObject.put("position","smartCupboard "+storagePosition.getmCup().getmCupboardId()+" "+
+                                storagePosition.getmLayer()+" "+storagePosition.getmColumn());
+                    }
+                    jsonArray.add(packageObject);
+                }
+                jsonObject.put("packageList", jsonArray);
+                return jsonObject.toJSONString();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonObject.put("status", "fail");
+            jsonObject.put("reason", "请求失败");
+            return jsonObject.toJSONString();
+        }
+
+    }
 
     @RequestMapping(value = "/package", method = RequestMethod.POST)
     public String add(HttpServletRequest httpServletRequest) {
@@ -171,21 +214,17 @@ public class PackageController {
         try {
             String id = httpServletRequest.getParameter("id");
             if (packageService.getPackage(id) != null) {
-                jsonObject.put("status", "fail");
-                jsonObject.put("reason", "包裹id重复");
-                return jsonObject.toString();
+                return "{\"status\": \"fail\", \"reason\" : \"包裹id重复\"}";
             }
             StoragePosition storagePosition = storageService.getStorageById(Integer.parseInt(httpServletRequest.getParameter("storageId")));
-            if (storagePosition == null || storagePosition.ismEmpty() == POSITION_FULL) {
-                jsonObject.put("status", "fail");
-                jsonObject.put("reason", "存储位置已经有货物");
-                return jsonObject.toString();
+            if (storagePosition == null ){
+                return "{\"status\": \"fail\", \"reason\" : \"没有此位置\"}";
+            }else if(storagePosition.ismEmpty() == POSITION_FULL) {
+                return "{\"status\": \"fail\", \"reason\" : \"此物质已经有货物\"}";
             }
             DeliverCompany deliverCompany = deliverCompanyService.getDeliverCompany(httpServletRequest.getParameter("companyName"));
             if (deliverCompany == null) {
-                jsonObject.put("status", "fail");
-                jsonObject.put("reason", "没有这家快递公司");
-                return jsonObject.toString();
+                return "{\"status\": \"fail\", \"reason\" : \"没有这家快递公司\"}";
             }
 
             boolean flag = packageService.addPackage(id, deliverCompany,
@@ -243,6 +282,48 @@ public class PackageController {
             jsonObject.put("packages", jsonArray);
             return JSONObject.toJSONString(jsonObject);
         }catch (Exception e) {
+            e.printStackTrace();
+            jsonObject.put("status", "fail");
+            jsonObject.put("reason", "请求失败");
+            return jsonObject.toJSONString();
+        }
+
+    }
+
+    @RequestMapping(value = "/package/overtime",method = RequestMethod.GET)
+    public String getPackageOvertime(){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            List<Package> packageList = packageService.getOvertime();
+            if (packageList == null) {
+                jsonObject.put("status", "fail");
+                jsonObject.put("reason", "获取对象失败");
+                return jsonObject.toString();
+            } else {
+                jsonObject.put("status", "ok");
+                JSONArray jsonArray=new JSONArray();
+                for (Package aPackage:packageList) {
+                    JSONObject packageObject=new JSONObject();
+                    packageObject.put("packageId",aPackage.getmPackageId());
+                    packageObject.put("fee",aPackage.getmProxyChargeFee());
+                    packageObject.put("rName",aPackage.getmReceiverName());
+                    packageObject.put("rTele",aPackage.getmReceiverTele());
+                    DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    packageObject.put("rTime",sdf.format(aPackage.getmReceiveTime()));
+                    StoragePosition storagePosition=aPackage.getmPosition();
+                    if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
+                        packageObject.put("position","shelf "+storagePosition.getmShelf().getmShelfId()+" "+
+                                storagePosition.getmLayer()+" "+storagePosition.getmColumn());
+                    }else{
+                        packageObject.put("position","smartCupboard "+storagePosition.getmCup().getmCupboardId()+" "+
+                                storagePosition.getmLayer()+" "+storagePosition.getmColumn());
+                    }
+                    jsonArray.add(packageObject);
+                }
+                jsonObject.put("packageList", jsonArray);
+                return jsonObject.toJSONString();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             jsonObject.put("status", "fail");
             jsonObject.put("reason", "请求失败");

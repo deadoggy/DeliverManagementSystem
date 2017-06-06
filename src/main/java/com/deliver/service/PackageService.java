@@ -77,17 +77,21 @@ public class PackageService {
     public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, boolean cupOrShelf, StoragePosition storagePosition) {
         try {
             Package aPackage = new Package();
+            aPackage.setmCupOrShelf(cupOrShelf);
             aPackage.setmPackageId(id);
-            aPackage.setmCompany(deliverCompany);
+            aPackage.setmProxyChargeFee(0);
             aPackage.setmReceiveTime(new Timestamp(System.currentTimeMillis()));
-            aPackage.setmTaken(false);
             aPackage.setmReceiverName(receiverName);
             aPackage.setmReceiverTele(receiverTele);
-            aPackage.setmCupOrShelf(cupOrShelf);
+            aPackage.setmTaken(false);
+            aPackage.setmTakenTime(null);
+            aPackage.setmCompany(deliverCompany);
             aPackage.setmPosition(storagePosition);
             packageRepository.saveAndFlush(aPackage);
-            //这里需要制作一个根据id形成的取件码
-            storagePosition.setmIdentifyCode(id);
+
+            SelfBcryptEncoder selfBcryptEncoder=new SelfBcryptEncoder();
+            String identifyCode=selfBcryptEncoder.encipher(aPackage.getmPackageId());
+            storagePosition.setmIdentifyCode(identifyCode.substring(identifyCode.length()-4,identifyCode.length()));
             storagePosition.setmEmpty(POSITION_FULL);
             storagePositionreRepository.saveAndFlush(storagePosition);
             if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
@@ -166,6 +170,10 @@ public class PackageService {
         return packageRepository.getAllNoTaken();
     }
 
+    public List<Package> getAllTakenPackage() {
+        return packageRepository.getAllTaken();
+    }
+
     //通过手机获得所有包裹
     public List<Package> getPackageByTele(String tele){
         return packageRepository.findByMReceiverTele(tele);
@@ -182,5 +190,9 @@ public class PackageService {
             }
         }
         return packageList;
+    }
+
+    public List<Package> getOvertime(){
+        return packageRepository.getOvertime();
     }
 }

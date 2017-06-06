@@ -48,4 +48,7 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
 
     @Query("select p from Package as p where p.mTaken=0")
     List<Package> getAllNoTaken();
+
+    @Query("select p from Package as p where p.mTaken=0 and p.mPosition= (select s from StoragePosition as s where s.mId=?1)")
+    Package getByStoragePosition(int id);
 }

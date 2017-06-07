@@ -29,7 +29,7 @@ function getAllExpired(){
     //             for (var i = 0; i < data.length; i++) {
     //                 var strTime = data[i].mReceiveTime;
     //                 var date = new Date(strTime);
-    //                 var delayTime = (curTime - date / (1000 * 3600)).toFixed(2);
+    //                 var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
     //                 str += '<tr><td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mPosition + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
     //                     + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td><button class="ui yellow button" onclick="forcedOpen()">强制开柜</button></td></tr>';
     //             }

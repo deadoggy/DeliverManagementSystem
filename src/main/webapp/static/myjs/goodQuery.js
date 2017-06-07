@@ -23,11 +23,11 @@ function goodQuery(){
                     var data = res.packageList;
                     var curTime = new Date();
                     for (var i = 0; i < data.length; i++) {
-                        var strTime = data[i].mReceiveTime;
+                        var strTime = data[i].rTime;
                         var date = new Date(strTime);
-                        var delayTime = (curTime - date / (1000 * 3600)).toFixed(2);
-                        str += '<tr><td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mPosition + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
-                            + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].mReceiverName + ': ' + data[i].mReceiverTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
+                        var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
+                        str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
+                            + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                     }
                     $("#goodContent").html(str);
                 } else {
@@ -48,11 +48,11 @@ function goodQuery(){
                     var data = res.packageList;
                     var curTime = new Date();
                     for (var i = 0; i < data.length; i++) {
-                        var strTime = data[i].mReceiveTime;
+                        var strTime = data[i].rTime;
                         var date = new Date(strTime);
-                        var delayTime = (curTime - date / (1000 * 3600)).toFixed(2);
-                        str += '<tr><td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mPosition + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
-                            + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].mReceiverName + ': ' + data[i].mReceiverTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
+                        var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
+                        str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
+                            + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                     }
                     $("#goodContent").html(str);
                 } else {
@@ -79,11 +79,11 @@ function getAll() {
                 var curTime = new Date();
                 var len = (data.length > 10) ? 10 : data.length;
                 for (var i = 0; i < len; i++) {
-                    var strTime = data[i].mReceiveTime;
+                    var strTime = data[i].rTime;
                     var date = new Date(strTime);
-                    var delayTime = (curTime - date / (1000 * 3600)).toFixed(2);
-                    str += '<tr><td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mPosition + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
-                        + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].mReceiverName + ': ' + data[i].mReceiverTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
+                    var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
+                    str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
+                        + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                 }
                 $("#goodContent").html(str);
             } else {

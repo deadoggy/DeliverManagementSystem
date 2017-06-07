@@ -25,7 +25,7 @@ function goodQuery(){
                     for (var i = 0; i < data.length; i++) {
                         var strTime = data[i].rTime;
                         var date = new Date(strTime);
-                        var delayTime = (curTime - date / (1000 * 3600)).toFixed(2);
+                        var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
                         str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
                             + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                     }
@@ -50,7 +50,7 @@ function goodQuery(){
                     for (var i = 0; i < data.length; i++) {
                         var strTime = data[i].rTime;
                         var date = new Date(strTime);
-                        var delayTime = (curTime - date / (1000 * 3600)).toFixed(2);
+                        var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
                         str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
                             + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                     }
@@ -81,7 +81,7 @@ function getAll() {
                 for (var i = 0; i < len; i++) {
                     var strTime = data[i].rTime;
                     var date = new Date(strTime);
-                    var delayTime = (curTime - date / (1000 * 3600)).toFixed(2);
+                    var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
                     str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
                         + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                 }

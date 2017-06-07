@@ -21,36 +21,9 @@
 <link type="text/css" rel="stylesheet" href="/static/mystyle/exactContent.css">
 <link rel="stylesheet" type="text/css" href="/static/fancybox/jquery.fancybox.min.css">
 
+<link rel="stylesheet" type="text/css" href="/static/mystyle/base.css">
+
 <link rel="shortcut icon" href="/static/img/anchor.ico">
-
-
-<style type="text/css">
-	html, body {
-		overflow-x: hidden;
-		overflow-y: auto;
-		font-family: Arial, sans-serif;
-	}
-
-	#uploadDiv {
-		display: none;
-		background-color: transparent;
-		color: transparent;
-		position: absolute;
-		z-index: 1;
-		left: auto;
-		right: auto;
-		bottom: 0;
-		overflow: hidden;
-	}
-
-	#userImg {
-		position: relative;
-	}
-
-/**/
-
-</style>
-
 
 </head>
 
@@ -82,17 +55,40 @@
 		    <img src="/static/temp/watchmen-horizontal.jpg" id="imgContent">
 		  </div>
 
+			 <%!
+				 String username = "Vsooong";
+				 String id = "1452693";
+				 String position = "店员";
+			 %>
+			 <%
+				 Cookie cookie = null;
+				 Cookie[] cookies = null;
+				 // 获取cookies的数据,是一个数组
+				 cookies = request.getCookies();
+				 if( cookies != null ){
+					 for (int i = 0; i < cookies.length; i++){
+						 cookie = cookies[i];
+						 if((cookie.getName( )).compareTo("id") == 0 ){
+						     id = cookie.getValue();
+						 }
+						 if((cookie.getName( )).compareTo("name") == 0 ){
+						     username = cookie.getValue();
+						 }
+						 if((cookie.getName( )).compareTo("pos") == 0 ){
+						     position = cookie.getValue();
+						 }
+					 }
+				 }
+			 %>
 		  <div class="content">
-		    <div class="header">Vsooong</div>
-		    <div class="description ">工号：1452693 &nbsp; &nbsp;  职位： 店员 </div>
+		    <div class="header"><%=username%> </div>
+		    <div class="description ">工号：<%=id%> &nbsp; &nbsp;  职位：<%=position%> </div>
 		  </div>
 		  <div class="ui bottom attached buttons">
 		    <div class="ui button"><i class="mail forward icon"></i> 注销 </div>
 		  </div>
 		</div>
-	
 
-	
 		<div id="sidemenu">
 		<h3></h3>
 
@@ -118,7 +114,7 @@
                 this.onmouseout = function (){
                     divFloat.style.display="none";
                 }
-            }
+            };
         });
 
         function setRCHeight(){
@@ -139,9 +135,13 @@
             $.fancybox.open('<div><h2 class="ui header"> <i class="file image outline icon blue"></i> <div class="content">请选择头像</div> </h2>' +
 					'<div class="description ">建议780*430像素，大小不超过2M，格式为bmp、png、jpeg、jpg、gif</div> <br/>'+
 				'<div><form action="/upload_img" enctype="multipart/form-data" method="post"> ' +
-				'<div class="ui bottom attached button">上传文件' +
-				'<input name="file" type="file" style="display:block;overflow: hidden;"></div><br/>' +
+				'<div class="ui bottom attached button fileInputBtn" id="fileInputBtn">上传文件' +
+				'<input name="file" type="file" id="file"></div><br/>' +
 				'<input type="submit" value="上传" class="positive fluid ui button"> </form></div></div>');
+
+            $("#fileInputBtn").click(function () {
+                $("#fileInputBtn").text("文件上传成功！");
+            });
         }
 	</script>
 </body>

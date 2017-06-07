@@ -20,11 +20,14 @@ function goodQuery(){
             success: function(res){
                 if (res.status == "ok") {
                     var str = '';
-                    var data = res.packages;
-                    len = (data.length > 10) ? 10 : data.length;
-                    for (var i = 0; i < len; i++) {
-                        str += '<tr><td>' + data[i].mId + '</td>' + '<td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
-                            + '<td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mReceiverName + ': ' + data[i].mReceiverTele + '</td>' + '<td><button class="ui yellow button" onclick="confirmBox()">取件</button></td></tr>';
+                    var data = res.packageList;
+                    var curTime = new Date();
+                    for (var i = 0; i < data.length; i++) {
+                        var strTime = data[i].rTime;
+                        var date = new Date(strTime);
+                        var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
+                        str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
+                            + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                     }
                     $("#goodContent").html(str);
                 } else {
@@ -42,11 +45,14 @@ function goodQuery(){
             success: function(res){
                 if (res.status == "ok") {
                     var str = '';
-                    var myDate=new Date();
-                    var data = res.packages;
+                    var data = res.packageList;
+                    var curTime = new Date();
                     for (var i = 0; i < data.length; i++) {
-                        str += '<tr><td>' + data[i].mId + '</td>' + '<td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
-                            + '<td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mReceiverName + ': ' + data[i].mReceiverTele + '</td>' + '<td><button class="ui yellow button" onclick="confirmBox()">取件</button></td></tr>';
+                        var strTime = data[i].rTime;
+                        var date = new Date(strTime);
+                        var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
+                        str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
+                            + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                     }
                     $("#goodContent").html(str);
                 } else {
@@ -59,21 +65,25 @@ function goodQuery(){
 }
 
 
-//function oninput(){}
+//返回时间"yyyy/MM/dd HH:mm:ss"
 
 function getAll() {
     $.ajax({
         type: "GET",
-        url: "/package/all",
+        url: "/package/allnotaken",
         dataType: "json",
         success: function (res) {
             if (res.status == "ok") {
                 var str = '';
-                var data = res.packages;
-                len = (data.length > 10) ? 10 : data.length;
+                var data = res.packageList;
+                var curTime = new Date();
+                var len = (data.length > 10) ? 10 : data.length;
                 for (var i = 0; i < len; i++) {
-                    str += '<tr><td>' + data[i].mId + '</td>' + '<td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
-                        + '<td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mReceiverName + ': ' + data[i].mReceiverTele + '</td>' + '<td><button class="ui yellow button" onclick="confirmBox()">取件</button></td></tr>';
+                    var strTime = data[i].rTime;
+                    var date = new Date(strTime);
+                    var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
+                    str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
+                        + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td>' + data[i].rName + ': ' + data[i].rTele + '</td>' + '<td><input type="button" class="ui yellow button" onclick="confirmBox()" value="取件"></input></td></tr>';
                 }
                 $("#goodContent").html(str);
             } else {
@@ -89,17 +99,21 @@ function confirmBox(){
 
 function confirm(){
     var confirmcode = document.getElementById("confirmcode").value;
-    $.ajax({
-        type: "POST",
-        url: "/confirm/"+confirmcode,
-        //data: { Confirmcode: confirmcode},
-        dataType: "json",
-        success: function (res) {
-            if (res.status == "ok") {
-                $.fancybox.open('<div class="message"><h2>Success!</h2><p>取件成功</p></div>');
-            } else {
-                $.fancybox.open('<div class="message"><h2>Failed!</h2><p>' + res.reason + '</p></div>');
+    if(confirmcode == ""){
+        $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请输入验证码!</p></div>');
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "/confirm/"+confirmcode,
+            //data: { Confirmcode: confirmcode},
+            dataType: "json",
+            success: function (res) {
+                if (res.status == "ok") {
+                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>取件成功</p></div>');
+                } else {
+                    $.fancybox.open('<div class="message"><h2>Failed!</h2><p>' + res.reason + '</p></div>');
+                }
             }
-        }
-    });
+        });
+    }
 }

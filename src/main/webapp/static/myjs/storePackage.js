@@ -41,7 +41,7 @@ function store(){
                 if(res.status == "ok"){
                     $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功入库</p></div>');
                 }else{
-                    console.log(res.reason);
+                    //console.log(res.reason);
                     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                 }
             }
@@ -63,7 +63,7 @@ function generatePos(){
                 dataType: "json",
                 success: function(res){
                     if(res.status == "ok"){
-                        document.getElementById("fromPos").value = res.storagePosition.mLayer + res.storagePosition.mColumn;
+                        document.getElementById("storageId").value = (res.layer).toString() + (res.column).toString();
                     }else{
                         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                     }
@@ -76,7 +76,7 @@ function generatePos(){
                 dataType: "json",
                 success: function(res){
                     if(res.status == "ok"){
-                        document.getElementById("fromPos").value = res.storagePosition.mLayer + res.storagePosition.mColumn;
+                        document.getElementById("storageId").value = (res.layer).toString() + (res.column).toString();
                     }else{
                         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                     }

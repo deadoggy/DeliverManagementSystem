@@ -22,10 +22,10 @@
 				<div class="two fields">
 					<div class="field inline">
 						<label style="font-size:15px;">货物单号: </label>
-						<input type="text" name="goodID" id="goodId" oninput="pickuptQuery()"/>
+						<input type="text" name="goodID" id="goodId" oninput="pickupQuery()"/>
 					</div>
 					<div class="field">
-						<input type="button" class="ui button primary " style="float:right;margin-right:30vh" onclick="pickuptQuery()" value="查询"></input>
+						<input type="button" class="ui button primary " style="float:right;margin-right:30vh" onclick="pickupClickEvent()" value="查询"></input>
 					</div>
 				</div>
 			</form>

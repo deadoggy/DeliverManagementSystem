@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -77,17 +79,21 @@ public class PackageService {
     public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, boolean cupOrShelf, StoragePosition storagePosition) {
         try {
             Package aPackage = new Package();
+            aPackage.setmCupOrShelf(cupOrShelf);
             aPackage.setmPackageId(id);
-            aPackage.setmCompany(deliverCompany);
+            aPackage.setmProxyChargeFee(0);
             aPackage.setmReceiveTime(new Timestamp(System.currentTimeMillis()));
-            aPackage.setmTaken(false);
             aPackage.setmReceiverName(receiverName);
             aPackage.setmReceiverTele(receiverTele);
-            aPackage.setmCupOrShelf(cupOrShelf);
+            aPackage.setmTaken(false);
+            aPackage.setmTakenTime(null);
+            aPackage.setmCompany(deliverCompany);
             aPackage.setmPosition(storagePosition);
             packageRepository.saveAndFlush(aPackage);
-            //这里需要制作一个根据id形成的取件码
-            storagePosition.setmIdentifyCode(id);
+
+            SelfBcryptEncoder selfBcryptEncoder=new SelfBcryptEncoder();
+            String identifyCode=selfBcryptEncoder.encipher(aPackage.getmPackageId());
+            storagePosition.setmIdentifyCode(identifyCode.substring(identifyCode.length()-4,identifyCode.length()));
             storagePosition.setmEmpty(POSITION_FULL);
             storagePositionreRepository.saveAndFlush(storagePosition);
             if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
@@ -166,6 +172,10 @@ public class PackageService {
         return packageRepository.getAllNoTaken();
     }
 
+    public List<Package> getAllTakenPackage() {
+        return packageRepository.getAllTaken();
+    }
+
     //通过手机获得所有包裹
     public List<Package> getPackageByTele(String tele){
         return packageRepository.findByMReceiverTele(tele);
@@ -182,5 +192,42 @@ public class PackageService {
             }
         }
         return packageList;
+    }
+
+    @Transactional
+    public List<Package> getOvertime(){
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH,-2);
+        Timestamp t=new Timestamp(cal.getTimeInMillis());
+        return packageRepository.getOvertime(t);
+    }
+
+    @Transactional
+    public boolean forceOpen(String id){
+        try{
+            Package aPackage=packageRepository.findByMPackageId(id);
+            if(aPackage.ismTaken()==true){
+                return false;
+            }
+            aPackage.setmTaken(true);
+            aPackage.setmTakenTime(new Timestamp(System.currentTimeMillis()));
+            packageRepository.saveAndFlush(aPackage);
+            StoragePosition storagePosition=aPackage.getmPosition();
+            storagePosition.setmEmpty(POSTION_EMPTY);
+            storagePositionreRepository.saveAndFlush(storagePosition);
+            if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
+                Shelf shelf=storagePosition.getmShelf();
+                shelf.setmEmptySum(shelf.getmEmptySum()+1);
+                shelfRepository.saveAndFlush(shelf);
+            }else {
+                SmartCupboard smartCupboard=storagePosition.getmCup();
+                smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()+1);
+                smartCupboardRepository.saveAndFlush(smartCupboard);
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

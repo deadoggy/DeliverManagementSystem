@@ -95,7 +95,7 @@ public class HumanManageService {
 
             Employee noob = new Employee(employeeId, name, age, gender, salary, phone, point, new Timestamp(new java.util.Date().getTime()), pwd);
 
-            this.employeeRepository.save(noob);
+            this.employeeRepository.saveAndFlush(noob);
 
             return true;
 
@@ -123,7 +123,6 @@ public class HumanManageService {
     /*
     *attribute:
     *   Name
-    *   Age
     *   Salary
     *   Point
     *   Pwd
@@ -180,7 +179,6 @@ public class HumanManageService {
         }
     }
 
-
     public String findByEmployName(String name){
         try{
             JSONObject ret = new JSONObject();
@@ -206,6 +204,10 @@ public class HumanManageService {
         }catch(Exception e){
             return "{\"result\": \"fail\", \"reason\" : \"no such name\"}";
         }
+    }
+
+    public Employee findEm(String id){
+        return this.employeeRepository.findByMEmployeeId(id);
     }
 
 }

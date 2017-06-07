@@ -46,7 +46,7 @@
 				<div class="ui divider"></div>
 				<div style="display:flex ;justify-content:    space-between; ">
 				<div class="ui input focus" style="width:36em">
-			  		<input type="text" placeholder="请输入存放位置，或者系统随机生成" id="storageId" required>
+			  		<input type="text" placeholder="请输入存放位置(格式:行列)，或者系统随机生成" id="storageId" required>
 			    </div>
 				
 				<div>

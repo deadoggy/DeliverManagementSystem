@@ -31,9 +31,21 @@
 		font-family: Arial, sans-serif;
 	}
 
+	#uploadDiv {
+		display: none;
+		background-color: transparent;
+		color: transparent;
+		position: absolute;
+		z-index: 1;
+		left: auto;
+		right: auto;
+		bottom: 0;
+		overflow: hidden;
+	}
 
-
-
+	#userImg {
+		position: relative;
+	}
 
 /**/
 
@@ -64,8 +76,8 @@
 		 <div class="ui card" id="leftCard">
 		 <h3 class="header">登陆信息</h3>
 		  <div class="image" id="userImg">
-			  <div class="ui bottom attached buttons" style="display:none;" id="uploadDiv" >
-				  <div class="ui button" onclick="showUpload()"><i class="file image outline icon"></i>上传头像</div>
+			  <div class="ui bottom attached buttons" id="uploadDiv" >
+				  <div class="ui button uploadBtn" onclick="showUpload()"><i class="file image outline icon"></i>上传头像</div>
 			  </div>
 		    <img src="/static/temp/watchmen-horizontal.jpg" id="imgContent">
 		  </div>
@@ -97,19 +109,11 @@
             setRCHeight();
 
             var initImg = document.getElementById("imgContent");
-            //TODO
-//            var id = "01";
-//            var src = "ftp://139.129.18.35/" + id;
-//            var ftp = new
-//            if(src.log){
-//                // test access
-//                initImg.src = src;
-//			}else{
-//                initImg.src = "/static/img/defaultHeader.jpg";
-//            }
+            var id = "01";
+            initImg.src = "ftp://139.129.18.35/" + id;
 
             document.getElementById("userImg").onmouseover = function(){
-                var divFloat = document.getElementById("uploadDiv")
+                var divFloat = document.getElementById("uploadDiv");
                 divFloat.style.display="block";
                 this.onmouseout = function (){
                     divFloat.style.display="none";

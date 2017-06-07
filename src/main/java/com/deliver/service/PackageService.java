@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -192,7 +194,40 @@ public class PackageService {
         return packageList;
     }
 
+    @Transactional
     public List<Package> getOvertime(){
-        return packageRepository.getOvertime();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH,-2);
+        Timestamp t=new Timestamp(cal.getTimeInMillis());
+        return packageRepository.getOvertime(t);
+    }
+
+    @Transactional
+    public boolean forceOpen(String id){
+        try{
+            Package aPackage=packageRepository.findByMPackageId(id);
+            if(aPackage.ismTaken()==true){
+                return false;
+            }
+            aPackage.setmTaken(true);
+            aPackage.setmTakenTime(new Timestamp(System.currentTimeMillis()));
+            packageRepository.saveAndFlush(aPackage);
+            StoragePosition storagePosition=aPackage.getmPosition();
+            storagePosition.setmEmpty(POSTION_EMPTY);
+            storagePositionreRepository.saveAndFlush(storagePosition);
+            if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
+                Shelf shelf=storagePosition.getmShelf();
+                shelf.setmEmptySum(shelf.getmEmptySum()+1);
+                shelfRepository.saveAndFlush(shelf);
+            }else {
+                SmartCupboard smartCupboard=storagePosition.getmCup();
+                smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()+1);
+                smartCupboardRepository.saveAndFlush(smartCupboard);
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

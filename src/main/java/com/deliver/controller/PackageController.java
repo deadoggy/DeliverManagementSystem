@@ -290,6 +290,7 @@ public class PackageController {
 
     }
 
+    //获取超过48h的包裹
     @RequestMapping(value = "/package/overtime",method = RequestMethod.GET)
     public String getPackageOvertime(){
         JSONObject jsonObject = new JSONObject();
@@ -312,11 +313,11 @@ public class PackageController {
                     packageObject.put("rTime",sdf.format(aPackage.getmReceiveTime()));
                     StoragePosition storagePosition=aPackage.getmPosition();
                     if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
-                        packageObject.put("position","shelf "+storagePosition.getmShelf().getmShelfId()+" "+
-                                storagePosition.getmLayer()+" "+storagePosition.getmColumn());
+                        packageObject.put("position","shelf:"+storagePosition.getmShelf().getmShelfId()+" "+
+                                storagePosition.getmLayer()+" "+storagePosition.getmColumn()+" "+storagePosition.getmId());
                     }else{
                         packageObject.put("position","smartCupboard "+storagePosition.getmCup().getmCupboardId()+" "+
-                                storagePosition.getmLayer()+" "+storagePosition.getmColumn());
+                                storagePosition.getmLayer()+" "+storagePosition.getmColumn()+" "+storagePosition.getmId());
                     }
                     jsonArray.add(packageObject);
                 }
@@ -328,6 +329,24 @@ public class PackageController {
             jsonObject.put("status", "fail");
             jsonObject.put("reason", "请求失败");
             return jsonObject.toJSONString();
+        }
+
+    }
+
+    //强制开柜
+    @RequestMapping(value = "package/force/{id}",method = RequestMethod.GET)
+    public String forceOpen(@PathVariable String id){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            boolean flag = packageService.forceOpen(id);
+            if(flag==true){
+                return "{\"status\": \"ok\"}";
+            }else{
+                return "{\"status\": \"fail\", \"reason\" : \"强制开柜失败\"}";
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            return "{\"status\": \"fail\", \"reason\" : \"请求失败\"}";
         }
 
     }

@@ -67,6 +67,7 @@ public class PackageControllerTest extends BaseControllerTest {
     }
     @Test
     public void printTime()throws Exception{
-        System.out.println(new Timestamp(System.currentTimeMillis()));
+        RequestBuilder requestBuilder=get("/package/overtime");
+        mockMvc.perform(requestBuilder).andDo(print());
     }
 }

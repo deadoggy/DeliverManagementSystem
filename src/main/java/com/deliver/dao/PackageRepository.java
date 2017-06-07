@@ -56,6 +56,6 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
     Package getByStoragePosition(int id);
 
     //@Query("select p from Package as p where p.mTaken=0 and p.mReceiveTime>= now() - interval 2 day")
-    @Query("select p from Package as p where p.mTaken=0")
-    List<Package> getOvertime();
+    @Query("select p from Package as p where p.mTaken=0 and p.mReceiveTime<?1")
+    List<Package> getOvertime(Timestamp t);
 }

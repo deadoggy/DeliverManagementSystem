@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SendingService {
@@ -25,14 +26,14 @@ public class SendingService {
     private SendingRecordRepository sendingRecordRepository;
 
 
-    public boolean addSendingRecord(String id,Package aPackage,String sName,String sTele,String sAddress,String sCity,
+    public boolean addSendingRecord(String id,String sName,String sTele,String sAddress,String sCity,
                                     String sProvince,String rName,String rTele,String rAddress,String rCity,
                                     String rProvince,double weight) {
         try {
             SendingRecord sendingRecord = new SendingRecord();
             sendingRecord.setmSending_record_id(id);
 //            package这里需要确定下传入什么参数
-            sendingRecord.setmPackage(aPackage);
+            sendingRecord.setmPackage(null);
             sendingRecord.setmSenderName(sName);
             sendingRecord.setmSenderTele(sTele);
             sendingRecord.setmSenderAddress(sAddress);
@@ -55,6 +56,10 @@ public class SendingService {
 
     public SendingRecord getSendingRecordById(String sendingRecordId) {
         return sendingRecordRepository.findByMSendingRecordId(sendingRecordId);
+    }
+
+    public List<SendingRecord> getSendingRecords(String sendingRecordId){
+        return sendingRecordRepository.getSendingRecordBegin(sendingRecordId);
     }
 
 }

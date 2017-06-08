@@ -28,5 +28,6 @@ public interface ShelfRepository extends JpaRepository<Shelf,Integer>{
 
     Page<Shelf> findByMColumnSum(int columnSum, Pageable pageable);
 
-
+    @Query("select s from Shelf as s where s.mShelfId like ?1%")
+    List<Shelf> getShelfBegin(String id);
 }

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by 91574 on 2017/5/3.
  */
@@ -22,5 +24,6 @@ public interface SendingRecordRepository extends JpaRepository<SendingRecord,Int
 
     Page<SendingRecord> findByMSenderTele(String mSenderTele, Pageable pageable);
 
-
+    @Query("select send from SendingRecord as send where send.mSendingRecordId like ?1%")
+    List<SendingRecord> getSendingRecordBegin(String id);
 }

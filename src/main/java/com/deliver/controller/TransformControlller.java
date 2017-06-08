@@ -35,15 +35,15 @@ public class TransformControlller {
             String id=httpServletRequest.getParameter("id");
             int layer=Integer.valueOf(httpServletRequest.getParameter("layer"));
             int column=Integer.valueOf(httpServletRequest.getParameter("column"));
-            int tStorageId=Integer.valueOf(httpServletRequest.getParameter("tStorageId"));
+            String tStorageId=httpServletRequest.getParameter("tStorageId");
             boolean flag=false;
             if(isCup==POSITION_IN_SHELF){
                 int shelfId=shelfService.getShelfById(id).getmId();
-                int storageId=storageService.getStorageIdByLayerAndColumnInShelf(shelfId,layer,column);
+                String storageId=storageService.getStorageIdByLayerAndColumnInShelf(shelfId,layer,column);
                 flag=storageService.transform(storageId,tStorageId);
             }else{
                 int cupId=smartCupboardService.getSmartCupboardById(id).getmId();
-                int storageId=storageService.getStorageIdByLayerAndColumnInCup(cupId,layer,column);
+                String storageId=storageService.getStorageIdByLayerAndColumnInCup(cupId,layer,column);
                 flag=storageService.transform(storageId,tStorageId);
             }
             if(flag==true){
@@ -59,8 +59,8 @@ public class TransformControlller {
     @RequestMapping(value ="/transform/id",method = RequestMethod.POST)
     public String transformById(HttpServletRequest httpServletRequest){
         try{
-            int fStorageId=Integer.valueOf(httpServletRequest.getParameter("fStorageId"));
-            int tStorageId=Integer.valueOf(httpServletRequest.getParameter("tStorageId"));
+            String fStorageId=httpServletRequest.getParameter("fStorageId");
+            String tStorageId=httpServletRequest.getParameter("tStorageId");
             boolean flag=storageService.transform(fStorageId,tStorageId);
             if(flag==true){
                 return "{\"status\": \"ok\"}";

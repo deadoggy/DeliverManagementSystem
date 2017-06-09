@@ -9,6 +9,7 @@ import com.deliver.dao.PointRepository;
 import com.deliver.model.Attendance;
 import com.deliver.model.Employee;
 import com.deliver.model.Point;
+import com.deliver.model.Position;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -95,7 +96,7 @@ public class HumanManageService {
 
             Employee noob = new Employee(employeeId, name, age, gender, salary, phone, point, new Timestamp(new java.util.Date().getTime()), pwd);
 
-            this.employeeRepository.save(noob);
+            this.employeeRepository.saveAndFlush(noob);
 
             return true;
 
@@ -123,7 +124,6 @@ public class HumanManageService {
     /*
     *attribute:
     *   Name
-    *   Age
     *   Salary
     *   Point
     *   Pwd
@@ -172,6 +172,12 @@ public class HumanManageService {
             ret.put("phone", employee.getmPhone() != null ? employee.getmPhone() : "none");
             ret.put("salary", employee.getmSalary());
             ret.put("point", employee.getmPoint().getmName());
+            List<Position> pos = employee.getmPosition();
+            if(0 == pos.size()){
+                ret.put("pos", "");
+            }else{
+                ret.put("pos", employee.getmPosition().get(0).getmName());
+            }
 
             return ret.toJSONString();
 
@@ -180,32 +186,61 @@ public class HumanManageService {
         }
     }
 
-
     public String findByEmployName(String name){
         try{
             JSONObject ret = new JSONObject();
-            JSONArray arr = new JSONArray();
+
             List<Employee> emList = this.employeeRepository.findByMName(name);
 
-            for(Employee employee : emList){
-                JSONObject item = new JSONObject();
-                item.put("result", "success");
-                item.put("id", employee.getmEmployeeId());
-                item.put("name", employee.getmName());
-                item.put("gender", employee.ismGender()? "male" : "female");
-                item.put("age", employee.getmAge());
-                item.put("phone", employee.getmPhone() != null ? employee.getmPhone() : "none");
-                item.put("salary", employee.getmSalary());
-                item.put("point", employee.getmPoint().getmName());
-                arr.add(item);
-            }
             ret.put("result", "success");
-            ret.put("data", arr);
+            ret.put("data", this.generateList(emList));
             return ret.toJSONString();
 
         }catch(Exception e){
             return "{\"result\": \"fail\", \"reason\" : \"no such name\"}";
         }
+    }
+
+    public String listAll(){
+        try{
+            JSONObject retObj = new JSONObject();
+            List<Employee> list = this.employeeRepository.findAll();
+
+
+            retObj.put("result", "success");
+            retObj.put("data", this.generateList(list));
+
+            return retObj.toJSONString();
+
+        }catch(Exception e){
+            return "{\"result\": \"failure\"}";
+        }
+    }
+
+    private JSONArray generateList(List<Employee> list){
+        JSONArray dataArr = new JSONArray();
+
+        for(Employee employee : list){
+            JSONObject item = new JSONObject();
+            item.put("id", employee.getmEmployeeId());
+            item.put("name", employee.getmName());
+            item.put("gender", employee.ismGender()? "male" : "female");
+            item.put("age", employee.getmAge());
+            item.put("phone", employee.getmPhone() != null ? employee.getmPhone() : "none");
+            item.put("salary", employee.getmSalary());
+            item.put("point", employee.getmPoint().getmName());
+
+            List<Position> pos = employee.getmPosition();
+            if(0 == pos.size()){
+                item.put("pos", "");
+            }else{
+                item.put("pos", employee.getmPosition().get(0).getmName());
+            }
+
+            dataArr.add(item);
+        }
+
+        return dataArr;
     }
 
 }

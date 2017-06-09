@@ -19,7 +19,7 @@ function getAllAccount(){
                 var str = "";
                 for(var i = 0; i < data.length; i++){
                     var gender = (data[i].gender == "female")? "女" : "男";
-                    str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + gender + '</td>'
+                    str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + data[i].pos + '</td>' + '<td>' + gender + '</td>'
                         + '<td>' + data[i].age + '</td>' + '<td>' + data[i].phone + '</td>' + '<td>' + data[i].salary + '</td>' + '<td>' + data[i].point + '</td>'
                         + '<td><input type="button" class="ui yellow button" onclick="editAccount(' + data[i].id + ',' + data[i].name + ',' + data[i].salary + ',' + data[i].point + ')" value="编辑">' +
                         '<input type="button" class="ui red button" onclick="rmAccount(' + data[i].id + ')" value="删除"></td></tr>';
@@ -51,7 +51,7 @@ function searchAccount(){
                     var str = "";
                     for(var i = 0; i < data.length; i++){
                         var gender = (data[i].gender == "female")? "女" : "男";
-                        str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + gender + '</td>'
+                        str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + data[i].pos + '</td>' + '<td>' + gender + '</td>'
                             + '<td>' + data[i].age + '</td>' + '<td>' + data[i].phone + '</td>' + '<td>' + data[i].salary + '</td>' + '<td>' + data[i].point + '</td>'
                             + '<td><input type="button" class="ui yellow button" onclick="editAccount(' + data[i].id + ',' + data[i].name + ',' + data[i].salary + ',' + data[i].point + ')" value="编辑">' +
                             '<input type="button" class="ui red button" onclick="rmAccount(' + data[i].id + ')" value="删除"></td></tr>';
@@ -63,6 +63,7 @@ function searchAccount(){
                     }
                 }else{
                     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>查找失败</p></div>');
+                    $("#accountContent").html("");
                 }
             }
         });
@@ -79,7 +80,7 @@ function searchAccount(){
                     var str = "";
                     for(var i = 0; i < data.length; i++){
                         var gender = (data[i].gender == "female")? "女" : "男";
-                        str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + gender + '</td>'
+                        str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + data[i].pos + '</td>' + '<td>' + gender + '</td>'
                             + '<td>' + data[i].age + '</td>' + '<td>' + data[i].phone + '</td>' + '<td>' + data[i].salary + '</td>' + '<td>' + data[i].point + '</td>'
                             + '<td><input type="button" class="ui yellow button" onclick="editAccount(' + data[i].id + ',' + data[i].name + ',' + data[i].salary + ',' + data[i].point + ')" value="编辑">' +
                             '<input type="button" class="ui red button" onclick="rmAccount(' + data[i].id + ')" value="删除"></td></tr>';

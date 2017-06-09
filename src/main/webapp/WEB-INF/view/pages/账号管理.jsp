@@ -49,6 +49,7 @@
 					<tr>
 						<th>员工号</th>
 						<th>员工姓名</th>
+						<th>职位</th>
 						<th>性别</th>
 						<th>年龄</th>
 						<th>电话</th>
@@ -61,6 +62,7 @@
 					<tr>
 						<td>JD001</td>
 						<td>张三</td>
+						<th>职员</th>
 						<td>男</td>
 						<td>33</td>
 						<td>133xxxxxxxx</td>
@@ -73,6 +75,7 @@
 					<tr>
 						<td>JD002</td>
 						<td>李四</td>
+						<th>职员</th>
 						<td>女</td>
 						<td>31</td>
 						<td>133xxxxxxxx</td>
@@ -85,6 +88,7 @@
 					<tr>
 						<td>JD003</td>
 						<td>王五</td>
+						<th>职员</th>
 						<td>女</td>
 						<td>31</td>
 						<td>133xxxxxxxx</td>

@@ -7,8 +7,10 @@ import com.deliver.dao.*;
 import com.deliver.model.DeliverCompany;
 import com.deliver.model.Package;
 import com.deliver.model.ProxyChargeRecord;
+import com.deliver.model.SendingRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.util.resources.CalendarData;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -48,6 +50,9 @@ public class FormService {
 
     @Autowired
     private PackageRepository packageRepository;
+
+    @Autowired
+    private SendingRecordRepository sendingRecordRepository;
 
     private static String opt[] = {"taken_sum", "post_fee", "package_info", "send_rec"};
 
@@ -89,7 +94,16 @@ public class FormService {
             retJsonObject.put("end", CalendarToString(end));
 
             JSONArray dataArr = new JSONArray();
-            dataArr.addAll(allData);
+
+            Calendar flag = (Calendar)beg.clone();
+            for(Integer sum_item : allData){
+                JSONObject item = new JSONObject();
+                item.put("time",fileFormater.format(flag.getTime()));
+                item.put("sum",sum_item);
+                flag.add(Calendar.DAY_OF_MONTH,1);
+                dataArr.add(item);
+            }
+
             retJsonObject.put("data", dataArr);
 
             return retJsonObject.toJSONString();
@@ -113,10 +127,10 @@ public class FormService {
 
 
             for(ProxyChargeRecord item : data){
-                JSONArray record = new JSONArray();
-                record.add(item.getmPackage().getmPackageId());
-                record.add(formater.format(item.getmDate()));
-                record.add(item.getmFee());
+                JSONObject record = new JSONObject();
+                record.put("package_id",item.getmPackage().getmPackageId());
+                record.put("date",formater.format(item.getmDate()));
+                record.put("fee", item.getmFee());
                 dataArr.add(record);
             }
 
@@ -153,7 +167,19 @@ public class FormService {
                     this.packageRepository.getByCompanyAndReceTime(company, new Timestamp(beg.getTimeInMillis()), new Timestamp(end.getTimeInMillis()))
                     :this.packageRepository.getByReceTime(new Timestamp(beg.getTimeInMillis()), new Timestamp(end.getTimeInMillis()));
 
-            File out = new File("File/" + fileNameBuilder.toString());
+            list.sort(new Comparator<Package>() {
+                @Override
+                public int compare(Package o1, Package o2) {
+                    long v1 = o1.getmReceiveTime().getTime();
+                    long v2 = o2.getmReceiveTime().getTime();
+                    if(v1<v2) return -1;
+                    else if(v1==v2) return 0;
+                    else return 1;
+                }
+            });
+
+            File out = new File(fileNameBuilder.toString());
+
 
             FileWriter of = new FileWriter(out);
             of.write("Id, rece_time, receiver, rece_tele, company, taken, taken_time, in_cup, pos_1, pos_layer, pos_col");
@@ -163,19 +189,39 @@ public class FormService {
                         .append(formater.format(p.getmReceiveTime())).append(",")
                         .append(p.getmReceiverName()).append(",")
                         .append(p.getmReceiverTele()).append(",")
-                        .append(p.getmCompany()).append(",")
-                        .append(p.ismTaken()).append(",")
-                        .append(formater.format(p.getmTakenTime())).append(",");
+                        .append(p.getmCompany().getmCompanyId()).append(",")
+                        .append(p.ismTaken()).append(",");
+                if(null != p.getmTakenTime()){
+                    item.append(formater.format(p.getmTakenTime())).append(",");
+                }else{
+                    item.append("").append(",");
+                }
+
+
 
                 if(p.ismCupOrShelf() == Constant.POSITION_IN_CUPBOARD){
-                    item.append("smart_board").append(",")
-                    .append(p.getmPosition().getmCup().getmCupboardId()).append(",");
+                    item.append("smart_board").append(",");
                 }else{
-                    item.append("shelf").append(",")
-                    .append(p.getmPosition().getmShelf().getmShelfId()).append(",");
+                    item.append("shelf").append(",");
                 }
-                item.append(p.getmPosition().getmLayer()).append(",");
-                item.append(p.getmPosition().getmColumn()).append("\n");
+
+                String posId;
+                int layer, column;
+                if(null != p.getmPosition()){
+                    posId = p.getmPosition().getmCup().getmCupboardId();
+                    layer = p.getmPosition().getmLayer();
+                    column = p.getmPosition().getmColumn();
+                }else{
+                    posId = "null";
+                    layer = -1;
+                    column = -1;
+                }
+
+                item.append(posId).append(",");
+
+
+                item.append(layer).append(",");
+                item.append(column).append("\n");
                 of.write(item.toString());
             }
 
@@ -184,11 +230,62 @@ public class FormService {
 
             FTPService.getInstantce().upload(fileNameBuilder.toString(), fileNameBuilder.toString());
 
-            return "{\"result\": \"success\", \"url\":\"/File/" + fileNameBuilder.toString() + "\"}";
+            return "{\"result\": \"success\", \"url\":\"/" + fileNameBuilder.toString() + "\"}";
 
         }catch(Exception e){
             e.printStackTrace();
             return null;
+        }
+    }
+
+    /*
+    *寄件记录
+    *
+     *
+      * {
+      *     "result": "success",
+      *     "data": [
+      *         {
+      *             "package":"package_id",
+      *             "company":"company_name",
+      *             "sender": "sender_name",
+      *             "sender_phone":
+      *             "phone", "sender_time":""
+      *          },
+      *         ...... ,
+      *         ...... ,
+      *     ]
+      * }
+      *
+      *
+      *
+      *
+      *
+    * */
+    public String getSendRec(Calendar beg, Calendar end){
+        try{
+            List<SendingRecord> list = this.sendingRecordRepository.getSendingRecordInPeriod(new Timestamp(beg.getTimeInMillis()),new Timestamp(end.getTimeInMillis()));
+
+            JSONObject ret = new JSONObject();
+
+            ret.put("result", "success");
+
+            JSONArray arr = new JSONArray();
+
+            for(SendingRecord rec : list){
+                JSONObject item = new JSONObject();
+                item.put("package", rec.getmPackage().getmPackageId());
+                item.put("company",rec.getmCompany().getmName());
+                item.put("sender", rec.getmSenderName());
+                item.put("sender_phone", rec.getmSenderTele());
+                item.put("send_time",formater.format(rec.getmSendTime().getTime()));
+
+                arr.add(item);
+            }
+            ret.put("data", arr);
+            return ret.toJSONString();
+        }catch(Exception e){
+            return "{\"reason\": \"fail\"}";
         }
     }
 
@@ -221,11 +318,11 @@ public class FormService {
                 break;
             case 4 : ret = this.getPackageInfo(beg, end, comObj);
                 break;
-            case 8 : //TODO
+            case 8 : ret = this.getSendRec(beg, end);
                 break;
         }
 
-        return "test";
+        return ret;
     }
 
 }

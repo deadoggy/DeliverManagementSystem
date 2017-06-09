@@ -2,13 +2,14 @@ package com.deliver.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Comparator;
 
 /**
  * Created by deadoggy on 17-4-18.
  */
 @Entity
 @Table(name = "package")
-public class Package {
+public class Package{
 
     @Id
     @GeneratedValue
@@ -135,4 +136,5 @@ public class Package {
     public void setmPosition(StoragePosition mPosition) {
         this.mPosition = mPosition;
     }
+
 }

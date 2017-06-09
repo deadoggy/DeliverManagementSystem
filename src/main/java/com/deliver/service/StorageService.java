@@ -39,23 +39,28 @@ public class StorageService {
 
 
 
-    public StoragePosition getStorageById(int id) {
+    public StoragePosition getByStorageMId(int id) {
         return storagePositionreRepository.findByMId(id);
     }
 
-    public int getStorageIdByLayerAndColumnInShelf(int id,int layer,int column){
+    public StoragePosition getByStorageId(String storageId){
+        return storagePositionreRepository.findByMStorageId(storageId);
+    }
+
+    public String getStorageIdByLayerAndColumnInShelf(int id,int layer,int column){
         return storagePositionreRepository.findMShelfAndMLayerAndMColumn(id,layer,column).get(0);
     }
-    public int getStorageIdByLayerAndColumnInCup(int id,int layer,int column){
-        return storagePositionreRepository.findByMCupAndMLayerAndMColumn(id,layer,column);
+    public String getStorageIdByLayerAndColumnInCup(int id,int layer,int column){
+        return storagePositionreRepository.findMCupAndMLayerAndMColumn(id,layer,column).get(0);
     }
 
     @Transactional
-    public boolean transform(int fStorageId,int tStorageId){
+    public boolean transform(String fStorageId,String tStorageId){
         try {
-            StoragePosition fStoragePosition = storagePositionreRepository.findByMId(fStorageId);
-            StoragePosition tStoragePosition = storagePositionreRepository.findByMId(tStorageId);
-            if (fStoragePosition == null||tStoragePosition==null) {
+            StoragePosition fStoragePosition = storagePositionreRepository.findByMStorageId(fStorageId);
+            StoragePosition tStoragePosition = storagePositionreRepository.findByMStorageId(tStorageId);
+            if (fStoragePosition == null||tStoragePosition==null
+                    ||fStoragePosition.ismEmpty()==POSTION_EMPTY||tStoragePosition.ismEmpty()==POSITION_FULL) {
                 return false;
             } else {
                 fStoragePosition.setmEmpty(POSTION_EMPTY);
@@ -70,8 +75,8 @@ public class StorageService {
                     smartCupboard.setmEmptySum(smartCupboard.getmEmptySum() + 1);
                     smartCupboardRepository.saveAndFlush(smartCupboard);
                 }
-                Package aPackage = packageRepository.getByStoragePosition(fStorageId);
-                aPackage.setmPosition(storagePositionreRepository.findByMId(tStorageId));
+                Package aPackage = packageRepository.getByStoragePosition(fStoragePosition.getmId());
+                aPackage.setmPosition(tStoragePosition);
                 packageRepository.saveAndFlush(aPackage);
 
                 //包裹转入到的位置
@@ -92,6 +97,43 @@ public class StorageService {
                 return true;
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Transactional
+    public boolean forceOpen(String storageId){
+        try{
+            StoragePosition storagePosition=storagePositionreRepository.findByMStorageId(storageId);
+            if(storagePosition==null||storagePosition.ismEmpty()==POSTION_EMPTY){
+                return false;
+            }
+
+            Package aPackage=packageRepository.getByStorageMId (storagePosition.getmId());
+            if(aPackage.ismTaken()==true){
+                return false;
+            }
+
+
+            storagePosition.setmEmpty(POSTION_EMPTY);
+            storagePositionreRepository.saveAndFlush(storagePosition);
+            if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
+                Shelf shelf=storagePosition.getmShelf();
+                shelf.setmEmptySum(shelf.getmEmptySum()+1);
+                shelfRepository.saveAndFlush(shelf);
+            }else {
+                SmartCupboard smartCupboard=storagePosition.getmCup();
+                smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()+1);
+                smartCupboardRepository.saveAndFlush(smartCupboard);
+            }
+
+            aPackage.setmTaken(true);
+            aPackage.setmTakenTime(new Timestamp(System.currentTimeMillis()));
+            packageRepository.saveAndFlush(aPackage);
+
+            return true;
+        }catch (Exception e){
             e.printStackTrace();
             return false;
         }

@@ -2,8 +2,11 @@ package com.deliver.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.deliver.model.Point;
+import com.deliver.model.Shelf;
 import com.deliver.model.SmartCupboard;
 import com.deliver.model.StoragePosition;
+import com.deliver.service.BusinessPointService;
 import com.deliver.service.SmartCupboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,18 +27,31 @@ public class SmartCupboardController {
     @Autowired
     private SmartCupboardService smartCupboardService;
 
+    @Autowired
+    private BusinessPointService businessPointService;
+
     @RequestMapping(value = "/smartcupboard/{id}", method = RequestMethod.GET)
     public String getSmartCupboard(@PathVariable String id) {
         JSONObject jsonObject = new JSONObject();
         try {
-            SmartCupboard smartCupboard = smartCupboardService.getSmartCupboardById(id);
-            if (smartCupboard == null) {
+            List<SmartCupboard> smartCupboardList = smartCupboardService.getCupBegin(id);
+            if (smartCupboardList == null) {
                 jsonObject.put("status", "fail");
                 jsonObject.put("reason", "找不到对应id的的智能柜");
                 return jsonObject.toString();
             } else {
                 jsonObject.put("status", "ok");
-                jsonObject.put("smartcupboard", smartCupboard);
+                JSONArray jsonArray = new JSONArray();
+                for (SmartCupboard smartCupboard:smartCupboardList) {
+                    JSONObject cupObject=new JSONObject();
+                    cupObject.put("cupboardId",smartCupboard.getmCupboardId());
+                    cupObject.put("layer",smartCupboard.getmLayerSum());
+                    cupObject.put("column",smartCupboard.getmColumnSum());
+                    cupObject.put("sum",smartCupboard.getmPositionSum());
+                    cupObject.put("empty",smartCupboard.getmEmptySum());
+                    jsonArray.add(cupObject);
+                }
+                jsonObject.put("cupboardList",jsonArray);
                 return jsonObject.toJSONString();
             }
         } catch (Exception e) {
@@ -53,11 +69,17 @@ public class SmartCupboardController {
             List<SmartCupboard> smartCupboardList = smartCupboardService.getAllSmartCupboard();
             jsonObject.put("status", "ok");
             JSONArray jsonArray = new JSONArray();
-            for (SmartCupboard smartCupboard : smartCupboardList) {
-                jsonArray.add(smartCupboard);
+            for (SmartCupboard smartCupboard:smartCupboardList) {
+                JSONObject cupObject=new JSONObject();
+                cupObject.put("cupboardId",smartCupboard.getmCupboardId());
+                cupObject.put("layer",smartCupboard.getmLayerSum());
+                cupObject.put("column",smartCupboard.getmColumnSum());
+                cupObject.put("sum",smartCupboard.getmPositionSum());
+                cupObject.put("empty",smartCupboard.getmEmptySum());
+                jsonArray.add(cupObject);
             }
-            jsonObject.put("smartcupboards", jsonArray);
-            return JSONObject.toJSONString(jsonObject);
+            jsonObject.put("cupboardList",jsonArray);
+            return jsonObject.toJSONString();
         } catch (Exception e) {
             e.printStackTrace();
             jsonObject.put("status", "fail");
@@ -76,8 +98,12 @@ public class SmartCupboardController {
                 jsonObject.put("reason", "智能柜id重复");
                 return jsonObject.toString();
             }
+            Point point=businessPointService.getPoint(httpServletRequest.getParameter("businessId"));
+            if(point==null){
+                return "{\"status\": \"fail\", \"reason\" : \"没有此网点\"}";
+            }
             boolean flag = smartCupboardService.addSmartCupboard(id, Integer.parseInt(httpServletRequest.getParameter("columnSum")),
-                    Integer.parseInt(httpServletRequest.getParameter("layerSum")));
+                    Integer.parseInt(httpServletRequest.getParameter("layerSum")),point);
 
             if (flag == false) {
                 jsonObject.put("status", "fail");
@@ -107,10 +133,7 @@ public class SmartCupboardController {
                 return jsonObject.toString();
             } else {
                 jsonObject.put("status", "ok");
-                jsonObject.put("column", storagePosition.getmColumn());
-                jsonObject.put("layer", storagePosition.getmLayer());
-                jsonObject.put("id", storagePosition.getmId());
-                jsonObject.put("smartCupboardId", storagePosition.getmCup().getmCupboardId());
+                jsonObject.put("storageId", storagePosition.getmStorageId());
                 return jsonObject.toJSONString();
             }
         } catch (Exception e) {

@@ -2,8 +2,11 @@ package com.deliver.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.deliver.model.Point;
+import com.deliver.model.SendingRecord;
 import com.deliver.model.Shelf;
 import com.deliver.model.StoragePosition;
+import com.deliver.service.BusinessPointService;
 import com.deliver.service.ShelfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,18 +27,31 @@ public class ShelfController {
     @Autowired
     private ShelfService shelfService;
 
+    @Autowired
+    private BusinessPointService businessPointService;
+
     @RequestMapping(value = "/shelf/{id}", method = RequestMethod.GET)
     public String getShelf(@PathVariable String id) {
         JSONObject jsonObject = new JSONObject();
         try {
-            Shelf shelf = shelfService.getShelfById(id);
-            if (shelf == null) {
+            List<Shelf> shelfList = shelfService.getShelfs(id);
+            if (shelfList == null) {
                 jsonObject.put("status", "fail");
                 jsonObject.put("reason", "找不到对应id的的货架");
                 return jsonObject.toString();
             } else {
                 jsonObject.put("status", "ok");
-                jsonObject.put("shelf", shelf);
+                JSONArray jsonArray = new JSONArray();
+                for (Shelf shelf:shelfList) {
+                    JSONObject shelfObject = new JSONObject();
+                    shelfObject.put("shelfId",shelf.getmShelfId());
+                    shelfObject.put("layer",shelf.getmLayerSum());
+                    shelfObject.put("column",shelf.getmColumnSum());
+                    shelfObject.put("sum",shelf.getmPositionSum());
+                    shelfObject.put("empty",shelf.getmEmptySum());
+                    jsonArray.add(shelfObject);
+                }
+                jsonObject.put("shelfList",jsonArray);
                 return jsonObject.toJSONString();
             }
         } catch (Exception e) {
@@ -53,11 +69,17 @@ public class ShelfController {
             List<Shelf> shelfList = shelfService.getAllShelf();
             jsonObject.put("status", "ok");
             JSONArray jsonArray = new JSONArray();
-            for (Shelf shelf : shelfList) {
-                jsonArray.add(shelf);
+            for (Shelf shelf:shelfList) {
+                JSONObject shelfObject = new JSONObject();
+                shelfObject.put("shelfId",shelf.getmShelfId());
+                shelfObject.put("layer",shelf.getmLayerSum());
+                shelfObject.put("column",shelf.getmColumnSum());
+                shelfObject.put("sum",shelf.getmPositionSum());
+                shelfObject.put("empty",shelf.getmEmptySum());
+                jsonArray.add(shelfObject);
             }
-            jsonObject.put("shelfs", jsonArray);
-            return JSONObject.toJSONString(jsonObject);
+            jsonObject.put("shelfList",jsonArray);
+            return jsonObject.toJSONString();
         } catch (Exception e) {
             e.printStackTrace();
             jsonObject.put("status", "fail");
@@ -76,8 +98,12 @@ public class ShelfController {
                 jsonObject.put("reason", "货架id重复");
                 return jsonObject.toString();
             }
+            Point point=businessPointService.getPoint(httpServletRequest.getParameter("businessId"));
+            if(point==null){
+                return "{\"status\": \"fail\", \"reason\" : \"没有此网点\"}";
+            }
             boolean flag = shelfService.addShelf(id, Integer.parseInt(httpServletRequest.getParameter("columnSum")),
-                    Integer.parseInt(httpServletRequest.getParameter("layerSum")));
+                    Integer.parseInt(httpServletRequest.getParameter("layerSum")),point);
 
             if (flag == false) {
                 jsonObject.put("status", "fail");
@@ -107,10 +133,7 @@ public class ShelfController {
                 return jsonObject.toString();
             } else {
                 jsonObject.put("status", "ok");
-                jsonObject.put("column",storagePosition.getmColumn());
-                jsonObject.put("layer",storagePosition.getmLayer());
-                jsonObject.put("id",storagePosition.getmId());
-                jsonObject.put("shelfId",storagePosition.getmShelf().getmShelfId());
+                jsonObject.put("storageId",storagePosition.getmStorageId());
                 return jsonObject.toJSONString();
             }
         } catch (Exception e) {

@@ -52,10 +52,18 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
     @Query("select p from Package as p where p.mTaken=1")
     List<Package> getAllTaken();
 
-    @Query("select p from Package as p where p.mTaken=0 and p.mPosition= (select s from StoragePosition as s where s.mId=?1)")
+    @Query("select p from Package as p where p.mTaken=0 and p.mPosition= " +
+            "(select s from StoragePosition as s where s.mId=?1)")
     Package getByStoragePosition(int id);
 
-    //@Query("select p from Package as p where p.mTaken=0 and p.mReceiveTime>= now() - interval 2 day")
-    @Query("select p from Package as p where p.mTaken=0")
-    List<Package> getOvertime();
+    @Query("select p from Package as p where p.mTaken=0 and p.mReceiveTime<?1")
+    List<Package> getOvertime(Timestamp t);
+
+    @Query("select p.mProxyChargeFee from Package as p where p.mTaken=0 and p.mPosition= " +
+            "(select s from StoragePosition as s where s.mId=?1)")
+    double getFee(int id);
+
+    @Query("select p from Package as p where p.mTaken=0 and p.mPosition= " +
+            "(select s from StoragePosition as s where s.mId=?1)")
+    Package getByStorageMId(int mId);
 }

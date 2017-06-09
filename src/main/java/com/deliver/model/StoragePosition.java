@@ -17,6 +17,9 @@ public class StoragePosition {
     @GeneratedValue
     private int mId;
 
+    @Column(name = "storage_id", nullable = false, unique = true)
+    private String mStorageId;
+
     @Column(name = "cup_shelf")
     private boolean mCuporShelf;
 
@@ -44,25 +47,20 @@ public class StoragePosition {
     public StoragePosition() {
     }
 
-    public StoragePosition(boolean mCuporShelf, boolean mEmpty, int mLayer, int mColumn,
-                           String mIdentifyCode, SmartCupboard mCup, Shelf mShelf,
-                           List<Package> mPackage) {
-        this.mCuporShelf = mCuporShelf;
-        this.mEmpty = mEmpty;
-        this.mLayer = mLayer;
-        this.mColumn = mColumn;
-        this.mIdentifyCode = mIdentifyCode;
-        this.mCup = mCup;
-        this.mShelf = mShelf;
-        this.mPackage = mPackage;
-    }
-
     public int getmId() {
         return mId;
     }
 
     public void setmId(int mId) {
         this.mId = mId;
+    }
+
+    public String getmStorageId() {
+        return mStorageId;
+    }
+
+    public void setmStorageId(String mStorageId) {
+        this.mStorageId = mStorageId;
     }
 
     public boolean ismCuporShelf() {

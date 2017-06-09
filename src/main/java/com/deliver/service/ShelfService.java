@@ -2,6 +2,7 @@ package com.deliver.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.deliver.dao.PointRepository;
 import com.deliver.dao.ShelfRepository;
 import com.deliver.dao.StoragePositionreRepository;
 import com.deliver.model.Point;
@@ -31,6 +32,9 @@ public class ShelfService {
     @Autowired
     private StoragePositionreRepository storagePositionreRepository;
 
+    @Autowired
+    private PointRepository pointRepository;
+
     @Transactional
     public List<Shelf> getAllShelf() {
         return shelfRepository.findAll();
@@ -42,9 +46,13 @@ public class ShelfService {
         return shelfRepository.findByMShelfId(id);
     }
 
+    public List<Shelf> getShelfs(String id){
+        return shelfRepository.getShelfBegin(id);
+    }
+
 
     @Transactional
-    public boolean addShelf(String id, int columnSum, int layerSum) {
+    public boolean addShelf(String id, int columnSum, int layerSum,Point point) {
         try {
             Shelf shelf = new Shelf();
             shelf.setmShelfId(id);
@@ -52,15 +60,28 @@ public class ShelfService {
             shelf.setmLayerSum(layerSum);
             shelf.setmPositionSum(columnSum * layerSum);
             shelf.setmEmptySum(columnSum * layerSum);
+            shelf.setmPosition(null);
+            shelf.setmPoint(point);
             shelfRepository.saveAndFlush(shelf);
             for (int i = 1; i <= shelf.getmPositionSum(); i++) {
-                StoragePosition storagePosition = new StoragePosition(POSITION_IN_SHELF, POSTION_EMPTY,
-                        i / shelf.getmColumnSum()+1, i % shelf.getmColumnSum(),
-                        null, null, shelf, null);
+                StoragePosition storagePosition = new StoragePosition();
+                storagePosition.setmEmpty(POSTION_EMPTY);
+                storagePosition.setmCuporShelf(POSITION_IN_SHELF);
+                if(i%columnSum==0){
+                    storagePosition.setmLayer(i / shelf.getmColumnSum());
+                    storagePosition.setmColumn(columnSum);
+                }else{
+                    storagePosition.setmLayer(i / shelf.getmColumnSum()+1);
+                    storagePosition.setmColumn(i % columnSum);
+                }
+                storagePosition.setmStorageId(shelf.getmShelfId()+"-"+
+                        storagePosition.getmLayer()+"-"+storagePosition.getmColumn());
+                storagePosition.setmShelf(shelf);
+                storagePosition.setmIdentifyCode(null);
+                storagePosition.setmPackage(null);
+                storagePosition.setmCup(null);
                 storagePositionreRepository.saveAndFlush(storagePosition);
-                //shelf.getmPosition().add(storagePosition);
             }
-            //shelfRepository.saveAndFlush(shelf);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -18,6 +18,8 @@ import java.util.List;
 public interface StoragePositionreRepository extends JpaRepository<StoragePosition,Integer>{
     StoragePosition findByMId(int id);
 
+    StoragePosition findByMStorageId(String storageId);
+
     Page<StoragePosition> findByMCuporShelf(boolean cuporShelf, Pageable pageable);
 
     Page<StoragePosition> findByMEmpty(boolean empty, Pageable pageable);
@@ -28,9 +30,11 @@ public interface StoragePositionreRepository extends JpaRepository<StoragePositi
 
     StoragePosition findByMIdentifyCode(String identifyCode);
 
-    @Query("select s.mId from StoragePosition as s where s.mLayer=?2 and s.mColumn=?3 and s.mShelf = (select she from Shelf as she where she.mId = ?1))")
-    List<Integer> findMShelfAndMLayerAndMColumn(int id, int layer, int column);
+    @Query("select s.mStorageId from StoragePosition as s where s.mLayer=?2 and s.mColumn=?3 " +
+            "and s.mShelf = (select she from Shelf as she where she.mId = ?1))")
+    List<String> findMShelfAndMLayerAndMColumn(int id, int layer, int column);
 
-    @Query("select s.mId from StoragePosition as s where s.mCup=?1 and s.mLayer=?2 and s.mColumn=?3")
-    int findByMCupAndMLayerAndMColumn(int id,int layer,int column);
+    @Query("select s.mStorageId from StoragePosition as s where s.mLayer=?2 and s.mColumn=?3 " +
+            "and s.mCup=(select cup from SmartCupboard as cup where cup.mId=?1)")
+    List<String> findMCupAndMLayerAndMColumn(int id,int layer,int column);
 }

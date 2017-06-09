@@ -1,18 +1,15 @@
 package com.deliver.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.*;
 import com.deliver.model.*;
 import com.deliver.model.Package;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,6 +34,9 @@ public class PackageService {
 
     @Autowired
     private SmartCupboardRepository smartCupboardRepository;
+
+    @Autowired
+    private ProxyChargeRecordRepository proxyChargeRecordRepository;
 
     @Transactional
     public Package getPackage(String id){
@@ -71,13 +71,11 @@ public class PackageService {
 
 
     //将快件加入到一个智能柜or货架的位置上
-    //目前没考虑代收邮费的问题
-    //未测试
     @Transactional
-    public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, boolean cupOrShelf, StoragePosition storagePosition) {
+    public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, StoragePosition storagePosition) {
         try {
             Package aPackage = new Package();
-            aPackage.setmCupOrShelf(cupOrShelf);
+            aPackage.setmCupOrShelf(storagePosition.ismCuporShelf());
             aPackage.setmPackageId(id);
             aPackage.setmProxyChargeFee(0);
             aPackage.setmReceiveTime(new Timestamp(System.currentTimeMillis()));
@@ -113,12 +111,24 @@ public class PackageService {
 
     //确认收货
     @Transactional
-    public boolean confirmReceive(String identifyCode) {
+    public boolean confirmReceive(String identifyCode,double fee) {
         try {
             StoragePosition storagePosition = storagePositionreRepository.findByMIdentifyCode(identifyCode);
             if (storagePosition == null) {
                 return false;
             } else {
+                Package aPackage=packageRepository.getByStorageMId(storagePosition.getmId());
+                if(Math.abs(aPackage.getmProxyChargeFee()-fee)>0.00001){
+                    return false;
+                }
+                //代收费记录
+                ProxyChargeRecord proxyChargeRecord=new ProxyChargeRecord(aPackage,fee,PROXY_CHARGE_RECE,new Date());
+                proxyChargeRecordRepository.saveAndFlush(proxyChargeRecord);
+
+                aPackage.setmTaken(true);
+                aPackage.setmTakenTime(new Timestamp(System.currentTimeMillis()));
+                packageRepository.saveAndFlush(aPackage);
+
                 storagePosition.setmEmpty(POSTION_EMPTY);
                 storagePositionreRepository.saveAndFlush(storagePosition);
                 if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
@@ -130,11 +140,6 @@ public class PackageService {
                     smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()+1);
                     smartCupboardRepository.saveAndFlush(smartCupboard);
                 }
-                List<Package> packageList = storagePosition.getmPackage();
-                Package aPackage = packageList.get(packageList.size() - 1);
-                aPackage.setmTaken(true);
-                aPackage.setmTakenTime(new Timestamp(System.currentTimeMillis()));
-                packageRepository.saveAndFlush(aPackage);
                 return true;
             }
         } catch (Exception e) {
@@ -143,6 +148,21 @@ public class PackageService {
         }
     }
 
+    //根据取件码获得费用
+    public double getFee(String identifyCode){
+        try {
+            StoragePosition storagePosition = storagePositionreRepository.findByMIdentifyCode(identifyCode);
+            if (storagePosition == null) {
+                return -1;
+            } else {
+                Package aPackage=packageRepository.getByStorageMId(storagePosition.getmId());
+                return aPackage.getmProxyChargeFee();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 
     //获取包裹所在的网点
     public Point getPackagePoint(Package aPackage) {
@@ -192,7 +212,13 @@ public class PackageService {
         return packageList;
     }
 
+    @Transactional
     public List<Package> getOvertime(){
-        return packageRepository.getOvertime();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH,-2);
+        Timestamp t=new Timestamp(cal.getTimeInMillis());
+        return packageRepository.getOvertime(t);
     }
+
+
 }

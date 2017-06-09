@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.SmartCupboardRepository;
 import com.deliver.dao.StoragePositionreRepository;
+import com.deliver.model.Point;
 import com.deliver.model.SmartCupboard;
 import com.deliver.model.StoragePosition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.deliver.constant.Constant.POSITION_IN_CUPBOARD;
+import static com.deliver.constant.Constant.POSITION_IN_SHELF;
 import static com.deliver.constant.Constant.POSTION_EMPTY;
 
 /**
@@ -40,8 +42,12 @@ public class SmartCupboardService {
         return smartCupboardRepository.findByMCupboardId(id);
     }
 
+    public List<SmartCupboard> getCupBegin(String id){
+        return smartCupboardRepository.getSmartCupboardBegin(id);
+    }
+
     @Transactional
-    public boolean addSmartCupboard(String id, int layerSum, int columnSum) {
+    public boolean addSmartCupboard(String id, int layerSum, int columnSum,Point point) {
         try {
             SmartCupboard smartCupboard = new SmartCupboard();
             smartCupboard.setmCupboardId(id);
@@ -50,14 +56,28 @@ public class SmartCupboardService {
             smartCupboard.setmPositionSum(smartCupboard.getmColumnSum() * smartCupboard.getmLayerSum());
             smartCupboard.setmEmptySum(smartCupboard.getmPositionSum());
             smartCupboard.setmPosition(null);
+            smartCupboard.setmPoint(point);
             smartCupboardRepository.saveAndFlush(smartCupboard);
             List<StoragePosition> storagePositionList = new ArrayList<StoragePosition>(smartCupboard.getmPositionSum());
             for (int i = 1; i <= smartCupboard.getmPositionSum(); i++) {
-                StoragePosition storagePosition = new StoragePosition(POSITION_IN_CUPBOARD, POSTION_EMPTY,
-                        i / smartCupboard.getmColumnSum(), i % smartCupboard.getmColumnSum(),
-                        null, smartCupboard, null, null);
+                StoragePosition storagePosition = new StoragePosition();
+                storagePosition.setmEmpty(POSTION_EMPTY);
+                storagePosition.setmCuporShelf(POSITION_IN_CUPBOARD);
+                if(i%columnSum==0){
+                    storagePosition.setmLayer(i / smartCupboard.getmColumnSum());
+                    storagePosition.setmColumn(columnSum);
+                }else{
+                    storagePosition.setmLayer(i / smartCupboard.getmColumnSum()+1);
+                    storagePosition.setmColumn(i%columnSum);
+                }
+
+                storagePosition.setmStorageId(smartCupboard.getmCupboardId()+"-"+
+                        storagePosition.getmLayer()+"-"+storagePosition.getmColumn());
+                storagePosition.setmShelf(null);
+                storagePosition.setmIdentifyCode(null);
+                storagePosition.setmPackage(null);
+                storagePosition.setmCup(smartCupboard);
                 storagePositionreRepository.saveAndFlush(storagePosition);
-                storagePositionList.add(storagePosition);
             }
             smartCupboard.setmPosition(storagePositionList);
             smartCupboardRepository.saveAndFlush(smartCupboard);

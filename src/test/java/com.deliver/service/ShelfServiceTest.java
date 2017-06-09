@@ -21,14 +21,15 @@ public class ShelfServiceTest extends BaseServiceTest {
 
     @Test
     public void addShelf(){
-        JSONObject jsonObject=new JSONObject();
+/*        JSONObject jsonObject=new JSONObject();
         jsonObject.put("mShelfId","1");
         jsonObject.put("mEmptySum",3);
         jsonObject.put("mPositionSum",1);
         jsonObject.put("mLayerSum",1);
         jsonObject.put("mColumnSum",2);
+//        jsonObject.put()
         boolean flag=shelfService.addShelf("1",1,2);
-        assertTrue(flag);
+        assertTrue(flag);*/
     }
 
 

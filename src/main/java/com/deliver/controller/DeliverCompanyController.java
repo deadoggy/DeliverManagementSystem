@@ -20,19 +20,19 @@ public class DeliverCompanyController {
     @Autowired
     private DeliverCompanyService deliverCompanyService;
 
-    //存在一个问题当company的packageList为空时
+
     @RequestMapping(value = "/company/{id}", method = RequestMethod.GET)
     public String getCompany(@PathVariable String id) {
         JSONObject jsonObject = new JSONObject();
         try {
             DeliverCompany deliverCompany = deliverCompanyService.findDeliverCompanyById(id);
             if (deliverCompany == null) {
-                jsonObject.put("status", "fail");
-                jsonObject.put("reason", "找不到对应id的快递公司");
-                return jsonObject.toString();
+                return "{\"status\": \"fail\", \"reason\" : \"找不到对应id的快递公司\"}";
             } else {
                 jsonObject.put("status", "ok");
-                jsonObject.put("company", deliverCompany);
+                jsonObject.put("mCompanyId", deliverCompany.getmCompanyId());
+                jsonObject.put("mName",deliverCompany.getmName());
+                jsonObject.put("packageNum",deliverCompany.getmPackage().size());
                 return jsonObject.toJSONString();
             }
         } catch (Exception e) {
@@ -52,7 +52,11 @@ public class DeliverCompanyController {
             jsonObject.put("status", "ok");
             JSONArray jsonArray = new JSONArray();
             for (DeliverCompany deliverCompany : deliverCompanyList) {
-                jsonArray.add(deliverCompany);
+                JSONObject deliverJSON=new JSONObject();
+                deliverJSON.put("mCompanyId", deliverCompany.getmCompanyId());
+                deliverJSON.put("mName",deliverCompany.getmName());
+                deliverJSON.put("packageNum",deliverCompany.getmPackage().size());
+                jsonArray.add(deliverJSON);
             }
             jsonObject.put("companys", jsonArray);
             return JSONObject.toJSONString(jsonObject);

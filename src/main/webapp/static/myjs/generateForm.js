@@ -3,6 +3,8 @@
  */
 $(function (){
     $("#seg5").addClass("active");
+
+    $("#formContent").html("");
 });
 
 function generateForm(){
@@ -15,37 +17,76 @@ function generateForm(){
     var package_info = document.getElementById("package_info");
     var send_rec = document.getElementById("send_rec");
 
-    var opt = [];
-    if(taken_sum.checked == true){
-        opt += "taken_sum";
-    }
-    if(post_fee.checked == true){
-        opt += "post_fee";
-    }
-    if(package_info.checked == true){
-        opt += "package_info";
-    }
-    if(send_rec.checked == true){
-        opt += "send_rec";
+    if(fromTime == "" || toTime =="" || company == ""){
+        $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请输入查询条件</div>');
+        return;
     }
 
-    // $.ajax({
-    //     type: "POST",
-    //     url: "/form",
-    //     data: JSON.stringify({
-    //         beg: fromTime,
-    //         end: toTime,
-    //         company: company,
-    //         opt: opt
-    //     }),
-    //     dataType: 'json',
-    //     success: function(res){
-    //         if(res.result == "success"){
-    //             $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功新建报表</div>');
-    //         }else{
-    //             //console.log(res.reason);
-    //             $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>创建失败</p></div>');
-    //         }
-    //     }
-    // });
+    var opt = "taken_sum";
+    if(taken_sum.checked == true){
+        opt = "taken_sum";
+    }
+    else if(post_fee.checked == true){
+        opt = "post_fee";
+    }
+    else if(package_info.checked == true){
+        opt = "package_info";
+    }
+    else if(send_rec.checked == true){
+        opt = "send_rec";
+    }
+
+    fromTime = fromTime.replace(/-/g,"/");
+    toTime = toTime.replace(/-/g,"/");
+
+    $.ajax({
+        type: "POST",
+        url: "/form",
+        data: JSON.stringify({
+            beg: fromTime,
+            end: toTime,
+            company: company,
+            opt: opt
+        }),
+        dataType: 'json',
+        success: function(res){
+            if(res.result == "success"){
+                if(opt == "taken_sum"){
+                    var str = '<thead> <tr> <th>日期</th> <th>取件总量</th> </tr> </thead> <tbody>';
+                    var data = res.data;
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+                        str += '<tr><td></td><td></td></tr>';
+                    }
+                    str += '</tbody>';
+                    $("#formContent").html(str);
+                }
+                else if(opt =="post_fee"){
+                    var str = '<thead> <tr> <th>单号</th> <th>日期</th> <th>费用</th> </tr> </thead> <tbody>';
+                    var data = res.data;
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+                        str += '<tr><td></td><td></td><td></td></tr>';
+                    }
+                    str += '</tbody>';
+                    $("#formContent").html(str);
+                }
+                else if(opt == "send_rec"){
+                    var str = '<thead> <tr> <th>单号</th> <th>物流公司</th> <th>寄件人</th> <th>寄件人电话</th> <th>寄件时间</th> </tr> </thead> <tbody>';
+                    var data = res.data;
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+                        str += '<tr><td></td><td></td><td></td><td></td><td></td></tr>';
+                    }
+                    str += '</tbody>';
+                    $("#formContent").html(str);
+                }
+                else if(opt == "package_info"){
+                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功新建报表，点击<a href="' + res.url + '" download="包裹情况">此处</a>下载。</div>');
+                }
+            }else{
+                $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>创建失败</p></div>');
+            }
+        }
+    });
 }

@@ -39,26 +39,26 @@
 							<br />
 							<div class="inline fields">
 								<div class="field">
-									<div class="ui checkbox">
-										<input type="checkbox" id="taken_sum"/>
+									<div class="ui radio checkbox">
+										<input type="radio" name="formType" id="taken_sum" checked="checked"/>
 										<label>取件总量</label>
 									</div>
 								</div>
 								<div class="field">
-									<div class="ui checkbox">
-										<input type="checkbox" id="post_fee"/>
+									<div class="ui radio checkbox">
+										<input type="radio" name="formType" id="post_fee"/>
 										<label>邮费统计</label>
 									</div>
 								</div>
 								<div class="field">
-									<div class="ui checkbox">
-										<input type="checkbox" id="package_info"/>
+									<div class="ui radio checkbox">
+										<input type="radio" name="formType" id="package_info"/>
 										<label>包裹情况</label>
 									</div>
 								</div>
 								<div class="field">
-									<div class="ui checkbox">
-										<input type="checkbox" id="send_rec"/>
+									<div class="ui radio checkbox">
+										<input type="radio" name="formType" id="send_rec"/>
 										<label>寄件记录</label>
 									</div>
 								</div>
@@ -76,7 +76,7 @@
 			<div class="createChartP2">
 				<h3 class="ui block header">结果图表</h3>
 				<div><br/></div>
-				<table class="ui table">
+				<table class="ui table" id="formContent">
 					<thead>
 						<tr>
 							<th>Column1</th>
@@ -100,11 +100,11 @@
 				<br /><br /><br />
 				<img src="/static/temp/pie.png" alt="chart1" />
 				<img src="/static/temp/bar.png" alt="chart2" />
-				<br /><br /><br />
-				<div class="inline field">
-					<button class="ui blue button" type="submit">打印报表</button>
-					<button class="ui red button" type="submit">纠错</button>
-				</div>
+				<%--<br /><br /><br />--%>
+				<%--<div class="inline field">--%>
+					<%--<button class="ui blue button" type="submit">打印报表</button>--%>
+					<%--<button class="ui red button" type="submit">纠错</button>--%>
+				<%--</div>--%>
 			</div>
 		</div>
 

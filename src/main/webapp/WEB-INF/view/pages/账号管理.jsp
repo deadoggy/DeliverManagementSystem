@@ -63,8 +63,8 @@
 						<td>张三</td>
 						<td>男</td>
 						<td>33</td>
-						<td>3000</td>
 						<td>133xxxxxxxx</td>
+						<td>3000</td>
 						<td>A</td>
 						<td><button class="ui yellow button">编辑</button>
 							<button class="ui red button">删除</button>
@@ -75,8 +75,8 @@
 						<td>李四</td>
 						<td>女</td>
 						<td>31</td>
-						<td>2800</td>
 						<td>133xxxxxxxx</td>
+						<td>2800</td>
 						<td>B</td>
 						<td><button class="ui yellow button">编辑</button>
 							<button class="ui red button">删除</button>
@@ -87,8 +87,8 @@
 						<td>王五</td>
 						<td>女</td>
 						<td>31</td>
-						<td>2900</td>
 						<td>133xxxxxxxx</td>
+						<td>2900</td>
 						<td>B</td>
 						<td><button class="ui yellow button">编辑</button>
 							<button class="ui red button">删除</button>
@@ -123,8 +123,8 @@
 					</div>
 					<div class="six wide field">
 						<select class="form-control" id="position">
-							<%--<option value="male">男</option>--%>
-							<%--<option value="female">女</option>--%>
+							<option value="manager">管理员</option>
+							<option value="employee">职员</option>
 						</select>
 					</div>
 				</div>

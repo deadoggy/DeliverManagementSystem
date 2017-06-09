@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 /**
  * Created by 91574 on 2017/5/3.
  */
@@ -23,4 +26,6 @@ public interface SendingRecordRepository extends JpaRepository<SendingRecord,Int
     Page<SendingRecord> findByMSenderTele(String mSenderTele, Pageable pageable);
 
 
+    @Query("select sr from SendingRecord  as sr where sr.mSendTime between ?1 and ?2")
+    List<SendingRecord> getSendingRecordInPeriod(Timestamp beg, Timestamp end);
 }

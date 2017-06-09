@@ -46,7 +46,7 @@ public class HomeController {
     @RequestMapping({"/home"})
     public String homePage(HttpServletRequest request, HttpServletResponse response){
 
-        Employee em = employeeRepository.findByMEmployeeId(request.getRemoteUser());
+        Employee em = employeeRepository.findByMEmployeeId(/*request.getRemoteUser()*/"1452716");
 
         Cookie id = new Cookie("id", em.getmEmployeeId());
         Cookie name = new Cookie("name", em.getmName());
@@ -63,7 +63,7 @@ public class HomeController {
     }
 
     @RequestMapping({"/cupboard"})
-    public String manageCupboardPage(){
+    public String manageCupboardPage(HttpServletRequest request, HttpServletResponse response){
         return "manage_cup";
     }
 

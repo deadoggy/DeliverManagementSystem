@@ -6,6 +6,7 @@ import com.deliver.model.*;
 import com.deliver.model.Package;
 import com.deliver.service.HumanManageService;
 import com.deliver.service.ShortMesgService;
+import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ public class InsertDataTest {
     @Autowired
     ProxyChargeRecordRepository proxyChargeRecordRepository;
 
+    @Autowired
+    SendingRecordRepository sendingRecordRepository;
+
     public static String randomString(){
         long randSalt = (long)Math.floor(Math.random() * 1000000000);
         Calendar seed = Calendar.getInstance();
@@ -71,13 +75,17 @@ public class InsertDataTest {
     }
 
 
-    //@Test
+    @Test
     public void insertEmployee(){
-        for(int i=0; i<50; i++){
-            this.humanManageService
-                    .addNewEmployee(randomString(), randomString(), (int)(Math.random()*100), true,
-                            (float)Math.random()*10000, randomString(),"0",randomString());
-        }
+
+        this.humanManageService
+                .addNewEmployee("1452716", randomString(), (int)(Math.random()*100), true,
+                        (float)Math.random()*10000, randomString(),"0","123456");
+//        for(int i=0; i<50; i++){
+//            this.humanManageService
+//                    .addNewEmployee(randomString(), randomString(), (int)(Math.random()*100), true,
+//                            (float)Math.random()*10000, randomString(),"0",randomString());
+//        }
     }
 
     //@Test
@@ -151,6 +159,41 @@ public class InsertDataTest {
             e.printStackTrace();
 
         }
+    }
+
+    @Test
+    public void insertSendRec(){
+
+        List<Package> pkg_list = this.packageRepository.findAll();
+
+        DeliverCompany com = this.deliverCompanyRepository.findAll().get(0);
+
+        for(int i=0; i<100; i++){
+
+            Package p = pkg_list.get(i);
+
+            SendingRecord sr = new SendingRecord();
+
+            sr.setmSending_record_id(this.randomString());
+            sr.setmPackage(p);
+            sr.setmSenderName(randomString());
+            sr.setmSenderName(randomString());
+            sr.setmSenderTele(randomString());
+            sr.setmSenderAddress(randomString());
+            sr.setmSenderCity(randomString());
+            sr.setmSenderProvince(randomString());
+            sr.setmReceiverName(p.getmReceiverName());
+            sr.setmReceiverTele(p.getmReceiverTele());
+            sr.setmReceiverAddress(randomString());
+            sr.setmReceiverCity(randomString());
+            sr.setmReceiverProvince(randomString());
+            sr.setmWeight(10.87);
+            sr.setmCompany(com);
+            sr.setmSendTime(p.getmReceiveTime());
+            this.sendingRecordRepository.saveAndFlush(sr);
+        }
+
+
     }
 
     @Test

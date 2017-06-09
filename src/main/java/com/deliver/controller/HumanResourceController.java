@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.util.Date;
 
 /**
  * Created by deadoggy on 17-5-31.
@@ -29,6 +31,30 @@ public class HumanResourceController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+
+    private String Hash(String name){
+        String salt = new Date().toString();
+        MessageDigest md;
+        String numt = "1234567890";
+        try{
+            md = MessageDigest.getInstance("MD5");
+            String context = name + salt;
+            md.update(context.getBytes());
+            byte digest[] = md.digest();
+            StringBuilder retStr = new StringBuilder();
+
+            for(int i=0; i<4; i+=2){
+                int index = digest[i] < 0 ? digest[i] + 128 : digest[i];
+                retStr.append(numt.charAt(index%10));
+            }
+            return retStr.toString();
+
+        }catch(Exception e){
+            return  "invalid";
+        }
+
+    }
 
     @RequestMapping(value = "/findEmById/{id}", method = RequestMethod.GET)
     public String findEmById(@PathVariable String id){
@@ -56,15 +82,20 @@ public class HumanResourceController {
 
             StringBuilder id = new StringBuilder();
 
-            if(pos.compareTo("manager")==0){
-                id.append("00001");
+            if(null != pos && pos.compareTo("manager")==0){
+                id.append("001");
+            }else{
+                id.append("002");
             }
 
             String name = obj.getString("name");
+            id.append(Hash(name));
             boolean gender;
             if(0 == obj.getString("gender").compareTo("male")){
+                id.append("01");
                 gender = Constant.MALE;
             }else{
+                id.append("02");
                 gender = Constant.FEMALE;
             }
             Integer age = obj.getInteger("age");
@@ -74,7 +105,7 @@ public class HumanResourceController {
 
 
             this.humanManageService
-                    .addNewEmployee(id, name, age, gender,salary, tele, "0", pw);
+                    .addNewEmployee(id.toString(), name, age, gender,salary, tele, "0", pw);
 
             return "{\"result\": \"success\", \"id\" : \""+ id +"\"}";
 
@@ -139,6 +170,21 @@ public class HumanResourceController {
             return "false";
         }
 
+    }
+
+    @RequestMapping(value = "/list_em", method = RequestMethod.GET)
+    public String listAll(){
+        return humanManageService.listAll();
+    }
+
+    @RequestMapping(value = "/remove_em/{id}", method = RequestMethod.GET)
+    public String removeEmployee(HttpServletRequest request){
+        String id = request.getParameter("id");
+        if(this.humanManageService.removeEmployee(id)){
+            return "true";
+        }else{
+            return "false";
+        }
     }
 
 }

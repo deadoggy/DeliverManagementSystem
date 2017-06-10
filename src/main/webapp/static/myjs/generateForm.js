@@ -56,7 +56,7 @@ function generateForm(){
                     var data = res.data;
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i]);
-                        str += '<tr><td>'+data[i].date+'</td><td>'+data[i].sum+'</td></tr>';
+                        str += '<tr><td>'+data[i].time+'</td><td>'+data[i].sum+'</td></tr>';
                     }
                     str += '</tbody>';
                     $("#formContent").html(str);
@@ -76,13 +76,14 @@ function generateForm(){
                     var data = res.data;
                     for (var i = 0; i < data.length; i++) {
                         console.log(data[i]);
-                        str += '<tr><td>'+data[i].package+'</td><td>'+data[i].company_name+'</td><td>'+data[i].sender_name+'</td><td>'+data[i].sender_phone+'</td><td>'+data[i].package_id+'</td></tr>';
+                        str += '<tr><td>'+data[i].package+'</td><td>'+data[i].company+'</td><td>'+data[i].sender+'</td><td>'+data[i].sender_phone+'</td><td>'+data[i].send_time+'</td></tr>';
                     }
                     str += '</tbody>';
                     $("#formContent").html(str);
                 }
                 else if(opt == "package_info"){
-                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功新建报表，点击<a href="' + res.url + '" download="包裹情况.pdf">此处</a>下载。</div>');
+                    console.log(res.url);
+                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功新建报表，点击<a href="ftp://139.129.18.35/' + res.url + '" download="包裹情况.csv">此处</a>下载。</div>');
                 }
             }else{
                 $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>创建失败</p></div>');

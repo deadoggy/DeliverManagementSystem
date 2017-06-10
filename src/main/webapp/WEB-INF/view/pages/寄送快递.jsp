@@ -7,8 +7,8 @@
 
 
    <div class="ui link list tab segment active" data-tab="sm3" >
-        <a class="active item" href="/send_package">寄送快递</a>
-      
+       <a class="active item" href="/send_package">寄送快递</a>
+       <a class="item" href="/send_record">寄件记录</a>
    </div>
    </div>
 	</div>
@@ -16,15 +16,15 @@
 
 
 <div class="ui big breadcrumb" style="display:flex ;justify-content:space-between;">
-  <a class="active section">填写订单信息</a>
+  <a class="active section" id="step1">填写订单信息</a>
   <i class="right arrow icon divider"></i>
-  <a class="section">提交订单</a>
+  <a class="section" id="step2">提交订单</a>
   <i class="right arrow icon divider"></i>
-  <a class="section">受理审核</a>
+  <a class="section" id="step3">受理审核</a>
   <i class="right arrow icon divider"></i>
-  <a class="section">揽件成功</a>
+  <a class="section" id="step4">揽件成功</a>
   <i class="right arrow icon divider"></i>
-  <a class="section">发货成功</a>
+  <a class="section" id="step5">发货成功</a>
  
 </div>
 
@@ -33,7 +33,7 @@
 <h2></h2>
 
   
- <form class="ui form">
+ <form class="ui form" id="sendContent">
    <div class="ui attached icon info message">
    <h4 class="ui header " style="color:#FBB100"><i class="users icon"></i>收货人信息</h4>
   </div>

@@ -162,7 +162,7 @@ pageEncoding="utf-8"%>
 	</div>
 </div>
 
-<div class="ui middle aligned center aligned grid">
+<div class="ui middle aligned center aligned grid" style="margin-top: 2em">
   <div class="column">
     <h2 class="ui teal image header">
       <i class="huge anchor icon"></i>

@@ -8,21 +8,21 @@ function pickupQuery(){
     var goodId = document.getElementById("goodId").value;
     $.ajax({
         type: "GET",
-        url: "/package/" + goodId,
+        url: "/package/taken/id?id=" + goodId,
         dataType: "json",
         success: function(res){
+            console.log(res);
             if(res.status == "ok"){
                 var str = '';
                 var data = res.packageList;
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
-                    var pickupres = "未取走";
-                    if(data[i].mTaken == true) pickupres = "已取走";
-                    str +='<tr><td>'+data[i].mPackageId+'</td>'+'<td>'+pickupres+'</td>'+'<td>'+data[i].mPackageId+'</td>'+'<td>'+data[i].mTakenTime+'</td></tr>';
+                    str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].rName+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
                 }
                 $("#pickupContent").html(str);
             }else{
-                $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
+                $("#pickupContent").html("");
+                //$.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
             }
         }
     });
@@ -43,18 +43,18 @@ function getAllTaken() {
         url: "/package/alltaken",
         dataType: "json",
         success: function (res) {
+            console.log(res);
             if (res.status == "ok") {
                 var str = '';
                 var data = res.packageList;
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
-                    var pickupres = "未取走";
-                    if(data[i].mTaken == true) pickupres = "已取走";
-                    str +='<tr><td>'+data[i].mPackageId+'</td>'+'<td>'+pickupres+'</td>'+'<td>'+data[i].mPackageId+'</td>'+'<td>'+data[i].mTakenTime+'</td></tr>';
+                    str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].rName+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
                 }
                 $("#pickupContent").html(str);
             } else {
-                $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
+                $("#pickupContent").html("");
+                //$.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
             }
         }
     });

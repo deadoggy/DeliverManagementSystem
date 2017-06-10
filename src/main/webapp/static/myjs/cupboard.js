@@ -107,13 +107,14 @@ function getCupShelf(){
 
 function addNewCupShelf(){
     var pos = document.getElementById("newPos").value;
+    var point = document.getElementById("point").value;
     var column = document.getElementById("column").value;
     var layer = document.getElementById("layer").value;
     var id = Math.floor((Math.random()) * 1000);
     if(pos=="cup"){
         $.ajax({
             type: "POST",
-            url: "/smartcupboard?id="+id+"&columnSum="+column+"&layerSum="+layer,
+            url: "/smartcupboard?id="+id+"&columnSum="+column+"&layerSum="+layer+"&businessId="+point,
             // data: {
             //     id: id,
             //     columnSum: column,
@@ -132,7 +133,7 @@ function addNewCupShelf(){
     else if(pos=="shelf"){
         $.ajax({
             type: "POST",
-            url: "/shelf?id="+id+"&columnSum="+column+"&layerSum="+layer,
+            url: "/shelf?id="+id+"&columnSum="+column+"&layerSum="+layer+"&businessId="+point,
             // data: {
             //     id: id,
             //     columnSum: column,
@@ -153,6 +154,7 @@ function addNewCupShelf(){
 
 function cleanAdd(){
     document.getElementById("newPos").value = "cup";
+    document.getElementById("point").value = "0";
     document.getElementById("column").value = "";
     document.getElementById("layer").value = "";
 }

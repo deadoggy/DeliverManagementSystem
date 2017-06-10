@@ -238,4 +238,58 @@
 			</form>
 		</div>
 	</div>
+
+<div class="ui modal">
+	<div class="header"><i class="user icon blue"></i>更新个人信息</div>
+	<div class="content">
+		<form class="ui form" style="margin-left: 2%; width: 96%">
+			<div class="four fields">
+				<div class="field">
+					<label>ID：</label>
+					<div class="ui disabled input">
+						<input type="text" id="accountId"/>
+					</div>
+				</div>
+				<div class="field">
+					<label>用户名：</label>
+					<div class="ui input">
+						<input type="text" id="newName" onchange="updateName()"/>
+					</div>
+				</div>
+				<div class="field">
+					<label>工资：</label>
+					<div class="ui input">
+						<input type="text" id="newSalary" onchange="updateSalary()"/>
+					</div>
+				</div>
+				<div class="field">
+					<label>网点：</label>
+					<div class="ui input">
+						<input type="text" id="newPoint" onchange="updatePoint()"/>
+					</div>
+				</div>
+			</div>
+			<div class="ui styled accordion" style="width:100%">
+				<div class="title"><i class="dropdown icon"></i> 更改密码 </div>
+				<div class="content">
+					<div class="ui grid">
+						<div class="six wide column">
+							<div class="ui input focus" id="newPwd1Input" style="width: 100%">
+								<input type="password" placeholder="请输入新密码" id="newPwd1" oninput="removeErrorPwd1()">
+							</div>
+						</div>
+						<div class="six wide column">
+							<div class="ui input focus" id="newPwd2Input" style="width: 100%">
+								<input type="password" placeholder="请再次输入确认新密码" id="newPwd2" oninput="removeErrorPwd2()">
+							</div>
+						</div>
+						<div class="two wide column">
+							<input type="button" class="ui button" onclick="updatePwd()" value="确认更新">
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 <script src="/static/myjs/accountManage.js"></script>

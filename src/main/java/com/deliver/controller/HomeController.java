@@ -77,6 +77,11 @@ public class HomeController {
         return "send_package";
     }
 
+    @RequestMapping({"/send_record"})
+    public String sendRecordPage(){
+        return "send_record";
+    }
+
     @RequestMapping({"/store_package"})
     public String storePackagePage(){
         return "store_package";
@@ -111,6 +116,9 @@ public class HomeController {
     public String advancedManagePage(){
         return "advanced_manage";
     }
+
+    @RequestMapping({"/contraband_inquiry"})
+    public String contrabandInquiryPage() { return "contraband_inquiry"; }
 
     @RequestMapping({"/"})
     public String down(){

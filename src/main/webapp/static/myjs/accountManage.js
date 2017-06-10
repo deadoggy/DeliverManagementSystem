@@ -3,6 +3,7 @@
  */
 $(function (){
     $("#seg5").addClass("active");
+    $('.ui.accordion').accordion();
 
     getAllAccount();
 });
@@ -21,8 +22,8 @@ function getAllAccount(){
                     var gender = (data[i].gender == "female")? "女" : "男";
                     str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + data[i].pos + '</td>' + '<td>' + gender + '</td>'
                         + '<td>' + data[i].age + '</td>' + '<td>' + data[i].phone + '</td>' + '<td>' + data[i].salary + '</td>' + '<td>' + data[i].point + '</td>'
-                        + '<td><input type="button" class="ui yellow button" onclick="editAccount(' + data[i].id + ',' + data[i].name + ',' + data[i].salary + ',' + data[i].point + ')" value="编辑">' +
-                        '<input type="button" class="ui red button" onclick="rmAccount(' + data[i].id + ')" value="删除"></td></tr>';
+                        + '<td><input type="button" class="ui yellow button" onclick="editAccount(\'' + data[i].id + '\',\'' + data[i].name + '\',\'' + data[i].salary + '\',\'' + data[i].point + '\')" value="编辑">' +
+                        '<input type="button" class="ui red button" onclick="rmAccount(\'' + data[i].id + '\')" value="删除"></td></tr>';
                 }
                 $("#accountContent").html(str);
             }else{
@@ -46,21 +47,16 @@ function searchAccount(){
             url: "/findEmById/" + queryValue,
             dataType: 'json',
             success: function(res){
+                //console.log(res);
                 if(res.result == "success"){
-                    var data = res.data;
-                    var str = "";
-                    for(var i = 0; i < data.length; i++){
-                        var gender = (data[i].gender == "female")? "女" : "男";
-                        str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + data[i].pos + '</td>' + '<td>' + gender + '</td>'
-                            + '<td>' + data[i].age + '</td>' + '<td>' + data[i].phone + '</td>' + '<td>' + data[i].salary + '</td>' + '<td>' + data[i].point + '</td>'
-                            + '<td><input type="button" class="ui yellow button" onclick="editAccount(' + data[i].id + ',' + data[i].name + ',' + data[i].salary + ',' + data[i].point + ')" value="编辑">' +
-                            '<input type="button" class="ui red button" onclick="rmAccount(' + data[i].id + ')" value="删除"></td></tr>';
-                    }
+                    var gender = (res.gender == "female")? "女" : "男";
+                    var str = '<tr><td>' + res.id + '</td>' + '<td>' + res.name + '</td>' + '<td>' + res.pos + '</td>' + '<td>' + gender + '</td>'
+                            + '<td>' + res.age + '</td>' + '<td>' + res.phone + '</td>' + '<td>' + res.salary + '</td>' + '<td>' + res.point + '</td>'
+                            + '<td><input type="button" class="ui yellow button" onclick="editAccount(\'' + res.id + '\',\'' + res.name + '\',\'' + res.salary + '\',\'' + res.point + '\')" value="编辑">' +
+                            '<input type="button" class="ui red button" onclick="rmAccount(\'' + res.id + '\')" value="删除"></td></tr>';
+
                     $("#accountContent").html(str);
 
-                    if((res.data).length <= 0){
-                        $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>未查询到相关员工</p></div>');
-                    }
                 }else{
                     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>查找失败</p></div>');
                     $("#accountContent").html("");
@@ -74,7 +70,7 @@ function searchAccount(){
             url: "/findEmByName/" + queryValue,
             dataType: 'json',
             success: function(res){
-                console.log(res);
+                //console.log(res);
                 if(res.result == "success"){
                     var data = res.data;
                     var str = "";
@@ -82,8 +78,8 @@ function searchAccount(){
                         var gender = (data[i].gender == "female")? "女" : "男";
                         str += '<tr><td>' + data[i].id + '</td>' + '<td>' + data[i].name + '</td>' + '<td>' + data[i].pos + '</td>' + '<td>' + gender + '</td>'
                             + '<td>' + data[i].age + '</td>' + '<td>' + data[i].phone + '</td>' + '<td>' + data[i].salary + '</td>' + '<td>' + data[i].point + '</td>'
-                            + '<td><input type="button" class="ui yellow button" onclick="editAccount(' + data[i].id + ',' + data[i].name + ',' + data[i].salary + ',' + data[i].point + ')" value="编辑">' +
-                            '<input type="button" class="ui red button" onclick="rmAccount(' + data[i].id + ')" value="删除"></td></tr>';
+                            + '<td><input type="button" class="ui yellow button" onclick="editAccount(\'' + data[i].id + '\',\'' + data[i].name + '\',\'' + data[i].salary + '\',\'' + data[i].point + '\')" value="编辑">' +
+                            '<input type="button" class="ui red button" onclick="rmAccount(\'' + data[i].id + '\')" value="删除"></td></tr>';
                     }
                     $("#accountContent").html(str);
 
@@ -119,28 +115,122 @@ function rmAccount(id){
 }
 
 function editAccount(id, name, salary, point){
-    $.fancybox.open('<div><h2 class="ui header"> <i class="file image outline icon blue"></i> <div class="content">修改个人信息</div> </h2>' +
-        '<form class="ui form">' +
-        '<div class="field inline">' +
-        '<label>用户名: </label>' +
-        '<input type="text" id="name" value="' + name +'" oninput="updateInfo("Name")"/>' +
-        '<div class="ui left pointing green basic label">Saved!</div>' +
-        '</div>' +
-        '<div class="field"> ' +
-        '<input type="button" class="ui button primary"  onclick="pickupClickEvent()" value="修改密码">' +
-        '</div>' +
-        '</form>');
+    document.getElementById("accountId").value = id;
+    document.getElementById("newName").value = name;
+    document.getElementById("newSalary").value = salary;
+    document.getElementById("newPoint").value = point;
 
-    getAllAccount();
+    $('.ui.modal')
+        .modal('show')
+    ;
 }
 
-function updateInfo(attribute) {
-    if(attribute == "Name"){
+function updateName() {
+    var id = document.getElementById("accountId").value;
+    var name = document.getElementById("newName").value;
+    $.ajax({
+        type: "POST",
+        url: "/update_info",
+        data: JSON.stringify({
+            id: id,
+            attribute: "Name",
+            val: name
+        }),
+        dataType: 'text',
+        success: function(res){
+            if(res == "true"){
+                getAllAccount();
+            }else{
+                console.log(res);
+            }
+        }
+    });
+}
 
-    }
-    else{
+function updateSalary() {
+    var id = document.getElementById("accountId").value;
+    var salary = document.getElementById("newSalary").value;
+    $.ajax({
+        type: "POST",
+        url: "/update_info",
+        data: JSON.stringify({
+            id: id,
+            attribute: "Salary",
+            val: salary
+        }),
+        dataType: 'text',
+        success: function(res){
+            if(res == "true"){
+                getAllAccount();
+            }else{
+                console.log(res);
+            }
+        }
+    });
+}
 
+function updatePoint() {
+    var id = document.getElementById("accountId").value;
+    var point = document.getElementById("newPoint").value;
+    $.ajax({
+        type: "POST",
+        url: "/update_info",
+        data: JSON.stringify({
+            id: id,
+            attribute: "Point",
+            val: point
+        }),
+        dataType: 'text',
+        success: function(res){
+            if(res == "true"){
+                getAllAccount();
+            }else{
+                console.log(res);
+            }
+        }
+    });
+}
+
+function updatePwd() {
+    var id = document.getElementById("accountId").value;
+    var newPwd1 = document.getElementById("newPwd1").value;
+    var newPwd2 = document.getElementById("newPwd2").value;
+
+    if(newPwd1 == ""){
+        $("#newPwd1Input").addClass("error");
+        return;
     }
+
+    if(newPwd1 != newPwd2){
+        $("#newPwd2Input").addClass("error");
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/update_info",
+        data: JSON.stringify({
+            id: id,
+            attribute: "Pwd",
+            val: name
+        }),
+        dataType: 'text',
+        success: function(res){
+            if(res == "true"){
+                getAllAccount();
+            }else{
+                console.log(res);
+            }
+        }
+    });
+}
+
+function removeErrorPwd1(){
+    $("#newPwd1Input").removeClass("error");
+}
+
+function removeErrorPwd2(){
+    $("#newPwd2Input").removeClass("error");
 }
 
 function addAccount(){

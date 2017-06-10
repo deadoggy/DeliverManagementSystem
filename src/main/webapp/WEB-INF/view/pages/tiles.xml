@@ -59,5 +59,14 @@
         <put-attribute name="body" value="/WEB-INF/view/pages/生成报表.jsp"/>
     </definition>
 
+    <definition name="send_record" extends="base-definition">
+        <put-attribute name="title" value="寄件记录"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/sendRecord.jsp"/>
+    </definition>
+
+    <definition name="contraband_inquiry" extends="base-definition">
+        <put-attribute name="title" value="违禁品查询"/>
+        <put-attribute name="body" value="/WEB-INF/view/pages/contrabandInquiry.jsp"/>
+    </definition>
 
 </tiles-definitions>

@@ -4,16 +4,23 @@
 $(function (){
     $("#seg1").addClass("active");
     $("#dropdownBtn").dropdown();
+    $('.ui.accordion').accordion();
 });
 
 function store(){
     var goodId = document.getElementById("goodId").value;
+    var companyName = document.getElementById("companyName").value;
+    var receiverName = document.getElementById("receiverName").value;
+    var receiverTele = document.getElementById("receiverTele").value;
     var storageId = document.getElementById("storageId").value;
     var pos = document.getElementById("menu").getElementsByClassName("item active selected");
     var passCheckTrue = document.getElementById("passCheckTrue");
     var passCheckFalse = document.getElementById("passCheckFalse");
 
-    if(pos.length == 0){
+    if(goodId =="" || companyName == "" || receiverTele == "" || receiverName == ""){
+        $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请完整填写快递信息!</p></div>');
+    }
+    else if(pos.length == 0){
         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请选择存放位置!</p></div>');
     }
     else if(passCheckFalse.checked == true){
@@ -27,7 +34,7 @@ function store(){
         $.ajax({
             type: "POST",
             // TODO
-            url: "/package?companyName=顺风&receiverName=zhang&receiverTele=123465789&id=" + goodId + "&cupOrShelf="+ pos + "&storageId=" + storageId,
+            url: "/package?companyName=" + companyName + "&receiverName=" + receiverName + "&receiverTele=" + receiverTele + "&id=" + goodId + "&cupOrShelf="+ pos + "&storageId=" + storageId,
             // data: {
             //     id: goodId,
             //     companyName: "顺风",
@@ -63,7 +70,7 @@ function generatePos(){
                 dataType: "json",
                 success: function(res){
                     if(res.status == "ok"){
-                        document.getElementById("storageId").value = (res.layer).toString() + (res.column).toString();
+                        document.getElementById("storageId").value = res.storageId;
                     }else{
                         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                     }
@@ -76,7 +83,7 @@ function generatePos(){
                 dataType: "json",
                 success: function(res){
                     if(res.status == "ok"){
-                        document.getElementById("storageId").value = (res.layer).toString() + (res.column).toString();
+                        document.getElementById("storageId").value = res.storageId;
                     }else{
                         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                     }
@@ -84,4 +91,99 @@ function generatePos(){
             });
         }
     }
+}
+
+function getAllCompany() {
+    $.ajax({
+        type: "GET",
+        url: "/company/all",
+        dataType: "json",
+        success: function (res) {
+            if (res.status == "ok") {
+                var str = '';
+                var data = res.companys;
+                for (var i = 0; i < data.length; i++) {
+                    str += '<tr onclick="generateCompany(\'' + data[i].mName + '\')"><td>' + data[i].mCompanyId + '</td>' + '<td>' + data[i].mName + '</td>' + '<td>' + data[i].packageNum + '</td></tr>';
+                }
+                $("#companyContent").html(str);
+            } else {
+                $("#companyContent").html("");
+                //$.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
+            }
+        }
+    });
+}
+
+function researchCompany(){
+    getAllCompany();
+
+    $('.ui.modal')
+        .modal('show')
+    ;
+}
+
+function getCompanyById() {
+    var companyId = document.getElementById("companyId").value;
+    if(companyId == ""){
+        $("#companyIdInput").addClass("error");
+
+        getAllCompany();
+        return;
+    }
+    $.ajax({
+        type: "GET",
+        url: "/company/" + companyId,
+        dataType: "json",
+        success: function (res) {
+            if (res.status == "ok") {
+                var str =  '<tr onclick="generateCompany(\'' + res.mName + '\')"><td>' + res.mCompanyId + '</td>' + '<td>' + res.mName + '</td>' + '<td>' + res.packageNum + '</td></tr>';
+                $("#companyContent").html(str);
+            } else {
+                $("#companyContent").html("");
+                //$.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
+            }
+        }
+    });
+}
+
+function removeError(){
+    $("#companyIdInput").removeClass("error");
+}
+
+function addNewCompany(){
+    var newComID = document.getElementById("newComID").value;
+    var newComName = document.getElementById("newComName").value;
+    if(newComID == ""){
+        $("#newComIDInput").addClass("error");
+        return;
+    }
+    if(newComName == ""){
+        $("#newComNameInput").addClass("error");
+        return;
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/company/?id=" + newComID + "&name=" + newComName,
+        dataType: "json",
+        success: function (res) {
+            if (res.status == "ok") {
+
+            }
+        }
+    });
+
+    getAllCompany();
+}
+
+function removeErrorNewID(){
+    $("#newComIDInput").removeClass("error");
+}
+
+function removeErrorNewName(){
+    $("#newComNameInput").removeClass("error");
+}
+
+function generateCompany(name){
+    document.getElementById("companyName").value = name;
 }

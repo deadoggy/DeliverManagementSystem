@@ -16,33 +16,43 @@ $(function (){
 });
 
 function getAllExpired(){
-    //TODO
-    // $.ajax({
-    //     type: "GET",
-    //     url: "",
-    //     dataType: "json",
-    //     success: function (res) {
-    //         if (res.status == "ok") {
-    //             var str = '';
-    //             var data = res.packageList;
-    //             var curTime = new Date();
-    //             for (var i = 0; i < data.length; i++) {
-    //                 var strTime = data[i].mReceiveTime;
-    //                 var date = new Date(strTime);
-    //                 var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
-    //                 str += '<tr><td>' + data[i].mPackageId + '</td>' + '<td>' + data[i].mPosition + '</td>' + '<td>' + data[i].mReceiveTime + '</td>'
-    //                     + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td><button class="ui yellow button" onclick="forcedOpen()">强制开柜</button></td></tr>';
-    //             }
-    //             $("#goodContent").html(str);
-    //             $("#expiredContent").html(str);
-    //         } else {
-    //             $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
-    //         }
-    //     }
-    // });
+    $.ajax({
+        type: "GET",
+        url: "/package/overtime",
+        dataType: "json",
+        success: function (res) {
+            if (res.status == "ok") {
+                var str = '';
+                var data = res.packageList;
+                var curTime = new Date();
+                for (var i = 0; i < data.length; i++) {
+                    var strTime = data[i].rTime;
+                    var date = new Date(strTime);
+                    var delayTime = ((curTime - date) / (1000 * 3600)).toFixed(2);
+                    str += '<tr><td>' + data[i].packageId + '</td>' + '<td>' + data[i].position + '</td>' + '<td>' + data[i].rTime + '</td>'
+                        + '<td>' + delayTime.toString() + '小时' + '</td>' + '<td><button class="ui yellow button" onclick="forcedOpen(\'' + data[i].position + '\')">强制开柜</button></td></tr>';
+                }
+                $("#expiredContent").html(str);
+            } else {
+                $("#expiredContent").html("");
+                //$.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
+            }
+        }
+    });
 
 }
 
-function forcedOpen(){
-    //TODO 强制开柜
+function forcedOpen(pos){
+    $.ajax({
+        type: "GET",
+        url: "/package/force/"+pos,
+        dataType: "json",
+        success: function (res) {
+            if (res.status == "ok") {
+                $.fancybox.open('<div class="message"><h2>Success!</h2><p>强制开柜成功。</p></div>');
+            } else {
+                $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>强制开柜失败。</p></div>');
+            }
+        }
+    });
 }

@@ -70,6 +70,8 @@ pageEncoding="utf-8"%>
           }
         })
       ;
+
+      $('#searchSelect').dropdown();
     })
   ;
 
@@ -145,10 +147,10 @@ pageEncoding="utf-8"%>
 </head>
 <body>
 
-<div class="pageHead" id="pageHead">
+<div class="pageHead" id="pageHead" style="height: 8em">
 	<div class="ui" id="headTitle">
 		<div class="content">物流系统</div>
-		<i class="huge anchor icon"></i>
+		<i class="huge anchor icon" style="margin-bottom: 10%"></i>
 	</div>
 	
 	<div class="ui secondary pointing menu" id="topmenu">
@@ -160,7 +162,7 @@ pageEncoding="utf-8"%>
 	</div>
 </div>
 
-<div class="ui middle aligned center aligned grid">
+<div class="ui middle aligned center aligned grid" style="margin-top: 2em">
   <div class="column">
     <h2 class="ui teal image header">
       <i class="huge anchor icon"></i>
@@ -170,6 +172,15 @@ pageEncoding="utf-8"%>
     </h2>
     <form class="ui large form" id="login_form">
       <div class="ui stacked segment">
+        <div class="field">
+            <div class="ui floating dropdown labeled search icon button" id="searchSelect" style="width: 100%;">
+                <i class="map pin icon"></i>
+                <span class="text">网点</span>
+                <div class="menu">
+                     <div class="item" value="0">同济大学</div>
+                </div>
+            </div>
+        </div>
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
@@ -184,10 +195,10 @@ pageEncoding="utf-8"%>
         </div>
           <div class="field">
               <div class="ui left icon input">
-                  <table>
+                  <table style="width: 100%">
                       <tr>
                           <td id = "img_code"><img src = "/code" onclick="refreshImg()"></td>
-                          <td><input name = "code" id = "code" type="text"></td>
+                          <td><input name = "code" id = "code" type="text" style="width: 100%"></td>
                       </tr>
                   </table>
 

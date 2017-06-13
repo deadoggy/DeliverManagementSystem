@@ -12,7 +12,7 @@
 	<div class="rightContent" id="rightContent">
 	
 		 <div >   
-			<div >		
+			<div>
 				<h2 class="ui header">			     
 				     <i class="checked calendar icon blue"></i>
 				     <div class="content">
@@ -25,7 +25,7 @@
 			  		<input type="text" placeholder="请输入货物单号，或者使用扫码器扫描" id="goodId" required>
 			    </div>
 				
-				<div class="ui animated fade button" tabindex="0">
+				<div class="ui animated fade button" tabindex="0" style="width: 10em">
 				  <div class="visible content">扫描条形码</div>
 				  <div class="hidden content">请对准条形码 </div>
 				</div>
@@ -34,6 +34,48 @@
 			<p></p>
 			<h1></h1>
 			<h2></h2>
+			 <div>
+				 <h2 class="ui header">
+					 <i class="shipping icon blue"></i>
+					 <div class="content">
+						 快递公司
+					 </div>
+				 </h2>
+				 <div class="ui divider"></div>
+				 <div style="display:flex ;justify-content:space-between;" >
+					 <div class="ui input focus" style="width:36em">
+						 <input type="text" placeholder="请输入快递公司名" id="companyName" required>
+					 </div>
+
+					 <div class="ui animated fade button" tabindex="0" style="width: 10em" onclick="researchCompany()">
+						 <div class="visible content">检索快递公司</div>
+						 <div class="hidden content">检索快递公司 </div>
+					 </div>
+				 </div>
+			 </div>
+			 <p></p>
+			 <h1></h1>
+			 <h2></h2>
+			 <div>
+				 <h2 class="ui header">
+					 <i class="user icon blue"></i>
+					 <div class="content">
+						 收件人信息
+					 </div>
+				 </h2>
+				 <div class="ui divider"></div>
+				 <div style="display:flex ;justify-content:space-between;" >
+					 <div class="ui input focus"  style="width: 48%">
+						 <input type="text" placeholder="请输入收件人姓名" id="receiverName" required>
+					 </div>
+					 <div class="ui input focus"  style="width: 48%">
+						 <input type="text" placeholder="请输入收件人电话" id="receiverTele" required>
+					 </div>
+				 </div>
+			 </div>
+			 <p></p>
+			 <h1></h1>
+			 <h2></h2>
 			<div >
 			
 				<h2 class="ui header">
@@ -46,7 +88,7 @@
 				<div class="ui divider"></div>
 				<div style="display:flex ;justify-content:    space-between; ">
 				<div class="ui input focus" style="width:36em">
-			  		<input type="text" placeholder="请输入存放位置(格式:行列)，或者系统随机生成" id="storageId" required>
+			  		<input type="text" placeholder="请输入存放位置(格式:货柜号-行-列)，或者系统随机生成" id="storageId" required>
 			    </div>
 				
 				<div>
@@ -57,11 +99,11 @@
 					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 					  <div class="menu" id="menu">
 					    <div class="item">
-					      <span class="description">212剩余</span>
+					      <%--<span class="description">212剩余</span>--%>
 					      <span class="text">智能柜</span>
 					    </div>
 					    <div class="item">
-					      <span class="description">10剩余</span>
+					      <%--<span class="description">10剩余</span>--%>
 					      <span class="text">货架</span>
 					    </div>
 					  </div>
@@ -114,6 +156,58 @@
 			<button class="positive fluid ui button" onclick="store()"> 确认入库</button>
 		
 	    </div>
+
+		<div class="ui modal">
+			<div class="header"><i class="shipping icon blue"></i>检索快递公司</div>
+			<div class="content">
+				<form class="ui form" style="margin-left: 2%; width: 96%">
+					<div class="two fields">
+						<div class="field">
+							<label>快递公司ID：</label>
+							<div class="ui input" id="companyIdInput">
+								<input type="text" id="companyId" onchange="removeError()"/>
+							</div>
+						</div>
+						<div class="field">
+							<input type="button" class="ui button" onclick="getCompanyById()" style="align-content:center; margin-top: 23px; width: 50%; float: left" value="查询"></input>
+						</div>
+					</div>
+					<div class="ui styled accordion" style="width:100%">
+						<div class="title"><i class="dropdown icon"></i> 新建快递公司 </div>
+						<div class="content">
+							<div class="ui grid">
+								<div class="six wide column">
+									<div class="ui input focus" id="newComIDInput">
+										<input type="text" placeholder="请输入公司ID" id="newComID" onchange="removeErrorNewID()">
+									</div>
+								</div>
+								<div class="six wide column">
+									<div class="ui input focus" id="newComNameInput">
+										<input type="text" placeholder="请输入公司名" id="newComName" onchange="removeErrorNewName()">
+									</div>
+								</div>
+								<div class="two wide column">
+									<input type="button" class="ui button" onclick="addNewCompany()" value="添加">
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="ui divider"></div>
+
+				<table class="ui celled table">
+					<thead>
+					<tr>
+						<th>公司ID</th>
+						<th>公司名</th>
+						<th>包裹总数</th>
+					</tr>
+					</thead>
+					<tbody id="companyContent">
+					</tbody>
+				</table>
+			</div>
+		</div>
 
 	<!--scbb  -->	
 		

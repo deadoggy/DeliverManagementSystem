@@ -75,8 +75,8 @@
 	<div class="ui bottom attached tab segment" data-tab="zngAdd">
 		<div><br/></div>
 		<form class="ui form" style="margin-left: 5%; width: 90%">
-			<h3 class="ui dividing header">请完善新货柜信息！</h3>
-			<div class="fields inline">
+			<h3 class="ui dividing header" style="margin-top: 1em; margin-left: 5%">请完善新货柜信息！</h3>
+			<div class="fields inline" style="margin-top: 1em;">
 				<div class="two wide field">
 				</div>
 				<div class="two wide field">
@@ -86,6 +86,19 @@
 					<select class="form-control" id="newPos">
 						<option value="cup">智能柜</option>
 						<option value="shelf">货架</option>
+					</select>
+				</div>
+			</div>
+			<br />
+			<div class="fields inline">
+				<div class="two wide field">
+				</div>
+				<div class="two wide field">
+					<label>网点</label>
+				</div>
+				<div class="six wide field">
+					<select class="form-control" id="point">
+						<option value="0">同济大学</option>
 					</select>
 				</div>
 			</div>
@@ -111,13 +124,9 @@
 				<div class="two wide field">
 					<input class="two wide" type="text" name="bigCell" id="layer"/>
 				</div>
-
-
 			</div>
+			<br/><br/>
 
-			<div class="field">
-				<br /><br /><br /><br /><br />
-			</div>
 			<div class="fields inline">
 				<div class="three wide field">
 				</div>

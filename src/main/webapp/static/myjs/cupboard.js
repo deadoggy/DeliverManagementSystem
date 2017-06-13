@@ -15,11 +15,11 @@ function getAllCup(){
         success: function(res){
             if(res.status == "ok"){
                 str = '';
-                var data = res.smartcupboards;
+                var data = res.cupboardList;
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
                     console.log(data[i]);
-                    str +='<tr><td>'+data[i].mCupboardId+'</td>'+'<td>'+data[i].mPositionSum+'</td>'+'<td>'+data[i].mEmptySum+'</td></tr>';
+                    str +='<tr><td>'+data[i].cupboardId+'</td>'+'<td>'+data[i].sum+'</td>'+'<td>'+data[i].empty+'</td></tr>';
                 }
                 $("#cupContent").html(str);
             }else{
@@ -37,10 +37,10 @@ function getAllShelf(){
         success: function(res){
             if(res.status == "ok"){
                 str = '';
-                var data = res.shelfs;
+                var data = res.shelfList;
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
-                    str +='<tr><td>'+data[i].mShelfId+'</td>'+'<td>'+data[i].mPositionSum+'</td>'+'<td>'+data[i].mEmptySum+'</td></tr>';
+                    str +='<tr><td>'+data[i].shelfId+'</td>'+'<td>'+data[i].sum+'</td>'+'<td>'+data[i].empty+'</td></tr>';
                 }
                 $("#cupContent").html(str);
             }else{
@@ -70,8 +70,12 @@ function getCupShelf(){
             dataType: "json",
             success: function(res){
                 if(res.status == "ok"){
-                    var data = res.smartcupboard;
-                    var str ='<tr><td>'+data.mCupboardId+'</td>'+'<td>'+data.mPositionSum+'</td>'+'<td>'+data.mEmptySum+'</td></tr>';
+                    str = '';
+                    var data = res.cupboardList;
+                    for(var i = 0; i < data.length; i++){
+                        console.log(data[i]);
+                        str +='<tr><td>'+data[i].cupboardId+'</td>'+'<td>'+data[i].sum+'</td>'+'<td>'+data[i].empty+'</td></tr>';
+                    }
                     $("#cupContent").html(str);
                 }else{
                     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
@@ -86,8 +90,12 @@ function getCupShelf(){
             dataType: "json",
             success: function(res){
                 if(res.status == "ok"){
-                    var data = res.shelf;
-                    var str ='<tr><td>'+data.mShelfId+'</td>'+'<td>'+data.mPositionSum+'</td>'+'<td>'+data.mEmptySum+'</td></tr>';
+                    str = '';
+                    var data = res.shelfList;
+                    var len = (data.length > 10)? 10:data.length;
+                    for(var i = 0; i < len; i++){
+                        str +='<tr><td>'+data[i].shelfId+'</td>'+'<td>'+data[i].sum+'</td>'+'<td>'+data[i].empty+'</td></tr>';
+                    }
                     $("#cupContent").html(str);
                 }else{
                     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
@@ -99,13 +107,14 @@ function getCupShelf(){
 
 function addNewCupShelf(){
     var pos = document.getElementById("newPos").value;
+    var point = document.getElementById("point").value;
     var column = document.getElementById("column").value;
     var layer = document.getElementById("layer").value;
     var id = Math.floor((Math.random()) * 1000);
     if(pos=="cup"){
         $.ajax({
             type: "POST",
-            url: "/smartcupboard?id="+id+"&columnSum="+column+"&layerSum="+layer,
+            url: "/smartcupboard?id="+id+"&columnSum="+column+"&layerSum="+layer+"&businessId="+point,
             // data: {
             //     id: id,
             //     columnSum: column,
@@ -124,7 +133,7 @@ function addNewCupShelf(){
     else if(pos=="shelf"){
         $.ajax({
             type: "POST",
-            url: "/shelf?id="+id+"&columnSum="+column+"&layerSum="+layer,
+            url: "/shelf?id="+id+"&columnSum="+column+"&layerSum="+layer+"&businessId="+point,
             // data: {
             //     id: id,
             //     columnSum: column,
@@ -145,6 +154,7 @@ function addNewCupShelf(){
 
 function cleanAdd(){
     document.getElementById("newPos").value = "cup";
+    document.getElementById("point").value = "0";
     document.getElementById("column").value = "";
     document.getElementById("layer").value = "";
 }

@@ -23,7 +23,7 @@
 		
 				<div style="display:flex ;justify-content:space-between;" >
 				<div class="ui input focus" style="width:36em">
-			  		<input type="text" placeholder="请输入货物的位置" id="fromPos">
+			  		<input type="text" placeholder="请输入货物的位置，格式为：货架号-行-列" id="fromPos">
 			    </div>
 				
 				   <div class="ui floating labeled icon dropdown button">
@@ -62,7 +62,7 @@
 		
 	<div style="display:flex ;justify-content:    space-between; ">
 	<div class="ui input focus" style="width:36em">
-  		<input type="text" placeholder="请输入存放位置，或者系统自动生成" id="toPos">
+  		<input type="text" placeholder="请输入存放位置（格式：货架号-行-列），或者系统自动生成" id="toPos">
     </div>
     
    <div class="ui floating labeled icon dropdown button" >

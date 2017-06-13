@@ -6,8 +6,10 @@ package com.deliver.controller;
 
 import com.deliver.constant.Constant;
 import com.deliver.dao.DeliverCompanyRepository;
+import com.deliver.dao.EmployeeRepository;
 import com.deliver.dao.PackageRepository;
 import com.deliver.model.DeliverCompany;
+import com.deliver.model.Employee;
 import com.deliver.model.Package;
 import com.deliver.service.CAPTCHAService;
 import com.deliver.service.ShortMesgService;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
@@ -31,10 +34,7 @@ import java.util.Set;
 public class HomeController {
 
     @Autowired
-    DeliverCompanyRepository repository;
-
-    @Autowired
-    PackageRepository packageRepository;
+    EmployeeRepository employeeRepository;
 
     public HomeController() {
     }
@@ -44,12 +44,26 @@ public class HomeController {
     }
 
     @RequestMapping({"/home"})
-    public String homePage(){
+    public String homePage(HttpServletRequest request, HttpServletResponse response){
+
+        Employee em = employeeRepository.findByMEmployeeId(/*request.getRemoteUser()*/"1452716");
+
+        Cookie id = new Cookie("id", em.getmEmployeeId());
+        Cookie name = new Cookie("name", em.getmName());
+
+        String posStr = em.getmPosition().size() == 0? "" : em.getmPosition().get(0).getmName();
+        Cookie pos = new Cookie("pos", posStr);
+
+        response.addCookie(id);
+        response.addCookie(name);
+        response.addCookie(pos);
+
+
         return "manage_cup";
     }
 
     @RequestMapping({"/cupboard"})
-    public String manageCupboardPage(){
+    public String manageCupboardPage(HttpServletRequest request, HttpServletResponse response){
         return "manage_cup";
     }
 
@@ -61,6 +75,11 @@ public class HomeController {
     @RequestMapping({"/send_package"})
     public String sendPackagePage(){
         return "send_package";
+    }
+
+    @RequestMapping({"/send_record"})
+    public String sendRecordPage(){
+        return "send_record";
     }
 
     @RequestMapping({"/store_package"})
@@ -97,6 +116,9 @@ public class HomeController {
     public String advancedManagePage(){
         return "advanced_manage";
     }
+
+    @RequestMapping({"/contraband_inquiry"})
+    public String contrabandInquiryPage() { return "contraband_inquiry"; }
 
     @RequestMapping({"/"})
     public String down(){

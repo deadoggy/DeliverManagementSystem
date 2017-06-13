@@ -218,10 +218,13 @@
 					<div class="two wide field">
 						<label>营业网点</label>
 					</div>
-				
+
 					<div class="six wide field">
-						<input type="text" name="position" id="point"/>
+						<select class="form-control" id="point">
+							<option value="100">同济大学</option>
+						</select>
 					</div>
+
 				</div>
 				<br/>
 
@@ -274,12 +277,12 @@
 				<div class="content">
 					<div class="ui grid">
 						<div class="six wide column">
-							<div class="ui input focus" id="newPwd1Input" style="width: 100%">
+							<div class="ui input" id="newPwd1Input" style="width: 100%">
 								<input type="password" placeholder="请输入新密码" id="newPwd1" oninput="removeErrorPwd1()">
 							</div>
 						</div>
 						<div class="six wide column">
-							<div class="ui input focus" id="newPwd2Input" style="width: 100%">
+							<div class="ui input" id="newPwd2Input" style="width: 100%">
 								<input type="password" placeholder="请再次输入确认新密码" id="newPwd2" oninput="removeErrorPwd2()">
 							</div>
 						</div>

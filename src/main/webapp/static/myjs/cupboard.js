@@ -111,6 +111,7 @@ function addNewCupShelf(){
     var column = document.getElementById("column").value;
     var layer = document.getElementById("layer").value;
     var id = Math.floor((Math.random()) * 1000);
+    console.log(point);
     if(pos=="cup"){
         $.ajax({
             type: "POST",

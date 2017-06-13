@@ -98,7 +98,7 @@
 				</div>
 				<div class="six wide field">
 					<select class="form-control" id="point">
-						<option value="0">同济大学</option>
+						<option value="100">同济大学</option>
 					</select>
 				</div>
 			</div>

@@ -46,7 +46,6 @@
                 <th>寄件地址</th>
                 <th>收件人</th>
                 <th>收件地址</th>
-                <th>重量</th>
             </tr>
             </thead>
             <tbody id="sendContent">

@@ -96,11 +96,28 @@ function getAll() {
 }
 
 function confirmBox(){
-    $.fancybox.open('<div class="ui form"> <br class="two fields"><div class="field"> <label>取件码：</label> <input type="text" name="confirmcode" id="confirmcode" placeholder="取件码" required/></div> </br><div class="field"> <button class="ui button" id="hwCxbtn" onclick="confirm()">确认取件</button> </div> </div> </div>');
+    $.fancybox.open('<div class="ui form"> ' +
+        '<div class="field">' +
+        ' <label>取件码：</label> ' +
+        '<input type="text" name="confirmcode" id="confirmcode" placeholder="取件码" required/>' +
+        '</div> ' +
+        '<div class="field" id="feeInput" style="display: none">' +
+        ' <label>邮费：</label> ' +
+        '<input type="text" name="fee" id="fee" placeholder="实付邮费" required/>' +
+        '</div> ' +
+        '</br>' +
+        '<div class="field"> ' +
+        '<button class="ui button" id="queryFeeBtn" onclick="confirmFee()" style="width: 100%">查看邮费</button>' +
+        ' </div> ' +
+        '<div class="field" id="feeBtn" style="padding-top: 1em;display: none"> ' +
+        '<button class="ui button" id="confirmBtn" onclick="confirm()" style="width: 100%">确认取件</button>' +
+        '</div>');
 }
 
-function confirm(){
+function confirmFee(){
     var confirmcode = document.getElementById("confirmcode").value;
+    document.getElementById("feeInput").style.display = 'none';
+    document.getElementById("feeBtn").style.display = 'none';
     if(confirmcode == ""){
         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请输入验证码!</p></div>');
     }else{
@@ -111,7 +128,32 @@ function confirm(){
             dataType: "json",
             success: function (res) {
                 if (res.status == "ok") {
-                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>取件成功！请支付邮费'+res.fee+'元。</p></div>');
+                    document.getElementById("confirmcode").readOnly = true;
+                    document.getElementById("feeInput").style.display = 'block';
+                    document.getElementById("feeBtn").style.display = 'block';
+                    document.getElementById("queryFeeBtn").innerText = "应付邮费：" + res.fee + "元";
+                } else {
+                    $.fancybox.open('<div class="message"><h2>Failed!</h2><p>' + res.reason + '</p></div>');
+                }
+            }
+        });
+    }
+}
+
+function confirm(){
+    var confirmcode = document.getElementById("confirmcode").value;
+    var fee = document.getElementById("fee").value;
+    if(fee == ""){
+        $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请输入实付邮费!</p></div>');
+    }else{
+        $.ajax({
+            type: "POST",
+            url: "/confirm/fee?confirmcode="+confirmcode + "&fee=" + fee,
+            //data: { Confirmcode: confirmcode},
+            dataType: "json",
+            success: function (res) {
+                if (res.status == "ok") {
+                    $.fancybox.open('<div class="message"><h2>Failed!</h2><p>取件成功</p></div>');
                 } else {
                     $.fancybox.open('<div class="message"><h2>Failed!</h2><p>' + res.reason + '</p></div>');
                 }

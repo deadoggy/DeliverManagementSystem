@@ -9,6 +9,7 @@ $(function (){
 
 function store(){
     var goodId = document.getElementById("goodId").value;
+    var fee = document.getElementById("fee").value;
     var companyName = document.getElementById("companyName").value;
     var receiverName = document.getElementById("receiverName").value;
     var receiverTele = document.getElementById("receiverTele").value;
@@ -17,7 +18,7 @@ function store(){
     var passCheckTrue = document.getElementById("passCheckTrue");
     var passCheckFalse = document.getElementById("passCheckFalse");
 
-    if(goodId =="" || companyName == "" || receiverTele == "" || receiverName == ""){
+    if(goodId =="" || fee == "" || companyName == "" || receiverTele == "" || receiverName == ""){
         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请完整填写快递信息!</p></div>');
     }
     else if(pos.length == 0){
@@ -34,7 +35,7 @@ function store(){
         $.ajax({
             type: "POST",
             // TODO
-            url: "/package?companyName=" + companyName + "&receiverName=" + receiverName + "&receiverTele=" + receiverTele + "&id=" + goodId + "&cupOrShelf="+ pos + "&storageId=" + storageId,
+            url: "/package?companyName=" + companyName + "&receiverName=" + receiverName + "&receiverTele=" + receiverTele + "&id=" + goodId + "&cupOrShelf="+ pos + "&storageId=" + storageId + "&fee=" + fee,
             // data: {
             //     id: goodId,
             //     companyName: "顺风",
@@ -47,6 +48,12 @@ function store(){
             success: function(res){
                 if(res.status == "ok"){
                     $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功入库</p></div>');
+                    document.getElementById("goodId").value = "";
+                    document.getElementById("fee").value = "";
+                    document.getElementById("receiverName").value = "";
+                    document.getElementById("receiverTele").value = "";
+                    document.getElementById("storageId").value = "";
+                    passCheckTrue.checked = true;
                 }else{
                     //console.log(res.reason);
                     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');

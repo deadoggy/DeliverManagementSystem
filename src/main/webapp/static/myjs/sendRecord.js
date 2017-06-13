@@ -24,7 +24,7 @@ function querySend(){
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
                     str +='<tr><td>'+data[i].id+'</td>'+'<td>'+data[i].sName + '：'+data[i].sTele+'</td>'+'<td>'+data[i].sProvince + '：'+data[i].sCity+'</td>'
-                        +'</td>'+'<td>'+data[i].rName + '：'+data[i].rTele+'</td>'+'<td>'+data[i].rProvince + '：'+data[i].rCity+'</td>'+'<td>'+data[i].weight+'</td></tr>';
+                        +'</td>'+'<td>'+data[i].rName + '：'+data[i].rTele+'</td>'+'<td>'+data[i].rProvince + '：'+data[i].rCity+'</td></tr>';
                 }
                 $("#sendContent").html(str);
             }else{

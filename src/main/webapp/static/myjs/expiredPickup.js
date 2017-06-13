@@ -43,9 +43,11 @@ function getAllExpired(){
 }
 
 function forcedOpen(pos){
+    var regex = new RegExp("[0-9]+-[0-9]+-[0-9]+");
+    var id = pos.match(regex);
     $.ajax({
         type: "GET",
-        url: "/package/force/"+pos,
+        url: "/package/force/"+id[0],
         dataType: "json",
         success: function (res) {
             if (res.status == "ok") {

@@ -46,7 +46,7 @@ function sendPackage(){
     }else{
         $.ajax({
             type: "POST",
-            url: "/sendrecord?packageId=" + packageId + "&weight=" + weight
+            url: "/sendrecord?id=" + packageId + "&weight=" + weight
             + "&sName=" + sName + "&sTele=" + sTele + "&sAdderss=" + sAdderss + "&sProvince=" + sProvince
             + "&rName=" + rName + "&rTele=" + rTele + "&rAdderss=" + rAdderss + "&rProvince=" + rProvince,
             // data: {
@@ -65,11 +65,17 @@ function sendPackage(){
             // },
             dataType: "json",
             success: function(res){
+                $("#step1").removeClass("active");
+                $("#step2").addClass("active");
+                var str = '';
                 if(res.status == "ok"){
-                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功创建新包裹.</p></div>');
+                    //$.fancybox.open('<div class="message"><h2>Success!</h2><p>成功创建新包裹.</p></div>');
+                    str = '<div class="ui attached icon info message"><h4 class="ui header " style="color:#7EE867"><i class="checkmark icon"></i>订单提交成功！</h4> </div>';
                 }else{
-                    $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
+                    //$.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
+                    str = '<div class="ui attached icon info message"><h4 class="ui header " style="color:#E8493F"><i class="remove icon"></i>订单提交失败！</h4> </div><div class="field" style="margin-top: 10%; width: 96%; margin-left: 2%"><p>'+ res.reason + '</p></div>';
                 }
+                $("#sendContent").html(str);
             }
         });
     }

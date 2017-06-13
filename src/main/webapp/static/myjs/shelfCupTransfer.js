@@ -52,7 +52,7 @@ function generateToPos(){
                 dataType: "json",
                 success: function(res){
                     if(res.status == "ok"){
-                        document.getElementById("toPos").value = (res.layer).toString() + (res.column).toString();
+                        document.getElementById("toPos").value = res.storageId;
                     }else{
                         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                     }
@@ -65,7 +65,7 @@ function generateToPos(){
                 dataType: "json",
                 success: function(res){
                     if(res.status == "ok"){
-                        document.getElementById("toPos").value = (res.layer).toString() + (res.column).toString();
+                        document.getElementById("toPos").value = res.storageId;
                     }else{
                         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>'+ res.reason + '</p></div>');
                     }

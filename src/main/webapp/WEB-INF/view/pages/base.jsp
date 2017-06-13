@@ -30,18 +30,18 @@
 
 <body>
 
+<div class="pageHead" id="pageHead" style="height: 8em">
 
-<div class="pageHead" id="pageHead">
 	<div class="ui" id="headTitle">
 		<div class="content">物流系统</div>
-		<i class="huge anchor icon"></i>
+		<i class="huge anchor icon" style="margin-bottom: 10%"></i>
 	</div>
 	
 	<div class="ui secondary pointing menu" id="topmenu">
 		<a class="item " href="/store_package" id="seg1">快递入库</a>
 		<a class="item" href="/search_package" id="seg2">快递取件</a>
 		<a class="item" href="/send_package" id="seg3">寄送快递</a>
-		<a class="item" href="#          " id="seg4">违禁品查询</a>
+		<a class="item" href="/contraband_inquiry" id="seg4">违禁品查询</a>
 		<a class="item" href="/generate_form" id="seg5">高级管理</a>
 	</div>
 </div>
@@ -136,14 +136,31 @@
         function showUpload(){
             $.fancybox.open('<div><h2 class="ui header"> <i class="file image outline icon blue"></i> <div class="content">请选择头像</div> </h2>' +
 					'<div class="description ">建议780*430像素，大小不超过2M，格式为bmp、png、jpeg、jpg、gif</div> <br/>'+
-				'<div><form action="/upload_img" enctype="multipart/form-data" method="post"> ' +
+				'<div><form action="/upload_img" id="uploadImg" enctype="multipart/form-data" method="post"> ' +
 				'<div class="ui bottom attached button fileInputBtn" id="fileInputBtn">上传文件' +
 				'<input name="file" type="file" id="file"></div><br/>' +
-				'<input type="submit" value="上传" class="positive fluid ui button"> </form></div></div>');
+				'<input type="button" value="上传" class="positive fluid ui button" onclick="uploadFile()"> </form></div></div>');
 
             $("#fileInputBtn").click(function () {
-                $("#fileInputBtn").text("文件上传成功！");
+                $("#fileInputBtn").text("已选择文件");
             });
+        }
+
+        function uploadFile(){
+            $.ajax({
+                url: '/upload_img',
+                type: 'POST',
+                cache: false,
+                data: new FormData($('#uploadImg')[0]),
+                processData: false,
+                contentType: false
+            }).done(function(res) {
+                console.log(res);
+            }).fail(function(res) {
+                console.log(res);
+			});
+
+            location.reload(true);
         }
 	</script>
 </body>

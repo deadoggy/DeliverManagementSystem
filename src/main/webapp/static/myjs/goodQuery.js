@@ -73,6 +73,7 @@ function getAll() {
         url: "/package/allnotaken",
         dataType: "json",
         success: function (res) {
+            console.log(res);
             if (res.status == "ok") {
                 var str = '';
                 var data = res.packageList;
@@ -87,7 +88,8 @@ function getAll() {
                 }
                 $("#goodContent").html(str);
             } else {
-                $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
+                $("#goodContent").html("");
+                //$.fancybox.open('<div class="message"><h2>Sorry!</h2><p>' + res.reason + '</p></div>');
             }
         }
     });
@@ -104,12 +106,12 @@ function confirm(){
     }else{
         $.ajax({
             type: "POST",
-            url: "/confirm/"+confirmcode,
+            url: "/confirm/?confirmcode="+confirmcode,
             //data: { Confirmcode: confirmcode},
             dataType: "json",
             success: function (res) {
                 if (res.status == "ok") {
-                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>取件成功</p></div>');
+                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>取件成功！请支付邮费'+res.fee+'元。</p></div>');
                 } else {
                     $.fancybox.open('<div class="message"><h2>Failed!</h2><p>' + res.reason + '</p></div>');
                 }

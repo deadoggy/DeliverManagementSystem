@@ -37,7 +37,7 @@
 						<td>G54</td>
 						<td>2017/4/17 13:00:00</td>
 						<td>48h</td>
-						<td><input type="button" class="ui yellow button" value="强制开柜"></input></td>
+						<td><input type="button" class="ui yellow button" value="强制开柜" onclick="forcedOpen('100-2-2')"></input></td>
 					</tr>
 					<tr>
 						<td>ID03</td>

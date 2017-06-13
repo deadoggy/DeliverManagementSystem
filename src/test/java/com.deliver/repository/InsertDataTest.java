@@ -198,17 +198,17 @@ public class InsertDataTest {
 
     @Test
     public void insert(){
-        insertPoint();
+        //insertPoint();
 
-        insertCompany();
-
-        insertEmployee();
-
-        insertPackage();
-
-        insertDayForm();
-
-        insertProxyChargeRecord();
+//        insertCompany();
+//
+//        insertEmployee();
+//
+//        insertPackage();
+//
+//        insertDayForm();
+//
+//        insertProxyChargeRecord();
     }
 
 }

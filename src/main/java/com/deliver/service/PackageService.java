@@ -39,45 +39,31 @@ public class PackageService {
     private ProxyChargeRecordRepository proxyChargeRecordRepository;
 
     @Transactional
-    public Package getPackage(String id){
+    public Package getPackage(String id) {
         return packageRepository.findByMPackageId(id);
     }
 
     @Transactional
     public List<Package> getPackageTakenStartingWith(String id) {
-        List<Package> packageList=packageRepository.findByMPackageIdBegin(id);
-        Iterator<Package> it=packageList.iterator();
-        while (it.hasNext()){
-            Package aPackage=it.next();
-            if(aPackage.ismTaken()==false){
-                it.remove();
-            }
-        }
+        List<Package> packageList=packageRepository.findTakenMPackageIdBegin(id);
         return packageList;
     }
 
     @Transactional
     public List<Package> getPackageNoTakenStartingWith(String id) {
-        List<Package> packageList=packageRepository.findByMPackageIdBegin(id);
-        Iterator<Package> it=packageList.iterator();
-        while (it.hasNext()){
-            Package aPackage=it.next();
-            if(aPackage.ismTaken()==true){
-                it.remove();
-            }
-        }
+        List<Package> packageList=packageRepository.findNoTakenMPackageIdBegin(id);
         return packageList;
     }
 
 
     //将快件加入到一个智能柜or货架的位置上
     @Transactional
-    public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, StoragePosition storagePosition) {
+    public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, double fee, StoragePosition storagePosition) {
         try {
             Package aPackage = new Package();
             aPackage.setmCupOrShelf(storagePosition.ismCuporShelf());
             aPackage.setmPackageId(id);
-            aPackage.setmProxyChargeFee(0);
+            aPackage.setmProxyChargeFee(fee);
             aPackage.setmReceiveTime(new Timestamp(System.currentTimeMillis()));
             aPackage.setmReceiverName(receiverName);
             aPackage.setmReceiverTele(receiverTele);
@@ -87,18 +73,18 @@ public class PackageService {
             aPackage.setmPosition(storagePosition);
             packageRepository.saveAndFlush(aPackage);
 
-            SelfBcryptEncoder selfBcryptEncoder=new SelfBcryptEncoder();
-            String identifyCode=selfBcryptEncoder.encipher(aPackage.getmPackageId());
-            storagePosition.setmIdentifyCode(identifyCode.substring(identifyCode.length()-4,identifyCode.length()));
+            SelfBcryptEncoder selfBcryptEncoder = new SelfBcryptEncoder();
+            String identifyCode = selfBcryptEncoder.encipher(aPackage.getmPackageId());
+            storagePosition.setmIdentifyCode(identifyCode.substring(identifyCode.length() - 4, identifyCode.length()));
             storagePosition.setmEmpty(POSITION_FULL);
             storagePositionreRepository.saveAndFlush(storagePosition);
-            if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
-                Shelf shelf=storagePosition.getmShelf();
-                shelf.setmEmptySum(shelf.getmEmptySum()-1);
+            if (storagePosition.ismCuporShelf() == POSITION_IN_SHELF) {
+                Shelf shelf = storagePosition.getmShelf();
+                shelf.setmEmptySum(shelf.getmEmptySum() - 1);
                 shelfRepository.saveAndFlush(shelf);
-            }else{
-                SmartCupboard smartCupboard=storagePosition.getmCup();
-                smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()-1);
+            } else {
+                SmartCupboard smartCupboard = storagePosition.getmCup();
+                smartCupboard.setmEmptySum(smartCupboard.getmEmptySum() - 1);
                 smartCupboardRepository.saveAndFlush(smartCupboard);
             }
             return true;
@@ -111,18 +97,18 @@ public class PackageService {
 
     //确认收货
     @Transactional
-    public boolean confirmReceive(String identifyCode,double fee) {
+    public boolean confirmReceive(String identifyCode, double fee) {
         try {
             StoragePosition storagePosition = storagePositionreRepository.findByMIdentifyCode(identifyCode);
             if (storagePosition == null) {
                 return false;
             } else {
-                Package aPackage=packageRepository.getByStorageMId(storagePosition.getmId());
-                if(Math.abs(aPackage.getmProxyChargeFee()-fee)>0.00001){
+                Package aPackage = packageRepository.getByStorageMId(storagePosition.getmId());
+                if (Math.abs(aPackage.getmProxyChargeFee() - fee) > 0.00001) {
                     return false;
                 }
                 //代收费记录
-                ProxyChargeRecord proxyChargeRecord=new ProxyChargeRecord(aPackage,fee,PROXY_CHARGE_RECE,new Date());
+                ProxyChargeRecord proxyChargeRecord = new ProxyChargeRecord(aPackage, fee, PROXY_CHARGE_RECE, new Date());
                 proxyChargeRecordRepository.saveAndFlush(proxyChargeRecord);
 
                 aPackage.setmTaken(true);
@@ -131,13 +117,13 @@ public class PackageService {
 
                 storagePosition.setmEmpty(POSTION_EMPTY);
                 storagePositionreRepository.saveAndFlush(storagePosition);
-                if(storagePosition.ismCuporShelf()==POSITION_IN_SHELF){
-                    Shelf shelf=storagePosition.getmShelf();
-                    shelf.setmEmptySum(shelf.getmEmptySum()+1);
+                if (storagePosition.ismCuporShelf() == POSITION_IN_SHELF) {
+                    Shelf shelf = storagePosition.getmShelf();
+                    shelf.setmEmptySum(shelf.getmEmptySum() + 1);
                     shelfRepository.saveAndFlush(shelf);
-                }else{
-                    SmartCupboard smartCupboard=storagePosition.getmCup();
-                    smartCupboard.setmEmptySum(smartCupboard.getmEmptySum()+1);
+                } else {
+                    SmartCupboard smartCupboard = storagePosition.getmCup();
+                    smartCupboard.setmEmptySum(smartCupboard.getmEmptySum() + 1);
                     smartCupboardRepository.saveAndFlush(smartCupboard);
                 }
                 return true;
@@ -149,13 +135,13 @@ public class PackageService {
     }
 
     //根据取件码获得费用
-    public double getFee(String identifyCode){
+    public double getFee(String identifyCode) {
         try {
             StoragePosition storagePosition = storagePositionreRepository.findByMIdentifyCode(identifyCode);
             if (storagePosition == null) {
                 return -1;
             } else {
-                Package aPackage=packageRepository.getByStorageMId(storagePosition.getmId());
+                Package aPackage = packageRepository.getByStorageMId(storagePosition.getmId());
                 return aPackage.getmProxyChargeFee();
             }
         } catch (Exception e) {
@@ -195,17 +181,17 @@ public class PackageService {
     }
 
     //通过手机获得所有包裹
-    public List<Package> getPackageByTele(String tele){
+    public List<Package> getPackageByTele(String tele) {
         return packageRepository.findByMReceiverTele(tele);
     }
 
     @Transactional
     public List<Package> getPackageNoTakenByTele(String tele) {
-        List<Package> packageList=packageRepository.findByMPackageTeleBegin(tele);
-        Iterator<Package> it=packageList.iterator();
-        while (it.hasNext()){
-            Package aPackage=it.next();
-            if(aPackage.ismTaken()==true){
+        List<Package> packageList = packageRepository.findByMPackageTeleBegin(tele);
+        Iterator<Package> it = packageList.iterator();
+        while (it.hasNext()) {
+            Package aPackage = it.next();
+            if (aPackage.ismTaken() == true) {
                 it.remove();
             }
         }
@@ -213,10 +199,10 @@ public class PackageService {
     }
 
     @Transactional
-    public List<Package> getOvertime(){
+    public List<Package> getOvertime() {
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH,-2);
-        Timestamp t=new Timestamp(cal.getTimeInMillis());
+        cal.add(Calendar.DAY_OF_MONTH, -2);
+        Timestamp t = new Timestamp(cal.getTimeInMillis());
         return packageRepository.getOvertime(t);
     }
 

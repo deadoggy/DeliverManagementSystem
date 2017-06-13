@@ -47,8 +47,8 @@ function sendPackage(){
         $.ajax({
             type: "POST",
             url: "/sendrecord?id=" + packageId + "&weight=" + weight
-            + "&sName=" + sName + "&sTele=" + sTele + "&sAdderss=" + sAdderss + "&sProvince=" + sProvince
-            + "&rName=" + rName + "&rTele=" + rTele + "&rAdderss=" + rAdderss + "&rProvince=" + rProvince,
+            + "&sName=" + sName + "&sTele=" + sTele + "&sAdderss=" + sAdderss + "&sProvince=" + sProvince + "&sCity=" + sCity
+            + "&rName=" + rName + "&rTele=" + rTele + "&rAdderss=" + rAdderss + "&rProvince=" + rProvince + "&rCity=" + rCity,
             // data: {
             //     packageId: packageId,
             //     sName: sName,

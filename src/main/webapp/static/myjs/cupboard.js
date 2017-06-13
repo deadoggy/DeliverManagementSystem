@@ -16,7 +16,7 @@ function getAllCup(){
             if(res.status == "ok"){
                 str = '';
                 var data = res.cupboardList;
-                var len = (data.length > 10)? 10:data.length;
+                var len = (data.length > 20)? 20:data.length;
                 for(var i = 0; i < len; i++){
                     console.log(data[i]);
                     str +='<tr><td>'+data[i].cupboardId+'</td>'+'<td>'+data[i].sum+'</td>'+'<td>'+data[i].empty+'</td></tr>';
@@ -38,7 +38,7 @@ function getAllShelf(){
             if(res.status == "ok"){
                 str = '';
                 var data = res.shelfList;
-                var len = (data.length > 10)? 10:data.length;
+                var len = (data.length > 20)? 20:data.length;
                 for(var i = 0; i < len; i++){
                     str +='<tr><td>'+data[i].shelfId+'</td>'+'<td>'+data[i].sum+'</td>'+'<td>'+data[i].empty+'</td></tr>';
                 }
@@ -111,7 +111,14 @@ function addNewCupShelf(){
     var column = document.getElementById("column").value;
     var layer = document.getElementById("layer").value;
     var id = Math.floor((Math.random()) * 1000);
+    //console.log(point);
+    id = id.toString();
+    if(id.length == 1) id = "00" + id;
+    else if(id.length == 2) id = "0" + id;
+    else if(id.length == 0) id = "000" + id;
+
     if(pos=="cup"){
+        id = "2" + id;
         $.ajax({
             type: "POST",
             url: "/smartcupboard?id="+id+"&columnSum="+column+"&layerSum="+layer+"&businessId="+point,
@@ -131,6 +138,7 @@ function addNewCupShelf(){
         });
     }
     else if(pos=="shelf"){
+        id = "1" + id;
         $.ajax({
             type: "POST",
             url: "/shelf?id="+id+"&columnSum="+column+"&layerSum="+layer+"&businessId="+point,

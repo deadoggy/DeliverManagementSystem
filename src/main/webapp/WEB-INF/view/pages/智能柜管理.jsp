@@ -53,21 +53,6 @@
 			</tr>
 			</thead>
 			<tbody id="cupContent">
-			<tr>
-				<td>G01</td>
-				<td>100</td>
-				<td>36</td>
-			</tr>
-			<tr>
-				<td>G02</td>
-				<td>300</td>
-				<td>101</td>
-			</tr>
-			<tr>
-				<td>G03</td>
-				<td>200</td>
-				<td>22</td>
-			</tr>
 			</tbody>
 		</table>
 	</div>
@@ -98,7 +83,7 @@
 				</div>
 				<div class="six wide field">
 					<select class="form-control" id="point">
-						<option value="0">同济大学</option>
+						<option value="100">同济大学</option>
 					</select>
 				</div>
 			</div>
@@ -110,7 +95,7 @@
 					<label>列数</label>
 				</div>
 				<div class="six wide field">
-					<input type="text" name="containerName" id="column"/>
+					<input type="text" name="column" id="column"/>
 				</div>
 			</div>
 			<br />
@@ -121,8 +106,8 @@
 					<label>行数</label>
 				</div>
 
-				<div class="two wide field">
-					<input class="two wide" type="text" name="bigCell" id="layer"/>
+				<div class="six wide field">
+					<input type="text" name="layer" id="layer"/>
 				</div>
 			</div>
 			<br/><br/>

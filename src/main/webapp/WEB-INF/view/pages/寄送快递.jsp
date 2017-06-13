@@ -96,17 +96,6 @@
       </div>
   </div>
   </div>
-  <div class="field">
-    <label>寄件人地址</label>
-    <div class="fields">
-      <div class="twelve wide field">
-        <input type="text" name="shipping[address]" placeholder="街道信息" id="sAdderss">
-      </div>
-      <div class="four wide field">
-        <input type="text" name="shipping[address-2]" placeholder="备注">
-      </div>
-    </div>
-  </div>
   <div class="two fields" id="sPos">
     <div class="field">
       <label>省/特别行政区</label>
@@ -118,6 +107,17 @@
 
     </div>
   </div>
+     <div class="field">
+         <label>寄件人地址</label>
+         <div class="fields">
+             <div class="twelve wide field">
+                 <input type="text" name="shipping[address]" placeholder="街道信息" id="sAdderss">
+             </div>
+             <div class="four wide field">
+                 <input type="text" name="shipping[address-2]" placeholder="备注">
+             </div>
+         </div>
+     </div>
    <h1></h1>
    <div class="ui attached icon info message">
   <h4 class="ui header " style="color:#FBB100"><i class="plane icon"></i>运输信息</h4>
@@ -130,59 +130,59 @@
       </div>
   </div>
   
-  <div class="fields">
-    <div class="ten wide field">
-      <label>银行卡号码</label>
-      <input type="text" name="card[number]" maxlength="19" placeholder="卡号">
-    </div>
-    
-    <div class="six wide field">
-      <label>支付方式</label>
-      <div class="two fields">
-        <div class="field">
-          <select class="ui fluid search dropdown" name="card[expire-month]">
-            <option value="">支付宝</option>
-            <option value="1">Vista</option>
-            <option value="2">微信支付</option>
-            <option value="3">银行卡</option>
-            
-          </select>
-        </div>
-        <div class="field">
-          <input type="text" name="card[expire-year]" maxlength="4" placeholder="￥运费">
-        </div>
-      </div>
-    </div>
-  </div>
-   <h1></h1>
-    <div class="ui attached icon info message">
-  <h4 class="ui header " style="color:#FBB100"><i class="edit icon"></i>备注</h4>
-  </div>
-  <h2></h2>
-   <div class="field">
-    <label>货物备注：</label>
-    <div class="ui fluid multiple search selection dropdown">
-      <input type="hidden" name="receipt">
-      <i class="dropdown icon"></i>
-      <div class="default text">Saved Contacts</div>
-      <div class="menu">
-        <div class="item" data-value="jenny" data-text="Jenny"><img class="ui mini avatar image" src="/images/avatar/small/jenny.jpg"> Jenny Hess </div>
-        <div class="item" data-value="elliot" data-text="Elliot"><img class="ui mini avatar image" src="/images/avatar/small/elliot.jpg"> Elliot Fu </div>
-        <div class="item" data-value="stevie" data-text="Stevie"><img class="ui mini avatar image" src="/images/avatar/small/stevie.jpg"> Stevie Feliciano </div>
-        <div class="item" data-value="christian" data-text="Christian"><img class="ui mini avatar image" src="/images/avatar/small/christian.jpg"> Christian </div>
-        <div class="item" data-value="matt" data-text="Matt"><img class="ui mini avatar image" src="/images/avatar/small/matt.jpg"> Matt </div>
-        <div class="item" data-value="justen" data-text="Justen"><img class="ui mini avatar image" src="/images/avatar/small/justen.jpg"> Justen Kitsune </div>
-      </div>
-    </div>
-  </div>
-   <div class="ui segment">
-    <div class="field">
-      <div class="ui toggle checkbox">
-        <input type="checkbox" name="gift" tabindex="0" class="hidden">
-        <label>同意接收到货通知短信</label>
-      </div>
-    </div>
-  </div>
+  <%--<div class="fields">--%>
+    <%--<div class="ten wide field">--%>
+      <%--<label>银行卡号码</label>--%>
+      <%--<input type="text" name="card[number]" maxlength="19" placeholder="卡号">--%>
+    <%--</div>--%>
+    <%----%>
+    <%--<div class="six wide field">--%>
+      <%--<label>支付方式</label>--%>
+      <%--<div class="two fields">--%>
+        <%--<div class="field">--%>
+          <%--<select class="ui fluid search dropdown" name="card[expire-month]">--%>
+            <%--<option value="">支付宝</option>--%>
+            <%--<option value="1">Vista</option>--%>
+            <%--<option value="2">微信支付</option>--%>
+            <%--<option value="3">银行卡</option>--%>
+            <%----%>
+          <%--</select>--%>
+        <%--</div>--%>
+        <%--<div class="field">--%>
+          <%--<input type="text" name="card[expire-year]" maxlength="4" placeholder="￥运费">--%>
+        <%--</div>--%>
+      <%--</div>--%>
+    <%--</div>--%>
+  <%--</div>--%>
+   <%--<h1></h1>--%>
+    <%--<div class="ui attached icon info message">--%>
+  <%--<h4 class="ui header " style="color:#FBB100"><i class="edit icon"></i>备注</h4>--%>
+  <%--</div>--%>
+  <%--<h2></h2>--%>
+   <%--<div class="field">--%>
+    <%--<label>货物备注：</label>--%>
+    <%--<div class="ui fluid multiple search selection dropdown">--%>
+      <%--<input type="hidden" name="receipt">--%>
+      <%--<i class="dropdown icon"></i>--%>
+      <%--<div class="default text">Saved Contacts</div>--%>
+      <%--<div class="menu">--%>
+        <%--<div class="item" data-value="jenny" data-text="Jenny"><img class="ui mini avatar image" src="/images/avatar/small/jenny.jpg"> Jenny Hess </div>--%>
+        <%--<div class="item" data-value="elliot" data-text="Elliot"><img class="ui mini avatar image" src="/images/avatar/small/elliot.jpg"> Elliot Fu </div>--%>
+        <%--<div class="item" data-value="stevie" data-text="Stevie"><img class="ui mini avatar image" src="/images/avatar/small/stevie.jpg"> Stevie Feliciano </div>--%>
+        <%--<div class="item" data-value="christian" data-text="Christian"><img class="ui mini avatar image" src="/images/avatar/small/christian.jpg"> Christian </div>--%>
+        <%--<div class="item" data-value="matt" data-text="Matt"><img class="ui mini avatar image" src="/images/avatar/small/matt.jpg"> Matt </div>--%>
+        <%--<div class="item" data-value="justen" data-text="Justen"><img class="ui mini avatar image" src="/images/avatar/small/justen.jpg"> Justen Kitsune </div>--%>
+      <%--</div>--%>
+    <%--</div>--%>
+  <%--</div>--%>
+   <%--<div class="ui segment">--%>
+    <%--<div class="field">--%>
+      <%--<div class="ui toggle checkbox">--%>
+        <%--<input type="checkbox" name="gift" tabindex="0" class="hidden">--%>
+        <%--<label>同意接收到货通知短信</label>--%>
+      <%--</div>--%>
+    <%--</div>--%>
+  <%--</div>--%>
   <div class="ui button" tabindex="0" style="float:right" onclick="sendPackage()">提交订单</div>
 </form>
 

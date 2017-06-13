@@ -62,4 +62,7 @@ public class SendingService {
         return sendingRecordRepository.getSendingRecordBegin(sendingRecordId);
     }
 
+    public List<SendingRecord> getAll(){
+        return sendingRecordRepository.findAll();
+    }
 }

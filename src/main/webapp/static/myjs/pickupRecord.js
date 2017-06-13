@@ -8,7 +8,7 @@ function pickupQuery(){
     var goodId = document.getElementById("goodId").value;
     $.ajax({
         type: "GET",
-        url: "/package/taken/id?id=" + goodId,
+        url: "/package/taken/" + goodId,
         dataType: "json",
         success: function(res){
             console.log(res);
@@ -17,7 +17,8 @@ function pickupQuery(){
                 var data = res.packageList;
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
-                    str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].rName+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
+                    // str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].rName+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
+                    str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
                 }
                 $("#pickupContent").html(str);
             }else{
@@ -49,7 +50,8 @@ function getAllTaken() {
                 var data = res.packageList;
                 var len = (data.length > 10)? 10:data.length;
                 for(var i = 0; i < len; i++){
-                    str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].rName+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
+                    // str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].rName+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
+                    str +='<tr><td>'+data[i].packageId+'</td>'+'<td>'+data[i].position+'</td>'+'<td>'+data[i].takenTime+'</td></tr>';
                 }
                 $("#pickupContent").html(str);
             } else {

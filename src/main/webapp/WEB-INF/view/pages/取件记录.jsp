@@ -37,42 +37,12 @@
 					<tr>
 						<th>货物单号</th>
 						<th>位置信息</th>
-						<th>取件人</th>
-						<th>时间</th>
+						<%--<th>取件人</th>--%>
+						<th>取件时间</th>
 						
 					</tr>
 				</thead>
 				<tbody id="pickupContent">
-					<tr>
-						<td>ID01</td>
-						<td>G54</td>
-						<td>未取走</td>
-						<td>2017/4/17 13:00:00</td>
-					</tr>
-					<tr>
-						<td>ID02</td>
-						<td>G56</td>
-						<td>客户取走</td>
-						<td>2017/4/17 13:00:00</td>
-					</tr>
-					<tr>
-						<td>ID03</td>
-						<td>G57</td>
-						<td>过期店员取走</td>
-						<td>2017/4/17 13:00:00</td>
-					</tr>
-					<tr>
-						<td>ID04</td>
-						<td>G58</td>
-						<td>客户取走</td>
-						<td>2017/4/17 13:00:00</td>
-					</tr>
-					<tr>
-						<td>ID05</td>
-						<td>G60</td>
-						<td>客户取走</td>
-						<td>2017/4/17 13:00:00</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>	

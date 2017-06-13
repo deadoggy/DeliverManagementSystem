@@ -157,7 +157,7 @@ pageEncoding="utf-8"%>
 		<a class=" item" href="#" data-tab="sm1">快递入库</a>
 		<a class="item" href="#" data-tab="sm2">快递取件</a>
 		<a class="item" href="#" data-tab="sm3">寄送快递</a>
-		<a class="item" href="#" data-tab="sm4">违禁品查询</a>
+		<%--<a class="item" href="#" data-tab="sm4">违禁品查询</a>--%>
 		<a class="item" href="#" data-tab="sm5">高级管理</a>
 	</div>
 </div>
@@ -184,7 +184,7 @@ pageEncoding="utf-8"%>
         <div class="field">
           <div class="ui left icon input">
             <i class="user icon"></i>
-            <input type="text" name="username" placeholder="用户名">
+            <input type="text" name="username" placeholder="用户ID">
           </div>
         </div>
         <div class="field">

@@ -78,7 +78,7 @@ public class SendingRecordController {
                     httpServletRequest.getParameter("sTele"), httpServletRequest.getParameter("sAdderss"),
                     httpServletRequest.getParameter("sCity"), httpServletRequest.getParameter("sProvince"),
                     httpServletRequest.getParameter("rName"), httpServletRequest.getParameter("rTele"),
-                    httpServletRequest.getParameter("rAddress"), httpServletRequest.getParameter("rCity"),
+                    httpServletRequest.getParameter("rAdderss"), httpServletRequest.getParameter("rCity"),
                     httpServletRequest.getParameter("rProvince"), Double.valueOf(httpServletRequest.getParameter("weight")));
             if (flag == false) {
                 jsonObject.put("status", "fail");
@@ -93,6 +93,42 @@ public class SendingRecordController {
             jsonObject.put("status", "fail");
             jsonObject.put("reason", "请求失败");
             return jsonObject.toJSONString();
+        }
+    }
+
+    @RequestMapping(value = "/sendrecord/all",method = RequestMethod.GET)
+    public String getAll(){
+        try{
+            List<SendingRecord> sendingRecordList=sendingService.getAll();
+            if(sendingRecordList==null){
+                return "{\"status\": \"fail\", \"reason\" : \"请求失败\"}";
+            }else{
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put("status", "ok");
+                JSONArray jsonArray = new JSONArray();
+                for (SendingRecord sendingRecord:sendingRecordList) {
+                    JSONObject sendingRecordObject = new JSONObject();
+                    sendingRecordObject.put("id", sendingRecord.getmSending_record_id());
+                    sendingRecordObject.put("sName",sendingRecord.getmSenderName());
+                    sendingRecordObject.put("sAddress",sendingRecord.getmSenderAddress());
+                    sendingRecordObject.put("sCity",sendingRecord.getmSenderCity());
+                    sendingRecordObject.put("sProvince",sendingRecord.getmSenderProvince());
+                    sendingRecordObject.put("sTele",sendingRecord.getmSenderTele());
+                    sendingRecordObject.put("sTime",sendingRecord.getmSendTime());
+                    sendingRecordObject.put("rName",sendingRecord.getmReceiverName());
+                    sendingRecordObject.put("rAddress",sendingRecord.getmReceiverAddress());
+                    sendingRecordObject.put("rCity",sendingRecord.getmReceiverCity());
+                    sendingRecordObject.put("rProvince",sendingRecord.getmReceiverProvince());
+                    sendingRecordObject.put("rTele",sendingRecord.getmReceiverTele());
+                    sendingRecordObject.put("weight",sendingRecord.getmWeight());
+                    jsonArray.add(sendingRecordObject);
+                }
+                jsonObject.put("sendingRecordList", jsonArray);
+                return jsonObject.toJSONString();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return "{\"status\": \"fail\", \"reason\" : \"请求失败\"}";
         }
     }
 }

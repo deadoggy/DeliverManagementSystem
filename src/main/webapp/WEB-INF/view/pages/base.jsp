@@ -41,7 +41,7 @@
 		<a class="item " href="/store_package" id="seg1">快递入库</a>
 		<a class="item" href="/search_package" id="seg2">快递取件</a>
 		<a class="item" href="/send_package" id="seg3">寄送快递</a>
-		<a class="item" href="/contraband_inquiry" id="seg4">违禁品查询</a>
+		<%--<a class="item" href="/contraband_inquiry" id="seg4">违禁品查询</a>--%>
 		<a class="item" href="/generate_form" id="seg5">高级管理</a>
 	</div>
 </div>
@@ -54,12 +54,12 @@
 			  <div class="ui bottom attached buttons" id="uploadDiv" >
 				  <div class="ui button uploadBtn" onclick="showUpload()"><i class="file image outline icon"></i>上传头像</div>
 			  </div>
-		    <img src="/static/temp/watchmen-horizontal.jpg" id="imgContent">
+		    <img src="" id="imgContent"  onError='this.src="/static/temp/watchmen-horizontal.jpg"'>
 		  </div>
 
 			 <%!
 				 String username = "Vsooong";
-				 String id = "1452693";
+				 String id = "01";
 				 String position = "店员";
 			 %>
 			 <%
@@ -107,7 +107,7 @@
             setRCHeight();
 
             var initImg = document.getElementById("imgContent");
-            var id = "01";
+            var id = "<%=id %>";;
             initImg.src = "ftp://139.129.18.35/" + id;
 
             document.getElementById("userImg").onmouseover = function(){

@@ -36,6 +36,26 @@
 			<h2></h2>
 			 <div>
 				 <h2 class="ui header">
+					 <i class="yen icon blue"></i>
+					 <div class="content">
+						 运费
+					 </div>
+				 </h2>
+				 <div class="ui divider"></div>
+				 <div style="display:flex ;justify-content:space-between;" >
+					 <div class="ui input focus" style="width:36em">
+						 <input type="text" placeholder="请输入运费" id="fee" required>
+					 </div>
+
+					 <div class="text" style="margin-right: 22em;margin-top: 1.2%">元
+					 </div>
+				 </div>
+			 </div>
+			 <p></p>
+			 <h1></h1>
+			 <h2></h2>
+			 <div>
+				 <h2 class="ui header">
 					 <i class="shipping icon blue"></i>
 					 <div class="content">
 						 快递公司
@@ -177,12 +197,12 @@
 						<div class="content">
 							<div class="ui grid">
 								<div class="six wide column">
-									<div class="ui input focus" id="newComIDInput">
+									<div class="ui input focus" id="newComIDInput" style="width: 100%;">
 										<input type="text" placeholder="请输入公司ID" id="newComID" onchange="removeErrorNewID()">
 									</div>
 								</div>
 								<div class="six wide column">
-									<div class="ui input focus" id="newComNameInput">
+									<div class="ui input focus" id="newComNameInput" style="width: 100%;">
 										<input type="text" placeholder="请输入公司名" id="newComName" onchange="removeErrorNewName()">
 									</div>
 								</div>

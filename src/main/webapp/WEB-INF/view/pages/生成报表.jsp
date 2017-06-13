@@ -77,25 +77,7 @@
 				<h3 class="ui block header">结果图表</h3>
 				<div><br/></div>
 				<table class="ui table" id="formContent">
-					<thead>
-						<tr>
-							<th>Column1</th>
-							<th>Column2</th>
-							<th>Column3</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>xxx</td>
-							<td>xxx</td>
-							<td>xxx</td>
-						</tr>
-						<tr>
-							<td>xxx</td>
-							<td>xxx</td>
-							<td>xxx</td>
-						</tr>
-					</tbody>
+
 				</table>
 				<br /><br /><br />
 				<img src="/static/temp/pie.png" alt="chart1" />

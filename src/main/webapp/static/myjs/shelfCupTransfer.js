@@ -7,16 +7,16 @@ $(function (){
  */
 
 function shelfCupTransfer(){
-    var menuFrom = document.getElementById("menuFrom").getElementsByClassName("item active selected");
+    //var menuFrom = document.getElementById("menuFrom").getElementsByClassName("item active selected");
     var menuTo = document.getElementById("menuTo").getElementsByClassName("item active selected");
 
     var fromPos = document.getElementById("fromPos").value;
     var toPos = document.getElementById("toPos").value;
 
-    if(menuFrom.length == 0 || menuTo.length == 0){
-        $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请选择存放位置!</p></div>');
-    }
-    else if(fromPos == "" || toPos==""){
+    // if(menuFrom.length == 0 || menuTo.length == 0){
+    //     $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请选择存放位置!</p></div>');
+    // }
+    if(fromPos == "" || toPos==""){
         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请输入存放位置!</p></div>');
     }
     else{

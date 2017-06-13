@@ -59,45 +59,7 @@
 					</tr>
 				</thead>
 				<tbody id="accountContent">
-					<tr>
-						<td>JD001</td>
-						<td>张三</td>
-						<th>职员</th>
-						<td>男</td>
-						<td>33</td>
-						<td>133xxxxxxxx</td>
-						<td>3000</td>
-						<td>A</td>
-						<td><button class="ui yellow button">编辑</button>
-							<button class="ui red button">删除</button>
-						</td>
-					</tr>
-					<tr>
-						<td>JD002</td>
-						<td>李四</td>
-						<th>职员</th>
-						<td>女</td>
-						<td>31</td>
-						<td>133xxxxxxxx</td>
-						<td>2800</td>
-						<td>B</td>
-						<td><button class="ui yellow button">编辑</button>
-							<button class="ui red button">删除</button>
-						</td>
-					</tr>
-					<tr>
-						<td>JD003</td>
-						<td>王五</td>
-						<th>职员</th>
-						<td>女</td>
-						<td>31</td>
-						<td>133xxxxxxxx</td>
-						<td>2900</td>
-						<td>B</td>
-						<td><button class="ui yellow button">编辑</button>
-							<button class="ui red button">删除</button>
-						</td>
-					</tr>
+
 				</tbody>
 			</table>
 		</div>
@@ -218,10 +180,13 @@
 					<div class="two wide field">
 						<label>营业网点</label>
 					</div>
-				
+
 					<div class="six wide field">
-						<input type="text" name="position" id="point"/>
+						<select class="form-control" id="point">
+							<option value="100">同济大学</option>
+						</select>
 					</div>
+
 				</div>
 				<br/>
 
@@ -274,12 +239,12 @@
 				<div class="content">
 					<div class="ui grid">
 						<div class="six wide column">
-							<div class="ui input focus" id="newPwd1Input" style="width: 100%">
+							<div class="ui input" id="newPwd1Input" style="width: 100%">
 								<input type="password" placeholder="请输入新密码" id="newPwd1" oninput="removeErrorPwd1()">
 							</div>
 						</div>
 						<div class="six wide column">
-							<div class="ui input focus" id="newPwd2Input" style="width: 100%">
+							<div class="ui input" id="newPwd2Input" style="width: 100%">
 								<input type="password" placeholder="请再次输入确认新密码" id="newPwd2" oninput="removeErrorPwd2()">
 							</div>
 						</div>

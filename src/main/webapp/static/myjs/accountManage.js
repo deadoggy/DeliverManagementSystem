@@ -38,6 +38,7 @@ function searchAccount(){
     var queryValue = document.getElementById("queryValue").value;
     if(queryValue == ""){
         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>请输入查询条件</p></div>');
+        getAllAccount();
         return;
     }
 

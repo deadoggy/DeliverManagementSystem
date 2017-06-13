@@ -78,7 +78,7 @@ public class SendingRecordController {
                     httpServletRequest.getParameter("sTele"), httpServletRequest.getParameter("sAdderss"),
                     httpServletRequest.getParameter("sCity"), httpServletRequest.getParameter("sProvince"),
                     httpServletRequest.getParameter("rName"), httpServletRequest.getParameter("rTele"),
-                    httpServletRequest.getParameter("rAddress"), httpServletRequest.getParameter("rCity"),
+                    httpServletRequest.getParameter("rAdderss"), httpServletRequest.getParameter("rCity"),
                     httpServletRequest.getParameter("rProvince"), Double.valueOf(httpServletRequest.getParameter("weight")));
             if (flag == false) {
                 jsonObject.put("status", "fail");

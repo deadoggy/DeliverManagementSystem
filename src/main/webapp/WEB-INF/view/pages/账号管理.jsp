@@ -59,45 +59,7 @@
 					</tr>
 				</thead>
 				<tbody id="accountContent">
-					<tr>
-						<td>JD001</td>
-						<td>张三</td>
-						<th>职员</th>
-						<td>男</td>
-						<td>33</td>
-						<td>133xxxxxxxx</td>
-						<td>3000</td>
-						<td>A</td>
-						<td><button class="ui yellow button">编辑</button>
-							<button class="ui red button">删除</button>
-						</td>
-					</tr>
-					<tr>
-						<td>JD002</td>
-						<td>李四</td>
-						<th>职员</th>
-						<td>女</td>
-						<td>31</td>
-						<td>133xxxxxxxx</td>
-						<td>2800</td>
-						<td>B</td>
-						<td><button class="ui yellow button">编辑</button>
-							<button class="ui red button">删除</button>
-						</td>
-					</tr>
-					<tr>
-						<td>JD003</td>
-						<td>王五</td>
-						<th>职员</th>
-						<td>女</td>
-						<td>31</td>
-						<td>133xxxxxxxx</td>
-						<td>2900</td>
-						<td>B</td>
-						<td><button class="ui yellow button">编辑</button>
-							<button class="ui red button">删除</button>
-						</td>
-					</tr>
+
 				</tbody>
 			</table>
 		</div>

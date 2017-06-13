@@ -53,21 +53,6 @@
 			</tr>
 			</thead>
 			<tbody id="cupContent">
-			<tr>
-				<td>G01</td>
-				<td>100</td>
-				<td>36</td>
-			</tr>
-			<tr>
-				<td>G02</td>
-				<td>300</td>
-				<td>101</td>
-			</tr>
-			<tr>
-				<td>G03</td>
-				<td>200</td>
-				<td>22</td>
-			</tr>
 			</tbody>
 		</table>
 	</div>

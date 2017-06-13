@@ -53,46 +53,7 @@
 					</tr>
 				</thead>
 				<tbody id="goodContent">
-					<tr>
-						<td>ID01</td>
-						<td>G54</td>
-						<td>2017/4/17 13:00:00</td>
-						<td>48h</td>
-						<td>刘伟：133xxxxxxxx</td>
-						<td><button class="ui yellow button" onclick="confirmBox()">取件</button></td>
-					</tr>
-					<tr>
-						<td>ID03</td>
-						<td>G56</td>
-						<td>2017/4/17 13:00:00</td>
-						<td>48h</td>
-						<td>张三：133xxxxxxxx</td>
-						<td><button class="ui yellow button">取件</button></td>
-					</tr>
-					<tr>
-						<td>ID07</td>
-						<td>G34</td>
-						<td>2017/4/17 13:00:00</td>
-						<td>48h</td>
-						<td>李四：133xxxxxxxx</td>
-						<td><button class="ui yellow button">取件</button></td>
-					</tr>
-					<tr>
-						<td>ID09</td>
-						<td>G04</td>
-						<td>2017/4/17 13:00:00</td>
-						<td>48h</td>
-						<td>王五：133xxxxxxxx</td>
-						<td><button class="ui yellow button">取件</button></td>
-					</tr>
-					<tr>
-						<td>ID06</td>
-						<td>G26</td>
-						<td>2017/4/17 13:00:00</td>
-						<td>48h</td>
-						<td>赵六：133xxxxxxxx</td>
-						<td><button class="ui yellow button">取件</button></td>
-					</tr>
+
 				</tbody>
 			</table>
 		</div>	

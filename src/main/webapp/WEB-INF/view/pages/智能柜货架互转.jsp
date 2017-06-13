@@ -26,19 +26,19 @@
 			  		<input type="text" placeholder="请输入货物的位置，格式为：货架号-行-列" id="fromPos">
 			    </div>
 				
-				   <div class="ui floating labeled icon dropdown button">
-				    <i class="wrench icon"></i>
-					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-					  <span class="text">请选择转出位置</span>
-					  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>	  <div class="menu" id="menuFrom">
-					    <div class="item">
-					      <span class="text">智能柜</span>
-					    </div>
-					    <div class="item">
-					      <span class="text">货架</span>
-					    </div>
-					  </div>
-					</div>
+				   <%--<div class="ui floating labeled icon dropdown button">--%>
+				    <%--<i class="wrench icon"></i>--%>
+					  <%--<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>--%>
+					  <%--<span class="text">请选择转出位置</span>--%>
+					  <%--<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>	  <div class="menu" id="menuFrom">--%>
+					    <%--<div class="item">--%>
+					      <%--<span class="text">智能柜</span>--%>
+					    <%--</div>--%>
+					    <%--<div class="item">--%>
+					      <%--<span class="text">货架</span>--%>
+					    <%--</div>--%>
+					  <%--</div>--%>
+					<%--</div>--%>
 					
 				<%--<div class="ui animated fade button" tabindex="0">--%>
 				  <%--<div class="visible content">自动生成</div>--%>

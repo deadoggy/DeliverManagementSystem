@@ -54,7 +54,7 @@
 			  <div class="ui bottom attached buttons" id="uploadDiv" >
 				  <div class="ui button uploadBtn" onclick="showUpload()"><i class="file image outline icon"></i>上传头像</div>
 			  </div>
-		    <img src="/static/temp/watchmen-horizontal.jpg" id="imgContent"  onError='this.src="/static/temp/watchmen-horizontal.jpg"'>
+		    <img src="" id="imgContent"  onError='this.src="/static/temp/watchmen-horizontal.jpg"'>
 		  </div>
 
 			 <%!

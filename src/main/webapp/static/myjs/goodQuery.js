@@ -153,7 +153,8 @@ function confirm(){
             dataType: "json",
             success: function (res) {
                 if (res.status == "ok") {
-                    $.fancybox.open('<div class="message"><h2>Failed!</h2><p>取件成功</p></div>');
+                    $.fancybox.open('<div class="message"><h2>Success!</h2><p>取件成功</p></div>');
+                    setTimeout("location.reload(true)",3000);
                 } else {
                     $.fancybox.open('<div class="message"><h2>Failed!</h2><p>' + res.reason + '</p></div>');
                 }

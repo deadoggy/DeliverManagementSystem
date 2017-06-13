@@ -88,6 +88,8 @@ public class FTPService {
             in.close();
             client.close();
 
+            upFile.delete();
+
         }catch(Exception e){
             e.printStackTrace();
             throw e;

@@ -70,7 +70,7 @@ public interface PackageRepository extends JpaRepository<Package, Integer>{
     @Query("select p from Package as p where p.mTaken=0 and p.mPackageId like ?1%")
     List<Package> findNoTakenMPackageIdBegin(String id);
 
-    @Query("select p from Package as p where p.mTaken=1 and p.mPackageId like ?1%")
+    @Query("select p from Package as p where p.mTaken=true and p.mPackageId like ?1%")
     List<Package> findTakenMPackageIdBegin(String id);
 
 }

@@ -247,7 +247,7 @@ public class PackageController {
 
     }
 
-        //已查
+
     //包裹入库
     @RequestMapping(value = "/package", method = RequestMethod.POST)
     public String add(HttpServletRequest httpServletRequest) {
@@ -268,9 +268,14 @@ public class PackageController {
                 return "{\"status\": \"fail\", \"reason\" : \"没有这家快递公司\"}";
             }
 
+            double fee=Double.valueOf(httpServletRequest.getParameter("fee"));
+            if(fee<0){
+                return "{\"status\": \"fail\", \"reason\" : \"快递费用不能为负\"}";
+           }
+
             boolean flag = packageService.addPackage(id, deliverCompany,
                     httpServletRequest.getParameter("receiverName"), httpServletRequest.getParameter("receiverTele"),
-                    storagePosition);
+                    fee,storagePosition);
 
             if (flag == false) {
                 jsonObject.put("status", "fail");
@@ -375,7 +380,7 @@ public class PackageController {
     }
 
     //强制开柜
-    @RequestMapping(value = "package/force/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/package/force/{storageId}", method = RequestMethod.GET)
     public String forceOpen(@PathVariable String storageId) {
         try {
             boolean flag = storageService.forceOpen(storageId);

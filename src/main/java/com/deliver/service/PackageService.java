@@ -58,12 +58,12 @@ public class PackageService {
 
     //将快件加入到一个智能柜or货架的位置上
     @Transactional
-    public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, StoragePosition storagePosition) {
+    public boolean addPackage(String id, DeliverCompany deliverCompany, String receiverName, String receiverTele, double fee, StoragePosition storagePosition) {
         try {
             Package aPackage = new Package();
             aPackage.setmCupOrShelf(storagePosition.ismCuporShelf());
             aPackage.setmPackageId(id);
-            aPackage.setmProxyChargeFee(0);
+            aPackage.setmProxyChargeFee(fee);
             aPackage.setmReceiveTime(new Timestamp(System.currentTimeMillis()));
             aPackage.setmReceiverName(receiverName);
             aPackage.setmReceiverTele(receiverTele);

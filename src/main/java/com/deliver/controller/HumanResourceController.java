@@ -178,8 +178,7 @@ public class HumanResourceController {
     }
 
     @RequestMapping(value = "/remove_em/{id}", method = RequestMethod.GET)
-    public String removeEmployee(HttpServletRequest request){
-        String id = request.getParameter("id");
+    public String removeEmployee(@PathVariable String id){
         if(this.humanManageService.removeEmployee(id)){
             return "true";
         }else{

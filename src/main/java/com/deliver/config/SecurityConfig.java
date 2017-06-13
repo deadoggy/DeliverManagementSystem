@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //静态资源通过nginx访问, 其他资源通过tomcat访问
         try{
             http.authorizeRequests()
-                    .antMatchers("/**").permitAll()
+                    //.antMatchers("/**").permitAll()
                     .antMatchers("/checkCode**").permitAll()
                     .antMatchers("/code").permitAll()
                     .antMatchers("/static/**").permitAll()

@@ -30,22 +30,22 @@ public class RedisService {
         config.setMaxWaitMillis(10000);
         config.setTestOnBorrow(false);
 
-//        try{
-//            pool = new JedisPool(config,localhost, 6379);
-//            //测试连接
-//            Jedis connector = pool.getResource();
-//            this.usingHost = localhost;
-//        }catch(Exception e){
-//            try{//本地redis没有正常启动
-//                pool = new JedisPool(config, remotehost, 6379, 10000, "deliversystem");
-//                //测试连接
-//                Jedis connector = pool.getResource();
-//                this.usingHost = remotehost;
-//            }catch(Exception e2){
-//                e2.printStackTrace();
-//                throw e2;
-//            }
-//        }
+        try{
+            pool = new JedisPool(config,localhost, 6379);
+            //测试连接
+            Jedis connector = pool.getResource();
+            this.usingHost = localhost;
+        }catch(Exception e){
+            try{//本地redis没有正常启动
+                pool = new JedisPool(config, remotehost, 6379, 10000, "deliversystem");
+                //测试连接
+                Jedis connector = pool.getResource();
+                this.usingHost = remotehost;
+            }catch(Exception e2){
+                e2.printStackTrace();
+                throw e2;
+            }
+        }
     }
 
     public static RedisService getInstance(){

@@ -89,28 +89,28 @@ pageEncoding="utf-8"%>
 
       var form = document.getElementById("login_form")
 
-      var code = form.elements[2].value
+      var code = form.elements[3].value
 
       function selfCallback(){
-          //alert("callback:"+request.readyState)
+          console.log("callback:"+request.readyState)
           if(null == request.responseText){
               console.log("null");
           }else{
               console.log(request.responseText);
           }
 
-          if(request.responseText == "true" && 3 == request.readyState){
+          if(request.responseText == "true" /*&& 3 == request.readyState && 200 == request.status*/){
               var postForm = document.createElement("form") //表单对象
               postForm.method="post"
               postForm.action = '/login'
 
               var usernameInput = document.createElement("input") ; //username input
               usernameInput.setAttribute("name", "username") ;
-              usernameInput.setAttribute("value", form.elements[0].value);
+              usernameInput.setAttribute("value", form.elements[1].value);
               postForm.appendChild(usernameInput) ;
               var pwdInput = document.createElement("input");// password input
               pwdInput.setAttribute("name","password");
-              pwdInput.setAttribute("value",form.elements[1].value);
+              pwdInput.setAttribute("value",form.elements[2].value);
               postForm.appendChild(pwdInput);
 //              $.post("/login", { username: form.elements[0].value, password: form.elements[1].value },
 //              function (result) {
@@ -136,7 +136,7 @@ pageEncoding="utf-8"%>
       request.open("GET", "http://" + host + "/checkCode?code=" + code)
       //alert("after open:" + request.readyState)
       request.onreadystatechange = selfCallback
-      request.timeout = 3000;
+      request.timeout = 30000;
       //alert("before:" + request.readyState)
       request.send()
 

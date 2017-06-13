@@ -274,7 +274,7 @@ public class FormService {
 
             for(SendingRecord rec : list){
                 JSONObject item = new JSONObject();
-                item.put("package", rec.getmPackage().getmPackageId());
+                item.put("package", rec.getmSending_record_id());
                 item.put("company",rec.getmCompany().getmName());
                 item.put("sender", rec.getmSenderName());
                 item.put("sender_phone", rec.getmSenderTele());

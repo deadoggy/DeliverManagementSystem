@@ -121,6 +121,29 @@ public class HumanManageService {
         }
     }
 
+
+
+    public Class<?> getParameterType(String methodName, Class<?> targetClass){
+        try{
+            Method[] meths = targetClass.getDeclaredMethods();
+            for(Method m : meths){
+                if(0 == m.getName().compareTo(methodName)){
+                    Class<?>[] paraList =  m.getParameterTypes();
+                    if(null != paraList){
+                        return paraList[0];
+                    }else{
+                        return null;
+                    }
+                }
+            }
+
+            return null;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /*
     *attribute:
     *   Name
@@ -140,15 +163,19 @@ public class HumanManageService {
                 throw new Exception("no such an employee");
             }
 
-            Field[] allFiled = employee.getClass().getFields();
+            Field[] allFiled = employee.getClass().getDeclaredFields();
             String fieldName = "m" + attribute;
             for(Field field : allFiled){
                 if(0 == field.getName().compareTo(fieldName)){
 
                     String methodName = "set" + fieldName;
-                    Method method = employee.getClass().getMethod(methodName);
-                    method.invoke(employee, newValue);
-                    return true;
+                    Class<?> paraType = this.getParameterType(methodName, employee.getClass());
+                    if(null != paraType){
+                        Method method = employee.getClass().getMethod(methodName, paraType);
+                        method.invoke(employee, newValue);
+                        employeeRepository.saveAndFlush(employee);
+                        return true;
+                    }
                 }
             }
             throw new Exception("no such attribute");

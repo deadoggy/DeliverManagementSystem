@@ -159,7 +159,7 @@ public class HumanResourceController {
             boolean res;
 
             if(0 == attribute.compareTo("Salary")){
-                res = this.humanManageService.changeAttribute(id, attribute, Long.parseLong(val));
+                res = this.humanManageService.changeAttribute(id, attribute, Float.parseFloat(val));
             }else{
                 res = this.humanManageService.changeAttribute(id, attribute, val);
             }

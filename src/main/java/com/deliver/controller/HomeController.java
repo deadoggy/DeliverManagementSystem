@@ -43,15 +43,27 @@ public class HomeController {
         return "login";
     }
 
-    @RequestMapping({"/home"})
+
+    @RequestMapping({"/home", "/"})
     public String homePage(HttpServletRequest request, HttpServletResponse response){
 
         Employee em = employeeRepository.findByMEmployeeId(/*request.getRemoteUser()*/"1452716");
 
-        Cookie id = new Cookie("id", em.getmEmployeeId());
-        Cookie name = new Cookie("name", em.getmName());
+        String idStr, nameStr, posStr;
+        if(null == em){
+            idStr = "null";
+            nameStr = "name";
+            posStr = "null";
+        }else {
+            idStr = em.getmEmployeeId();
+            nameStr = em.getmName();
+            posStr = em.getmPosition().size() == 0? "" : em.getmPosition().get(0).getmName();
+        }
 
-        String posStr = em.getmPosition().size() == 0? "" : em.getmPosition().get(0).getmName();
+        Cookie id = new Cookie("id", idStr);
+        Cookie name = new Cookie("name", nameStr);
+
+
         Cookie pos = new Cookie("pos", posStr);
 
         response.addCookie(id);
@@ -119,12 +131,5 @@ public class HomeController {
 
     @RequestMapping({"/contraband_inquiry"})
     public String contrabandInquiryPage() { return "contraband_inquiry"; }
-
-    @RequestMapping({"/"})
-    public String down(){
-        return "test";
-    }
-
-
 
 }

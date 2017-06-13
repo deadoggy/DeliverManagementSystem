@@ -95,7 +95,8 @@ public class ShortMesgService {
             String point = "同济大学";
 
             //TODO: 根据快递信息生成取件码
-            String takenCode = "test_code";
+            String takenCode = p.getmPosition().getmIdentifyCode();
+
 
             String url = null;
 

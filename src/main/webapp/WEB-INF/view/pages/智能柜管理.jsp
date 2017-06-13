@@ -110,7 +110,7 @@
 					<label>列数</label>
 				</div>
 				<div class="six wide field">
-					<input type="text" name="containerName" id="column"/>
+					<input type="text" name="column" id="column"/>
 				</div>
 			</div>
 			<br />
@@ -121,8 +121,8 @@
 					<label>行数</label>
 				</div>
 
-				<div class="two wide field">
-					<input class="two wide" type="text" name="bigCell" id="layer"/>
+				<div class="six wide field">
+					<input type="text" name="layer" id="layer"/>
 				</div>
 			</div>
 			<br/><br/>

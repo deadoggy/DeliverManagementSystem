@@ -52,6 +52,9 @@ public class InsertDataTest {
     @Autowired
     SendingRecordRepository sendingRecordRepository;
 
+    @Autowired
+    StoragePositionreRepository storagePositionreRepository;
+
     public static String randomString(){
         long randSalt = (long)Math.floor(Math.random() * 1000000000);
         Calendar seed = Calendar.getInstance();
@@ -80,7 +83,7 @@ public class InsertDataTest {
 
         this.humanManageService
                 .addNewEmployee("1452716", randomString(), (int)(Math.random()*100), true,
-                        (float)Math.random()*10000, randomString(),"0","123456");
+                        (float)Math.random()*10000, randomString(),"100","123456");
 //        for(int i=0; i<50; i++){
 //            this.humanManageService
 //                    .addNewEmployee(randomString(), randomString(), (int)(Math.random()*100), true,
@@ -99,21 +102,23 @@ public class InsertDataTest {
     @Test
     public void insertPackage(){
 
-        DeliverCompany com = this.deliverCompanyRepository.findByMCompanyId("0000");
+        DeliverCompany com = this.deliverCompanyRepository.findByMCompanyId("200");
+        List<StoragePosition> posList = this.storagePositionreRepository.findAll();
         Calendar dateCal = Calendar.getInstance();
-        dateCal.set(2014,10,1);
+        dateCal.set(2015,10,1);
 
 
-        for(int i=0; i< 500; i++){
+        for(int i=0; i< 50; i++){
             Package p = new Package();
             p.setmPackageId(randomString());
             p.setmReceiveTime(new Timestamp(dateCal.getTime().getTime()));
             p.setmProxyChargeFee(0.0);
-            p.setmTaken(false);
+            p.setmTaken(true);
             p.setmReceiverName(randomString());
             p.setmReceiverTele(randomString());
             p.setmCupOrShelf(i/2==0?Constant.POSITION_IN_SHELF:Constant.POSITION_IN_CUPBOARD);
             p.setmCompany(com);
+            p.setmPosition(posList.get(i%posList.size()));
             this.packageRepository.save(p);
             dateCal.add(Calendar.DAY_OF_MONTH,1);
         }
@@ -129,7 +134,7 @@ public class InsertDataTest {
     @Test
     public void insertDayForm(){
 
-        DeliverCompany com = this.deliverCompanyRepository.findByMCompanyId("0000");
+        DeliverCompany com = this.deliverCompanyRepository.findByMCompanyId("200");
 
         Calendar dateCal = Calendar.getInstance();
         dateCal.set(2014,10,1);
@@ -143,7 +148,7 @@ public class InsertDataTest {
         }
     }
 
-    //@Test
+    @Test
     public void insertProxyChargeRecord(){
         try{
             List<Package> pl = this.packageRepository.findAll();
@@ -168,9 +173,13 @@ public class InsertDataTest {
 
         DeliverCompany com = this.deliverCompanyRepository.findAll().get(0);
 
-        for(int i=0; i<100; i++){
+        for(int i=0; i<30; i++){
 
             Package p = pkg_list.get(i);
+
+            if(!p.ismTaken()){
+                continue;
+            }
 
             SendingRecord sr = new SendingRecord();
 

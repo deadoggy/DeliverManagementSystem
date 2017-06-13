@@ -208,7 +208,12 @@ public class FormService {
                 String posId;
                 int layer, column;
                 if(null != p.getmPosition()){
-                    posId = p.getmPosition().getmCup().getmCupboardId();
+                    if(null != p.getmPosition().getmCup()){
+                        posId = p.getmPosition().getmCup().getmCupboardId();
+                    }else{
+                        posId = p.getmPosition().getmShelf().getmShelfId();
+                    }
+
                     layer = p.getmPosition().getmLayer();
                     column = p.getmPosition().getmColumn();
                 }else{

@@ -96,7 +96,7 @@ public class SendingRecordController {
         }
     }
 
-    @RequestMapping(value = "/sendrecord",method = RequestMethod.GET)
+    @RequestMapping(value = "/sendrecord/all",method = RequestMethod.GET)
     public String getAll(){
         try{
             List<SendingRecord> sendingRecordList=sendingService.getAll();

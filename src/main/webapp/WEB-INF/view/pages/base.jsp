@@ -86,8 +86,8 @@
 		    <div class="header"><%=username%> </div>
 		    <div class="description ">工号：<%=id%> &nbsp; &nbsp;  职位：<%=position%> </div>
 		  </div>
-		  <div class="ui bottom attached buttons">
-		    <div class="ui button"><i class="mail forward icon"></i> 注销 </div>
+		  <div class="ui bottom attached buttons"><a href="/logout" style="width: 100%">
+		    <div class="ui button" style="width: 100%"><i class="mail forward icon"></i> 注销 </div></a>
 		  </div>
 		</div>
 

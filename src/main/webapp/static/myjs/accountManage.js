@@ -105,6 +105,7 @@ function rmAccount(id){
             if(res == "true"){
                 $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功删除<strong>ID:'+ id + ' </strong>员工</p></div>');
                 cancelAdd();
+                getAllAccount();
             }else{
                 //console.log(res.reason);
                 $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>删除失败</p></div>');
@@ -280,6 +281,7 @@ function addAccount(){
                     if(res.result == "success"){
                         $.fancybox.open('<div class="message"><h2>Success!</h2><p>成功新建<strong>ID:'+ res.id + ' </strong>员工</p></div>');
                         cancelAdd();
+                        getAllAccount();
                     }else{
                         //console.log(res.reason);
                         $.fancybox.open('<div class="message"><h2>Sorry!</h2><p>创建失败</p></div>');

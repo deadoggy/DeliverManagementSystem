@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.Random;
 
 /**
@@ -124,7 +126,10 @@ public class CAPTCHAService {
             tmp.close();
             Integer contentLength = tmp.size();
             response.setHeader("content-length", contentLength + "");
-            response.getOutputStream().write(tmp.toByteArray());// 将内存中的图片通过流动形式输出到客户端
+            OutputStream out = response.getOutputStream();
+            out.write(tmp.toByteArray());// 将内存中的图片通过流动形式输出到客户端
+            out.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

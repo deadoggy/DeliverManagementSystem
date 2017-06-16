@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.deliver.dao.AttendanceRepository;
 import com.deliver.dao.EmployeeRepository;
 import com.deliver.dao.PointRepository;
+import com.deliver.dao.PositionRepository;
 import com.deliver.model.Attendance;
 import com.deliver.model.Employee;
 import com.deliver.model.Point;
@@ -17,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class HumanManageService {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
+
+    @Autowired
+    private PositionRepository positionRepository;
 
     public boolean checkin(String employeeId){
         try{
@@ -90,11 +95,31 @@ public class HumanManageService {
                 pwd = "123456";
             }
 
+            String positionId = employeeId.substring(0,3);
+
+
+
+
+
+
             SelfBcryptEncoder encoder = new SelfBcryptEncoder();
 
             pwd = encoder.encipher(employeeId, pwd);
 
             Employee noob = new Employee(employeeId, name, age, gender, salary, phone, point, new Timestamp(new java.util.Date().getTime()), pwd);
+
+            List<Position> posList = new ArrayList<>();
+
+            Position position;
+
+            if(0==positionId.compareTo("001")){
+                position = this.positionRepository.findByMId(100);
+            }else{
+                position = this.positionRepository.findByMId(200);
+            }
+            posList.add(position);
+
+            noob.setmPosition(posList);
 
             this.employeeRepository.saveAndFlush(noob);
 

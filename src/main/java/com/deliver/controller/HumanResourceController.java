@@ -78,7 +78,7 @@ public class HumanResourceController {
 
 
             JSONObject obj = JSONObject.parseObject(strBuilder.toString());
-            String pos = obj.getString("pos");
+            String pos = obj.getString("position");
 
             StringBuilder id = new StringBuilder();
 

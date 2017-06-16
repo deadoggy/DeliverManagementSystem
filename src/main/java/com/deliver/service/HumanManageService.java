@@ -81,7 +81,7 @@ public class HumanManageService {
                 throw new Exception("invalid point or employee");
             }
 
-            Point point = this.pointRepository.findByMBusinessPointId(pointId);
+            Point point = this.pointRepository.findAll().get(0);
 
             if (point == null) {
                 throw new Exception("invalid point id");

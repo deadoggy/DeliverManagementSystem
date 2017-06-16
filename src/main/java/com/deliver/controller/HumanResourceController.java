@@ -105,6 +105,7 @@ public class HumanResourceController {
 
 
             this.humanManageService
+
                     .addNewEmployee(id.toString(), name, age, gender,salary, tele, "0", pw);
 
             return "{\"result\": \"success\", \"id\" : \""+ id +"\"}";

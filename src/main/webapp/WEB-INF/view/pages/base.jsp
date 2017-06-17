@@ -23,12 +23,63 @@
 
 <link rel="stylesheet" type="text/css" href="/static/mystyle/base.css">
 
-<link rel="shortcut icon" href="/static/img/anchor.ico">
+<link rel="shortcut icon" href="/static/img/anchor.ico"/>
+
+<style type="text/css">
+	#overlay{
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0,0,0,.8);
+        z-index: 1200;
+	}
+	#box-login {
+        padding-top: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+		display: none;
+        z-index: 1300;
+        width: 30%;
+        height: 300px;
+        margin: auto;
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        background: white;
+        border-radius: 5px;
+	}
+
+
+
+</style>
 
 </head>
+<div id="box-login">
 
+    <%--<form action="/upload_img" id="uploadImg" enctype="multipart/form-data" method="post">--%>
+        <%--<input name="file" type="file">--%>
+        <%--<input type="submit">--%>
+    <%--</form>--%>
+<%--    <h2 class="ui header"> <i class="file image outline icon blue"></i> <div class="content">请选择头像</div> </h2>
+    <div class="description ">建议780*430像素，大小不超过2M，格式为bmp、png、jpeg、jpg、gif</div> <br>
+    <div>--%>
+        <form  id="uploadImg" enctype="multipart/form-data" method="post">
+        <div class="ui bottom attached button fileInputBtn" id="fileInputBtn">
+            上传文件
+        </div><br>
+            <input name="file" type="file" id="file" style="display: none">
+        <input type="button" value="上传" class="positive fluid ui button" onclick="uploadFile()">
+        </form><%--</div>--%>
+
+</div>
+
+<div id="overlay"></div>
 
 <body>
+
+</div>
 
 <div class="pageHead" id="pageHead" style="height: 8em">
 
@@ -47,12 +98,13 @@
 </div>
 <div class="middleBody" id="middleBody">
 
+
 	<div class="leftSidePart">
 		 <div class="ui card" id="leftCard">
 		 <h3 class="header">登陆信息</h3>
 		  <div class="image" id="userImg">
 			  <div class="ui bottom attached buttons" id="uploadDiv" >
-				  <div class="ui button uploadBtn" onclick="showUpload()"><i class="file image outline icon"></i>上传头像</div>
+				  <div class="ui button uploadBtn js-open-box"><i class="file image outline icon"></i>上传头像</div>
 			  </div>
 		    <img src="" id="imgContent"  onError='this.src="/static/temp/watchmen-horizontal.jpg"'>
 		  </div>
@@ -108,7 +160,10 @@
 
             var initImg = document.getElementById("imgContent");
             var id = "<%=id %>";;
-            initImg.src = "ftp://139.129.18.35/" + id;
+            initImg.src = "/static/" + id;
+            initImg.height = 300;
+            initImg.width = 300;
+
 
             document.getElementById("userImg").onmouseover = function(){
                 var divFloat = document.getElementById("uploadDiv");
@@ -139,19 +194,29 @@
 				'<div><form action="/upload_img" id="uploadImg" enctype="multipart/form-data" method="post"> ' +
 				'<div class="ui bottom attached button fileInputBtn" id="fileInputBtn">上传文件' +
 				'<input name="file" type="file" id="file"></div><br/>' +
-				'<input type="button" value="上传" class="positive fluid ui button" onclick="uploadFile()"> </form></div></div>');
+				'<input type="submit" value="上传" class="positive fluid ui button" /> </form></div></div>');
 
-            $("#fileInputBtn").click(function () {
-                $("#fileInputBtn").text("已选择文件");
-            });
+
         }
+        $("#fileInputBtn").click(function () {
+            $('#file').click()
+        });
+
+        $('#file').change(function () {
+            $("#fileInputBtn").text("已选择文件");
+        })
 
         function uploadFile(){
+
+            var formData = new FormData();
+            var temp = $('#file');
+			formData.append('file', $('#file')[0].files[0]);
+
             $.ajax({
                 url: '/upload_img',
                 type: 'POST',
                 cache: false,
-                data: new FormData($('#uploadImg')[0]),
+                data: formData,
                 processData: false,
                 contentType: false
             }).done(function(res) {
@@ -162,6 +227,16 @@
 
             location.reload(true);
         }
+
+        $('.js-open-box').on('click',function(){
+            $('#overlay,#box-login').fadeIn(200);
+        });
+
+        $('#overlay').on('click',function(){
+            $('#overlay,#box-login').fadeOut(200,function(){
+                $(this).removeAttr('style');
+            });
+        });
 	</script>
 </body>
 </html>

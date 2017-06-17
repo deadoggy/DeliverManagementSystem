@@ -12,15 +12,14 @@ import com.deliver.model.DeliverCompany;
 import com.deliver.model.Employee;
 import com.deliver.model.Package;
 import com.deliver.service.CAPTCHAService;
+import com.deliver.service.FTPService;
 import com.deliver.service.ShortMesgService;
 import org.hibernate.validator.constraints.pl.REGON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +46,7 @@ public class HomeController {
     @RequestMapping({"/home", "/"})
     public String homePage(HttpServletRequest request, HttpServletResponse response){
 
-        Employee em = employeeRepository.findByMEmployeeId(/*request.getRemoteUser()*/"1452716");
+        Employee em = employeeRepository.findByMEmployeeId(request.getRemoteUser());
 
         String idStr, nameStr, posStr;
         if(null == em){
@@ -70,7 +69,8 @@ public class HomeController {
         response.addCookie(name);
         response.addCookie(pos);
 
-
+        FTPService ftpService = FTPService.getInstantce();
+        ftpService.getHeadImage(request.getRemoteUser());
         return "manage_cup";
     }
 
@@ -131,5 +131,7 @@ public class HomeController {
 
     @RequestMapping({"/contraband_inquiry"})
     public String contrabandInquiryPage() { return "contraband_inquiry"; }
+
+
 
 }

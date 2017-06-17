@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import sun.net.ftp.FtpClient;
 import sun.net.ftp.FtpDirEntry;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -27,14 +28,16 @@ public class FTPService {
     private static Object lock = new Object();
 
     private static FTPService instance = null;
+    SocketAddress socket = new InetSocketAddress(ip, port);
 
     private FTPService(){
-        client = FtpClient.create();
-        SocketAddress socket = new InetSocketAddress(ip, port);
         try{
-            client.connect(socket);
+            client = FtpClient.create();
         }catch(Exception e){
+
         }
+
+
     }
 
     public static FTPService getInstantce(){
@@ -51,7 +54,8 @@ public class FTPService {
     public void upload(InputStream fileIn, String toFileName) throws Exception{
         try{
 
-            client.connect(new InetSocketAddress(ip,port));
+
+            client.connect(socket);
             client.login(user, passwd.toCharArray());
 
 
@@ -71,7 +75,7 @@ public class FTPService {
 
     public void upload(String fromPath, String toFileName) throws Exception {
         try{
-            client.connect(new InetSocketAddress(ip,port));
+            client.connect(socket);
 
             client.login(user, passwd.toCharArray());
 
@@ -106,19 +110,32 @@ public class FTPService {
             if(null == localFileName){
                 localFileName = remoteFileName;
             }
+            if(!client.isConnected()){
+                client.connect(socket);
+            }
+
 
             client.login(user, passwd.toCharArray());
 
-            File downFile = new File("File/"+localFileName);
+            String url = this.getClass().getResource("/").toURI().toString() + "../../static/" + localFileName;
+
+            url = url.substring(5);
+
+            File downFile = new File(url);
+
+            if(!downFile.exists()){
+                downFile.createNewFile();
+            }
 
             BufferedOutputStream of = new BufferedOutputStream(new FileOutputStream(downFile));
 
             client.getFile(remoteFileName, of);
 
+
             of.flush();
             of.close();
-
-            return "File/" + localFileName;
+            client.close();
+            return url;
 
         }catch(Exception e){
             e.printStackTrace();
@@ -133,6 +150,22 @@ public class FTPService {
             Iterator<FtpDirEntry> itr = client.listFiles(fileName);
             return itr.hasNext();
         }catch(Exception e){
+            return false;
+        }
+    }
+
+    public boolean getHeadImage(String fileName){
+        try{
+            if(null == fileName){
+                throw new Exception("null file name");
+            }
+
+            this.download(fileName, fileName);
+
+            return true;
+
+        }catch(Exception e){
+            e.printStackTrace();
             return false;
         }
     }

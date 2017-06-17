@@ -13,8 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.InputStream;
+import java.io.*;
 import java.security.MessageDigest;
 import java.util.Date;
 
@@ -28,9 +27,6 @@ public class HumanResourceController {
 
     @Autowired
     private HumanManageService humanManageService;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
 
 
     private String Hash(String name){
@@ -120,22 +116,7 @@ public class HumanResourceController {
         return request.getRemoteUser();
     }
 
-    @RequestMapping(value = "/upload_img", method = RequestMethod.POST)
-    public String uploadImg(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file){
-        try{
-            FTPService ftp = FTPService.getInstantce();
 
-
-//            String fileName = file.getOriginalFilename();
-//            String suffix = fileName.substring(fileName.lastIndexOf("."));
-            ftp.upload(file.getInputStream(), request.getRemoteUser());
-            return "{\"result\":\"success\"}";
-        }catch(Exception e){
-            e.printStackTrace();
-            return "{\"result\":\"failure\"}";
-        }
-
-    }
 
     @RequestMapping(value = "/update_info", method = RequestMethod.POST)
     public String updateEmployee(HttpServletRequest request, HttpServletResponse response){
@@ -185,6 +166,37 @@ public class HumanResourceController {
         }else{
             return "false";
         }
+    }
+
+    @RequestMapping(value = "/upload_img", method = RequestMethod.POST)
+    public String uploadImg(HttpServletRequest request, @RequestParam(value = "file", required = false) MultipartFile file){
+        try{
+            FTPService ftp = FTPService.getInstantce();
+
+
+            String url = this.getClass().getResource("/").toURI().toString() + "../../static/" + request.getRemoteUser();
+
+            url = url.substring(5);
+
+            File downFile = new File(url);
+
+            if(!downFile.exists()){
+                downFile.createNewFile();
+            }
+
+            OutputStream of = new FileOutputStream(downFile);
+            of.write(file.getBytes());
+            of.flush();
+            of.close();
+
+            ftp.upload(file.getInputStream(), request.getRemoteUser());
+            //ftp.getHeadImage(request.getRemoteUser());
+            return "{\"result\":\"success\"}";
+        }catch(Exception e){
+            e.printStackTrace();
+            return "{\"result\":\"failure\"}";
+        }
+
     }
 
 }
